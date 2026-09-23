@@ -1,0 +1,63 @@
+后端自动化测试
+.\venv\Scripts\python.exe -m pytest api_service4\tests -v
+覆盖范围
+1. Token 安全版本测试
+文件：[test_auth_version.py](C:/Users/r7000/PycharmProjects/PythonProject1/api_service4/tests/test_auth_version.py)
+2. Refresh Token 测试
+文件：[test_refresh_token_service.py](C:/Users/r7000/PycharmProjects/PythonProject1/api_service4/tests/test_refresh_token_service.py)
+3. 安全隧道密码测试
+文件：[test_security_tunnel.py](C:/Users/r7000/PycharmProjects/PythonProject1/api_service4/tests/test_security_tunnel.py)
+4. 安全隧道覆盖策略测试
+文件：[test_security_tunnel_policy.py](C:/Users/r7000/PycharmProjects/PythonProject1/api_service4/tests/test_security_tunnel_policy.py)
+5. TOTP 测试
+文件：[test_totp_service.py](C:/Users/r7000/PycharmProjects/PythonProjesct1/api_service4/tests/test_totp_service.py)
+
+前端密码算法测试
+运行命令：
+cd api-service4-frontend
+npm run test:crypto
+脚本：[verify-secure-tunnel.cjs](C:/Users/r7000/PycharmProjects/PythonProject1/api-service4-frontend/scripts/verify-secure-tunnel.cjs)
+
+三、真实端到端测试
+运行前必须启动 MySQL 和后端：
+.\venv\Scripts\python.exe -m api_service4.run
+然后运行：
+cd api-service4-frontend
+npm run test:tunnel-live
+脚本：[verify-live-tunnel.cjs](C:/Users/r7000/PycharmProjects/PythonProject1/api-service4-frontend/scripts/verify-live-tunnel.cjs)
+1.正常信封和加密响应测试
+验证：
+- 前端可以取得服务端 SM2 公钥。
+- 前端可以生成安全信封。
+- 后端能用 SM2 和 SM4 解密请求。
+- 后端业务错误响应仍会加密。
+- 前端可以解密响应。
+2.重放攻击测试
+把同一个安全信封原样发送第二次，预期：
+HTTP 409
+reason: replay_detected
+作用：证明 Nonce 已被数据库消费，同一请求不能再次执行。
+3.密文篡改测试
+修改 ciphertext 的最后一个字符，预期：
+HTTP 400
+reason: invalid_tag
+作用：证明攻击者修改加密正文后，SM4-GCM 能发现篡改。
+4.AAD 篡改测试
+修改 request_id，但不重新计算 Tag，预期：
+HTTP 400
+reason: invalid_tag
+作用：证明请求方法、路径、时间戳、Nonce 和 Request ID 不只是普通元数据，它们受到 GCM 完整性保护。
+5.过期时间戳测试
+构造一个早于当前服务器时间 180 秒的合法加密信封，预期：
+HTTP 408
+reason: expired_timestamp
+作用：证明攻击者不能长期保存旧请求后再发送。
+6.每次请求随机值测试
+连续生成两个安全信封，比较：
+- SM4 会话密钥
+- SM2 加密后的会话密钥
+- IV
+- Nonce
+- Request ID
+它们必须全部不同。
+作用：防止不同请求重复使用密钥或随机数。
