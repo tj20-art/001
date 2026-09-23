@@ -61,3 +61,5 @@ reason: expired_timestamp
 - Request ID
 它们必须全部不同。
 作用：防止不同请求重复使用密钥或随机数。
+
+开启文件虚拟环境的方式，打开文件夹
