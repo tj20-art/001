@@ -13,6 +13,7 @@ from api_service4.app.api.v1.users import users_bp
 from api_service4.app.api.v1.security import security_bp
 from api_service4.app.services.security_control import SecurityControlSystem
 from api_service4.app.services.security_tunnel import decrypt_flask_request, encrypt_flask_response
+from api_service4.app.services.security_tunnel_policy import requires_security_tunnel
 from api_service4.app.utils.response import error
 from api_service4.app.services.gm_crypto import generate_root_ca_real
 from api_service4.config.init import get_config
@@ -51,23 +52,21 @@ CORS(app, origins=config.CORS_ORIGINS, expose_headers=["X-Secure-Response", "Con
 
 security_control = SecurityControlSystem()
 
-_TUNNEL_EXEMPT_PATHS = {
-    "/api/v1/pay/callback",  # 银行回调使用独立的 SM2 + SM4 支付信封协议
-}
-
-
 @app.before_request
 def open_application_security_tunnel():
-    if request.method in {"GET", "HEAD", "OPTIONS"} or not request.path.startswith("/api/v1/"):
-        return None
-    if request.path in _TUNNEL_EXEMPT_PATHS or request.path == "/api/v1/auth/login":
-        return None
-    if not request.is_json:
+    if not requires_security_tunnel(
+        method=request.method,
+        path=request.path,
+        endpoint=request.endpoint,
+        mimetype=request.mimetype,
+    ):
         return None
     if request.headers.get("X-Secure-Envelope") != "1":
         if config.TUNNEL_REQUIRED:
-            return error(400, "敏感 JSON 请求必须使用应用层安全信封", details={"reason": "envelope_required"})
+            return error(400, "敏感写请求必须使用应用层安全信封", details={"reason": "envelope_required"})
         return None
+    if not request.is_json:
+        return error(400, "安全信封必须使用 application/json", details={"reason": "invalid_envelope"})
     try:
         decrypt_flask_request(security_control)
     except TimeoutError as exc:
