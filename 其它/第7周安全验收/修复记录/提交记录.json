@@ -1,0 +1,54 @@
+{
+  "repository": "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\其它\\第7周安全验收\\修复记录\\证据仓库",
+  "branch": "codex/week7-security",
+  "baseline_commit": "d3721c15141238afd16fd3d2fac79aeee4ab714b",
+  "fix_commit": "dd078454e54cb9eece72ec63492d14c2acc2e419",
+  "author": "Codex security verification <codex@local.invalid>",
+  "note": "New local evidence repository. Baseline is the saved user workspace, not recovered historical group Git history. Text snapshots normalize line endings to LF. No push performed.",
+  "actual_fixed_files": [
+    {
+      "path": "api-service4-frontend\\package-lock.json",
+      "sha256": "89b14e0aeabad1fdc1a2cd81560bfabd248a32d16f5ce8ed1692156c4868b8ab"
+    },
+    {
+      "path": "api-service4-frontend\\package.json",
+      "sha256": "e2275ce6c73eb624bceadbd59ad8d8a0e72bc6af5b83a27089713bbc2961aa27"
+    },
+    {
+      "path": "api-service4-frontend\\scripts\\verify-live-tunnel.cjs",
+      "sha256": "05a72caa0ec20633e3a026f11a9b15093a8a400bea3f6c5a192c429e87701f38"
+    },
+    {
+      "path": "api-service4-frontend\\scripts\\verify-secure-tunnel.cjs",
+      "sha256": "90fe5ed3d38ac535e3050a1c269e1f1ecea472428e6488a6b32a08c6a113dc8d"
+    },
+    {
+      "path": "api_service4\\run.py",
+      "sha256": "92b1bbce2d556dd3a9bf9a1eb319b551184f1f8ee0083b62f308cf88ec737d77"
+    },
+    {
+      "path": "api_service4\\app\\api\\v1\\products.py",
+      "sha256": "49f1c0aca40da85913da9be5c8c0738ac2dd97463652f8b6ba4a4b4491bb1a20"
+    },
+    {
+      "path": "api_service4\\app\\api\\v1\\security.py",
+      "sha256": "bfad8de9b882d392262258bf883a7473f7d5d20c18934b4a054524a3fab0b314"
+    },
+    {
+      "path": "api_service4\\app\\middleware\\rate_limit.py",
+      "sha256": "2514b81bbe77a4c0631f2270e1ebde959f907ac576be6da2857bd18fd2d9887c"
+    },
+    {
+      "path": "api_service4\\app\\utils\\response.py",
+      "sha256": "529c39b4f0d09635dea59edd696b46b7431a423c3a89bbc27df1166490b8925c"
+    },
+    {
+      "path": "mock_bank\\run.py",
+      "sha256": "53162e3a9ae9e401849e72e539b08fedf261f9e6f1855a815f22e20778cf6406"
+    },
+    {
+      "path": "api_service4\\tests\\test_week7_security.py",
+      "sha256": "f903fc06bf1edeb5db8f59046237d773350db2e015117d2036bc44b1bdc26c3a"
+    }
+  ]
+}

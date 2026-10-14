@@ -1,0 +1,11 @@
+{
+  "scope": "AST configuration review; secret values intentionally not captured",
+  "findings": [
+    {
+      "file": "api_service4/config/dev_config.py",
+      "line": 20,
+      "finding": "JWT secret has hardcoded fallback",
+      "value": "<REDACTED>"
+    }
+  ]
+}

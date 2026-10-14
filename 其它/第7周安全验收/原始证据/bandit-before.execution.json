@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\其它\\第7周安全验收\\.tools\\scan-env\\Scripts\\python.exe",
+    "-m",
+    "bandit",
+    "-r",
+    "api_service4/app",
+    "api_service4/run.py",
+    "mock_bank",
+    "-f",
+    "json",
+    "-o",
+    "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\其它\\第7周安全验收\\原始证据\\bandit-before.json"
+  ],
+  "cwd": "C:\\Users\\r7000\\PycharmProjects\\PythonProject1",
+  "started_utc": "2026-10-14T11:51:56.460643+00:00",
+  "finished_utc": "2026-10-14T11:51:57.429078+00:00",
+  "exit_code": 1
+}

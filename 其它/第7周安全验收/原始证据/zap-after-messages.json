@@ -1,0 +1,936 @@
+{
+  "messages": [
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:54Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:54 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\nContent-Length: 0\r\n\r\n",
+      "id": "69",
+      "type": "1",
+      "timestamp": "1791979614966",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "70",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "71",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "72",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/auth HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "73",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.2\r\nContent-Length: 0\r\n\r\n",
+      "id": "74",
+      "type": "1",
+      "timestamp": "1791979615021",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.3\r\nContent-Length: 0\r\n\r\n",
+      "id": "75",
+      "type": "1",
+      "timestamp": "1791979615083",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.4\r\nContent-Length: 0\r\n\r\n",
+      "id": "76",
+      "type": "1",
+      "timestamp": "1791979615121",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.5\r\nContent-Length: 0\r\n\r\n",
+      "id": "77",
+      "type": "1",
+      "timestamp": "1791979615159",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.6\r\nContent-Length: 0\r\n\r\n",
+      "id": "78",
+      "type": "1",
+      "timestamp": "1791979615210",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.7\r\nContent-Length: 0\r\n\r\n",
+      "id": "79",
+      "type": "1",
+      "timestamp": "1791979615268",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.8\r\nContent-Length: 0\r\n\r\n",
+      "id": "80",
+      "type": "1",
+      "timestamp": "1791979615305",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.9\r\nContent-Length: 0\r\n\r\n",
+      "id": "81",
+      "type": "1",
+      "timestamp": "1791979615347",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 123\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.10\r\nContent-Length: 0\r\n\r\n",
+      "id": "82",
+      "type": "1",
+      "timestamp": "1791979615385",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":429,\"details\":{\"limit\":10,\"retry_after\":299,\"scope\":\"POST:auth.login\",\"window_seconds\":300},\"message\":\"请求过于频繁，请299秒后再试\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 429 TOO MANY REQUESTS\r\nContent-Type: application/json\r\nContent-Length: 188\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.11\r\nContent-Length: 0\r\n\r\n",
+      "id": "83",
+      "type": "1",
+      "timestamp": "1791979615427",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":429,\"details\":{\"limit\":10,\"retry_after\":299,\"scope\":\"POST:auth.login\",\"window_seconds\":300},\"message\":\"请求过于频繁，请299秒后再试\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 429 TOO MANY REQUESTS\r\nContent-Type: application/json\r\nContent-Length: 188\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/auth/login HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.12\r\nContent-Length: 0\r\n\r\n",
+      "id": "84",
+      "type": "1",
+      "timestamp": "1791979615490",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[{\"category\":\"test\",\"created_at\":\"2026-10-14 20:06:54\",\"description\":\"fixture only\",\"id\":1,\"image_url\":\"\",\"image_urls\":[],\"name\":\"安全测试商品\",\"price\":10.0,\"price_cents\":1000,\"seller_id\":2,\"status\":\"on_sale\",\"stock\":10,\"updated_at\":\"2026-10-14 20:06:54\",\"video_url\":\"\"}]},\"message\":\"共查询到1个商品\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 383\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "85",
+      "type": "1",
+      "timestamp": "1791979615554",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "11",
+      "responseBody": "﻿id,created_at,user_id,username,role,event_type,resource_type,resource_id,operation,result,http_status,ip_address,request_method,request_path\r\n1,2026-10-14 20:06:54,1,wk7_user,user,FIXTURE_CSV,,,probe,denied,400,'=1+1,,/fixture\r\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Disposition: attachment; filename=audit-logs.csv\r\nCache-Control: no-store\r\nContent-Type: text/csv; charset=utf-8; charset=utf-8\r\nContent-Length: 231\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/audit-logs/export HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "86",
+      "type": "1",
+      "timestamp": "1791979615592",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "87",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/audit-logs HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "88",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "9",
+      "responseBody": "{\"code\":500,\"details\":{\"reason\":\"internal_error\"},\"message\":\"服务暂时不可用，请稍后重试\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 500 INTERNAL SERVER ERROR\r\nContent-Type: application/json\r\nContent-Length: 138\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "89",
+      "type": "1",
+      "timestamp": "1791979615708",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "9",
+      "responseBody": "{\"code\":403,\"details\":{},\"message\":\"权限不足，需要角色: admin\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 403 FORBIDDEN\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/users HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "90",
+      "type": "1",
+      "timestamp": "1791979615749",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%27%20OR%201%3D1-- HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "91",
+      "type": "1",
+      "timestamp": "1791979615818",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?product_id=1%20OR%201%3D1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "92",
+      "type": "1",
+      "timestamp": "1791979615855",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "8",
+      "responseBody": "{\"code\":404,\"details\":{},\"message\":\"订单不存在\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 89\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/orders/1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "93",
+      "type": "1",
+      "timestamp": "1791979615896",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "0",
+      "responseBody": "",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 0\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/orders HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "94",
+      "type": "0",
+      "timestamp": "0",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{\"reason\":\"envelope_required\"},\"message\":\"敏感写请求必须使用应用层安全信封\",\"timestamp\":\"2026-10-14T12:06:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "{}",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 150\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:55 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/orders HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nOrigin: https://attacker.invalid\r\nContent-Length: 2\r\nContent-Type: application/json\r\n\r\n",
+      "id": "95",
+      "type": "1",
+      "timestamp": "1791979615954",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "13",
+      "responseBody": "{\"code\":0,\"data\":{\"algorithm\":\"SM2+SM4-GCM\",\"public_key\":\"76c96e202c6f7891058813e5820e3b1fd42066eabd2f44e2c6b6c3caad555ab720822880ba71bed5b1170269ec9bcb2d6050731d3fd8d61e250e4cc571811fa8\",\"time_window_seconds\":120,\"version\":\"1\"},\"message\":\"应用层安全隧道公钥\",\"timestamp\":\"2026-10-14T12:06:56Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 305\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:56 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/public-key HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "96",
+      "type": "1",
+      "timestamp": "1791979616004",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "33",
+      "responseBody": "{\"version\":\"1\",\"algorithm\":\"SM4-GCM\",\"request_id\":\"0c0db1e06b6d381adcd4a07d6c3d2e81\",\"iv\":\"0d71700edb606ff89f64d6e2\",\"ciphertext\":\"36fe620d17b283211c04546ca504172674237565ab30e5df39592767400bb1aaf80a9539c27687c69a210c2b55d5cc74bc7626740d60edfa83bafe63a1f75d6b914f664996e456c8fa2c8b1561084fa524068b126364e474cf54f108322d6b280ae666e2c22816d0329e797721\",\"tag\":\"289551f870b862248a42cbf691be64f0\"}",
+      "cookieParams": "",
+      "requestBody": "{\"version\": \"1\", \"algorithm\": \"SM2+SM4-GCM\", \"encrypted_key\": \"73064dda6c06f8fe8cc3f72e69338b09d62e8c6015e0f3913094cd0ebad8a2b0b99fad1fa4496e1a99199e34096d4233045f6ad95ba94d4c1e0911c43619bb9b279d03600eca1e58df9f3ce4f2b33499a7149a0cc862acd3bb49c1caf695686e0379967aa43b96ae196032061861bf47\", \"nonce\": \"9d3f1eac2acc7a364e80d5fbae6aaca4\", \"timestamp\": 1791979616019, \"request_id\": \"0c0db1e06b6d381adcd4a07d6c3d2e81\", \"iv\": \"5f12a64d2e981cb62cfe6e8f\", \"ciphertext\": \"d160\", \"tag\": \"cac1c665df0703aefb9a9c3b98f73ab4\"}",
+      "responseHeader": "HTTP/1.0 401 UNAUTHORIZED\r\nContent-Type: application/json; charset=utf-8\r\nContent-Length: 392\r\nX-Secure-Response: 1\r\nCache-Control: no-store\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:56 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/orders HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Secure-Envelope: 1\r\nContent-Length: 511\r\nContent-Type: application/json\r\n\r\n",
+      "id": "97",
+      "type": "1",
+      "timestamp": "1791979616081",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"algorithm\":\"SM2+SM4-GCM\",\"public_key\":\"76c96e202c6f7891058813e5820e3b1fd42066eabd2f44e2c6b6c3caad555ab720822880ba71bed5b1170269ec9bcb2d6050731d3fd8d61e250e4cc571811fa8\",\"time_window_seconds\":120,\"version\":\"1\"},\"message\":\"应用层安全隧道公钥\",\"timestamp\":\"2026-10-14T12:06:56Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 305\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:56 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/public-key HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n",
+      "id": "98",
+      "type": "1",
+      "timestamp": "1791979616158",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "19",
+      "responseBody": "{\"version\":\"1\",\"algorithm\":\"SM4-GCM\",\"request_id\":\"37eae06bd65d8868add47db888f8801e\",\"iv\":\"31385d02562c0e3905357253\",\"ciphertext\":\"d91ae115a9a74cacb96c3e0d266745f677cb24070d8ae0d036dc1d93c797f04163e5b5cf76734522c1aa0b96a73c0d5368369778d31e24f61330b1886123b7b1b11e5677a23d79da4d4b8c6698a3c86c39c4b057a585d2455243f83ec604cae6cbe644ebbbdc6aa5e924\",\"tag\":\"975f1aad2cee7f8fb7b09c323196101f\"}",
+      "cookieParams": "",
+      "requestBody": "{\"version\": \"1\", \"algorithm\": \"SM2+SM4-GCM\", \"encrypted_key\": \"4a27a28c0b4a1abdaae9ac20a76351ad661eda968ac6101281184df1f444362ed8ad190f21ab5f214c169c8ef3c7f9362b3d3260cbfd7f142d30b06d268f2d20305a40cfbcae6e2dcc90c682b265df9a788e9643934b429e699172bf57b00c027a79dc03abe463daa5a7474cddfa9e08\", \"nonce\": \"c5e7d9dd71e05c6d0f0e7e4de7838b18\", \"timestamp\": 1791979616167, \"request_id\": \"37eae06bd65d8868add47db888f8801e\", \"iv\": \"b42a3eb299349f3e5e66de56\", \"ciphertext\": \"bb50\", \"tag\": \"8868d03c792148f88683fd500834e28b\"}",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json; charset=utf-8\r\nContent-Length: 386\r\nX-Secure-Response: 1\r\nCache-Control: no-store\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:06:56 GMT\r\n\r\n",
+      "requestHeader": "POST https://127.0.0.1:2446/api/v1/orders HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\nX-Secure-Envelope: 1\r\nContent-Length: 511\r\nContent-Type: application/json\r\n\r\n",
+      "id": "99",
+      "type": "1",
+      "timestamp": "1791979616220",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:18Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "100",
+      "type": "15",
+      "timestamp": "1791979698754",
+      "tags": [
+        "JSON"
+      ]
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/2361424938923827757 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "101",
+      "type": "14",
+      "timestamp": "1791979698779",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/2361424938923827757 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "102",
+      "type": "0",
+      "timestamp": "1791979698779",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/auth/282174426406095759 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "103",
+      "type": "14",
+      "timestamp": "1791979698785",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/auth/282174426406095759 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nX-Forwarded-For: 198.51.100.1\r\n\r\n",
+      "id": "104",
+      "type": "0",
+      "timestamp": "1791979698785",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "10",
+      "responseBody": "{\"code\":404,\"details\":{},\"message\":\"订单不存在\",\"timestamp\":\"2026-10-14T12:08:18Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 89\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/orders/6361781950666178734 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "105",
+      "type": "14",
+      "timestamp": "1791979698790",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "10",
+      "responseBody": "{\"code\":404,\"details\":{},\"message\":\"订单不存在\",\"timestamp\":\"2026-10-14T12:08:18Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 89\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/orders/6361781950666178734 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "106",
+      "type": "0",
+      "timestamp": "1791979698790",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/6475425609644222818 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "107",
+      "type": "14",
+      "timestamp": "1791979698801",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/6475425609644222818 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "108",
+      "type": "0",
+      "timestamp": "1791979698801",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/audit-logs/3749652130617323710 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "109",
+      "type": "14",
+      "timestamp": "1791979698807",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:18 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/security/audit-logs/3749652130617323710 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nUser-Agent: python-requests/2.32.5\r\nAccept: */*\r\nConnection: keep-alive\r\nAuthorization: Bearer <TEST_FIXTURE_TOKEN>\r\n\r\n",
+      "id": "110",
+      "type": "0",
+      "timestamp": "1791979698807",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:20Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:20 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=0W45pz4p&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "111",
+      "type": "14",
+      "timestamp": "1791979700215",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:21Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:21 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week70W45pz4p&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "112",
+      "type": "14",
+      "timestamp": "1791979701623",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:23Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:23 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%27%22%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "113",
+      "type": "14",
+      "timestamp": "1791979703029",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:24Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:24 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%27%22%00%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "114",
+      "type": "14",
+      "timestamp": "1791979704435",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "7",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:25Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:25 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%27%22%3Cimg+src%3Dx+onerror%3Dprompt%28%29%3E&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "115",
+      "type": "14",
+      "timestamp": "1791979705842",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:27Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:27 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=0W45pz4p HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "116",
+      "type": "14",
+      "timestamp": "1791979707251",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:28Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:28 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=10W45pz4p HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "117",
+      "type": "14",
+      "timestamp": "1791979708657",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:30Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:30 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=%27%22%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "118",
+      "type": "14",
+      "timestamp": "1791979710062",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:31Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:31 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=%27%22%00%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "119",
+      "type": "14",
+      "timestamp": "1791979711469",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "8",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:32Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:32 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=%27%22%3Cimg+src%3Dx+onerror%3Dprompt%28%29%3E HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "120",
+      "type": "14",
+      "timestamp": "1791979712875",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "8",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:34Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:34 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%27&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "121",
+      "type": "14",
+      "timestamp": "1791979714287",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:35Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:35 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7%27&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "122",
+      "type": "14",
+      "timestamp": "1791979715697",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:37Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:37 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=%22&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "123",
+      "type": "14",
+      "timestamp": "1791979717103",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:38Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:38 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7%22&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "124",
+      "type": "14",
+      "timestamp": "1791979718510",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:39Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:39 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "125",
+      "type": "14",
+      "timestamp": "1791979719918",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:41Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:41 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "126",
+      "type": "14",
+      "timestamp": "1791979721324",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:42Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:42 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "127",
+      "type": "14",
+      "timestamp": "1791979722732",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "6",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:44Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:44 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=%27 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "128",
+      "type": "14",
+      "timestamp": "1791979724139",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:45Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:45 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1%27 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "129",
+      "type": "14",
+      "timestamp": "1791979725547",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:46Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:46 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=%22 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "130",
+      "type": "14",
+      "timestamp": "1791979726952",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:48Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:48 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1%22 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "131",
+      "type": "14",
+      "timestamp": "1791979728358",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:49Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:49 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "132",
+      "type": "14",
+      "timestamp": "1791979729765",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:51Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:51 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=3-2 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "133",
+      "type": "14",
+      "timestamp": "1791979731171",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:08:52Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 97\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:52 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=2%2F2 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "134",
+      "type": "14",
+      "timestamp": "1791979732577",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "5",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:53Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:53 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "135",
+      "type": "14",
+      "timestamp": "1791979733983",
+      "tags": []
+    },
+    {
+      "note": "",
+      "rtt": "4",
+      "responseBody": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:08:55Z\"}\n",
+      "cookieParams": "",
+      "requestBody": "",
+      "responseHeader": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 108\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nReferrer-Policy: no-referrer\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'\r\nStrict-Transport-Security: max-age=31536000\r\nAccess-Control-Allow-Origin: http://127.0.0.1:8081\r\nAccess-Control-Expose-Headers: Content-Disposition, X-Secure-Response\r\nVary: Origin\r\nServer: Werkzeug/1.0.1 Python/3.11.5\r\nDate: Wed, 14 Oct 2026 12:08:55 GMT\r\n\r\n",
+      "requestHeader": "GET https://127.0.0.1:2446/api/v1/products?name=week7&product_id=1 HTTP/1.1\r\nhost: 127.0.0.1:2446\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\r\npragma: no-cache\r\ncache-control: no-cache\r\n\r\n",
+      "id": "136",
+      "type": "14",
+      "timestamp": "1791979735390",
+      "tags": []
+    }
+  ]
+}

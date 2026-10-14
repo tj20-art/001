@@ -2,14 +2,13 @@ import json
 import os
 import uuid
 
-from flask import Blueprint, g, request
+from flask import Blueprint, current_app, g, request
 from werkzeug.utils import secure_filename
 
 from api_service4.app.middleware.auth import jwt_required, optional_jwt, role_required
 from api_service4.app.middleware.rate_limit import common_api_rate_limit
 from api_service4.app.services.model_3_product import ProductSystem
 from api_service4.app.utils.response import error, success
-import traceback
 from datetime import datetime, date
 
 
@@ -248,9 +247,9 @@ def list_products():
         return success(data={"product_list": processed}, message=f"共查询到{len(processed)}个商品")
     except ValueError as exc:
         return error(400, str(exc))
-    except Exception as exc:
-        traceback.print_exc()
-        return error(500, "查询商品列表失败", details=str(exc))
+    except Exception:
+        current_app.logger.exception("查询商品列表失败")
+        return error(500, "查询商品列表失败")
 
 
 @products_bp.route("/<int:product_id>", methods=["GET"])

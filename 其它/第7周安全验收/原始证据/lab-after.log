@@ -1,0 +1,163 @@
+2026-10-14 20:06:53,736 - User Auth System - INFO - �û���֤ϵͳ��ʼ���ɹ���MySQL������
+2026-10-14 20:06:54,087 - Cart Order System - INFO - ���ﳵ/����ϵͳ��ʼ���ɹ���MySQL������
+2026-10-14 20:06:54,224 - Product System - INFO - ��Ʒϵͳ��ʼ���ɹ���MySQL������
+127.0.0.1 - - [14/Oct/2026 20:06:54] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 429 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/auth/login HTTP/1.1" 429 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/products HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/security/audit-logs/export HTTP/1.1" 200 -
+[2026-10-14 20:06:55,712] ERROR in products: ��ѯ��Ʒ�б�ʧ��
+Traceback (most recent call last):
+  File "C:\Users\r7000\PycharmProjects\PythonProject1\api_service4\app\api\v1\products.py", line 239, in list_products
+    products = product_system.list_products(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+RuntimeError: INTERNAL_ONLY db=week7_fixture table=products driver=pymysql
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/products HTTP/1.1" 500 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/users HTTP/1.1" 403 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/products?name=%27%20OR%201%3D1-- HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/products?product_id=1%20OR%201%3D1 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "GET /api/v1/orders/1 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:06:55] "POST /api/v1/orders HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:06:56] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:06:56] "POST /api/v1/orders HTTP/1.1" 401 -
+127.0.0.1 - - [14/Oct/2026 20:06:56] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:06:56] "POST /api/v1/orders HTTP/1.1" 400 -
+根证书或私钥不存在，正在生成根证书...
+根证书和私钥生成并保存成功！
+{
+  "phase": "after",
+  "checks": [
+    {
+      "id": "V1",
+      "class": "CWE-307 / CWE-807",
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        429,
+        429
+      ],
+      "vulnerable": false,
+      "fixed": true
+    },
+    {
+      "id": "normal-product-list",
+      "passed": true
+    },
+    {
+      "id": "V2",
+      "class": "CWE-1236",
+      "csv_cell": "'=1+1",
+      "vulnerable": false,
+      "fixed": true
+    },
+    {
+      "id": "V3",
+      "class": "CWE-209",
+      "status": 500,
+      "fault_injection": "list_products raises a synthetic RuntimeError; DB outage not induced",
+      "vulnerable": false,
+      "fixed": true
+    },
+    {
+      "id": "rbac-user-admin",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-name",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-id",
+      "passed": true
+    },
+    {
+      "id": "idor-foreign-order",
+      "passed": true
+    },
+    {
+      "id": "csrf-cross-origin-unsealed-write",
+      "passed": true,
+      "scope": "JSON tunnel gate and CORS only; no claim of full CSRF coverage for multipart endpoints"
+    },
+    {
+      "id": "valid-envelope-unauthenticated",
+      "passed": true
+    },
+    {
+      "id": "valid-envelope-business-error",
+      "passed": true
+    }
+  ]
+}
+LAB_READY https://127.0.0.1:2446
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/2361424938923827757 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/auth/282174426406095759 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/orders/6361781950666178734 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/security/6475425609644222818 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:08:18] "GET /api/v1/security/audit-logs/3749652130617323710 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:08:20] "GET /api/v1/products?name=0W45pz4p&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:21] "GET /api/v1/products?name=week70W45pz4p&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:23] "GET /api/v1/products?name=%27%22%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:24] "GET /api/v1/products?name=%27%22%00%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:25] "GET /api/v1/products?name=%27%22%3Cimg+src%3Dx+onerror%3Dprompt%28%29%3E&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:27] "GET /api/v1/products?name=week7&product_id=0W45pz4p HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:28] "GET /api/v1/products?name=week7&product_id=10W45pz4p HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:30] "GET /api/v1/products?name=week7&product_id=%27%22%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:31] "GET /api/v1/products?name=week7&product_id=%27%22%00%3CscrIpt%3Ealert%281%29%3B%3C%2FscRipt%3E HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:32] "GET /api/v1/products?name=week7&product_id=%27%22%3Cimg+src%3Dx+onerror%3Dprompt%28%29%3E HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:34] "GET /api/v1/products?name=%27&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:35] "GET /api/v1/products?name=week7%27&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:37] "GET /api/v1/products?name=%22&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:38] "GET /api/v1/products?name=week7%22&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:39] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:41] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:42] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:44] "GET /api/v1/products?name=week7&product_id=%27 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:45] "GET /api/v1/products?name=week7&product_id=1%27 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:46] "GET /api/v1/products?name=week7&product_id=%22 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:48] "GET /api/v1/products?name=week7&product_id=1%22 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:49] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:51] "GET /api/v1/products?name=week7&product_id=3-2 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:52] "GET /api/v1/products?name=week7&product_id=2%2F2 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:08:53] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:08:55] "GET /api/v1/products?name=week7&product_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:11:25] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:11:25] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:11:25] "POST /api/v1/users/register HTTP/1.1" 409 -
+127.0.0.1 - - [14/Oct/2026 20:11:26] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:11:26] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:11:26] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:11:26] "POST /api/v1/users/register HTTP/1.1" 408 -
+127.0.0.1 - - [14/Oct/2026 20:13:56] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:13:56] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:13:56] "POST /api/v1/users/register HTTP/1.1" 409 -
+127.0.0.1 - - [14/Oct/2026 20:13:57] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:13:57] "POST /api/v1/users/register HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:13:57] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:13:57] "POST /api/v1/users/register HTTP/1.1" 408 -

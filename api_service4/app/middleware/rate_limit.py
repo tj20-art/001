@@ -42,7 +42,6 @@ def _extract_user_id_from_bearer():
             token,
             JWT_SECRET,
             algorithms=["HS256"],
-            options={"verify_exp": False},
         )
         return payload.get("user_id")
     except Exception:
@@ -57,7 +56,9 @@ def _request_identity():
     if token_user_id:
         return f"user:{token_user_id}"
 
-    return f"ip:{request.headers.get('X-Forwarded-For', request.remote_addr) or 'unknown'}"
+    # Forwarded headers are untrusted unless trusted proxy middleware has
+    # explicitly normalized REMOTE_ADDR. Never use the raw header here.
+    return f"ip:{request.remote_addr or 'unknown'}"
 
 
 def _request_scope(scope="route"):
@@ -69,11 +70,11 @@ def _request_scope(scope="route"):
     return f"{method}:{endpoint}"
 
 
-def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="default"):
+def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="default", identity_scope="auto"):
     def decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            identity = _request_identity()
+            identity = f"ip:{request.remote_addr or 'unknown'}" if identity_scope == "ip" else _request_identity()
             request_scope = _request_scope(scope)
             limit_key = f"{key_prefix}:{identity}:{request_scope}"
 
@@ -108,13 +109,13 @@ def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="defau
 
 
 def login_rate_limit():
-    # 登录接口：按路由 + IP / token-user 粒度限制，5 分钟最多 10 次
-    return rate_limit(max_requests=10, window_seconds=300, scope="route", key_prefix="login")
+    # Authentication attempts share a peer-IP budget, regardless of bearer headers.
+    return rate_limit(max_requests=10, window_seconds=300, scope="route", key_prefix="login", identity_scope="ip")
 
 
 def register_rate_limit():
     # 注册接口：5 分钟最多 5 次
-    return rate_limit(max_requests=5, window_seconds=300, scope="route", key_prefix="register")
+    return rate_limit(max_requests=5, window_seconds=300, scope="route", key_prefix="register", identity_scope="ip")
 
 
 def common_api_rate_limit():

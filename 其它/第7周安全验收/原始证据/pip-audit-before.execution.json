@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\其它\\第7周安全验收\\.tools\\scan-env\\Scripts\\python.exe",
+    "-m",
+    "pip_audit",
+    "-r",
+    "requirements.txt",
+    "--no-deps",
+    "--disable-pip",
+    "-f",
+    "json",
+    "-o",
+    "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\其它\\第7周安全验收\\原始证据\\pip-audit-before.json",
+    "--progress-spinner",
+    "off"
+  ],
+  "cwd": "C:\\Users\\r7000\\PycharmProjects\\PythonProject1",
+  "started_utc": "2026-10-14T11:51:57.430584+00:00",
+  "finished_utc": "2026-10-14T11:52:04.488439+00:00",
+  "exit_code": 1
+}

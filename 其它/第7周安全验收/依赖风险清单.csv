@@ -1,0 +1,165 @@
+﻿ecosystem,package,version_or_range,severity,advisory_id,source_url,status,owner
+npm,@babel/core,<=7.29.0,low,1123528,https://github.com/advisories/GHSA-4x5r-pxfx-6jf8,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@babel/plugin-transform-modules-systemjs,7.12.0 - 7.29.0,high,1120258,https://github.com/advisories/GHSA-fv7c-fp4j-7gwp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@parcel/watcher,2.1.0 - 2.5.1,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/cli-plugin-babel,>=4.0.0-alpha.0,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/cli-plugin-eslint,>=3.1.2,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/cli-plugin-router,*,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/cli-plugin-vuex,*,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/cli-service,*,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,@vue/component-compiler-utils,*,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,ajv,<6.14.0 || >=7.0.0-alpha.0 <8.18.0,moderate,1113714,https://github.com/advisories/GHSA-2g4f-4pwh-qvx6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,ajv,<6.14.0 || >=7.0.0-alpha.0 <8.18.0,moderate,1113715,https://github.com/advisories/GHSA-2g4f-4pwh-qvx6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,argparse,1.0.0 - 1.0.10,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,body-parser,<=1.20.6 || 2.0.0-beta.1 - 2.0.2,moderate,1123977,https://github.com/advisories/GHSA-v422-hmwv-36x6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1115540,https://github.com/advisories/GHSA-f886-m6hf-6m8v,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1123897,https://github.com/advisories/GHSA-3jxr-9vmj-r5cp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1130588,https://github.com/advisories/GHSA-mh99-v99m-4gvg,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1130737,https://github.com/advisories/GHSA-rgw5-rvv9-x895,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1240100,https://github.com/advisories/GHSA-q2hr-2g5m-vwhr,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1240104,https://github.com/advisories/GHSA-qhr7-859c-m2p7,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,brace-expansion,<=1.1.20,high,1240108,https://github.com/advisories/GHSA-6j4f-fj2g-mc7p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,braces,*,high,1240992,https://github.com/advisories/GHSA-vfj7-8cjw-p6xm,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,browserslist,<=4.28.6,high,1153171,https://github.com/advisories/GHSA-c83g-rgw3-j3cx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,browserslist,<=4.28.6,high,1153172,https://github.com/advisories/GHSA-73wf-gq98-2v4g,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,chokidar,2.0.0 - 3.6.0,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,colord,<2.9.4,moderate,1193675,https://github.com/advisories/GHSA-2wm5-q62r-hmrv,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,compression,<1.8.2,high,1241221,https://github.com/advisories/GHSA-vc2v-76pw-4v95,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,copy-webpack-plugin,6.0.0 - 13.0.1,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,cross-spawn,<6.0.6,high,1104663,https://github.com/advisories/GHSA-3xgq-45jj-v275,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,css-minimizer-webpack-plugin,1.1.4 - 7.0.4,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,element-ui,>=1.0.0-rc.1,low,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,eslint-webpack-plugin,*,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,execa,0.5.0 - 0.9.0,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,express,4.0.0-rc1 - 4.22.2 || 5.0.0-alpha.1 - 5.0.1,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-glob,*,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1124064,https://github.com/advisories/GHSA-v2hh-gcrm-f6hx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1130720,https://github.com/advisories/GHSA-7p8r-x3mc-p8w7,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1145559,https://github.com/advisories/GHSA-q3j6-qgpj-74h6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1153168,https://github.com/advisories/GHSA-v39h-62p7-jpjc,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1158524,https://github.com/advisories/GHSA-f65p-4m7j-42xc,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1158530,https://github.com/advisories/GHSA-jqff-g426-hqxp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1204921,https://github.com/advisories/GHSA-4c8g-83qw-93j6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1239943,https://github.com/advisories/GHSA-qw65-cvwx-89v3,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,fast-uri,3.0.0 - 3.1.7,high,1240091,https://github.com/advisories/GHSA-hrr3-gc8f-f4qj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,flatted,<=3.4.1,high,1114526,https://github.com/advisories/GHSA-25h7-pfq9-p65f,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,flatted,<=3.4.1,high,1241196,https://github.com/advisories/GHSA-rf6f-7fwh-wjgh,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,globby,>=8.0.0,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,http-proxy-middleware,>=0.3.0,high,1121360,https://github.com/advisories/GHSA-64mm-vxmg-q3vj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,immutable,5.0.0-beta.1 - 5.1.7,high,1117068,https://github.com/advisories/GHSA-wf6x-7x77-mvgw,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,immutable,5.0.0-beta.1 - 5.1.7,high,1164790,https://github.com/advisories/GHSA-xvcm-6775-5m9r,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,immutable,5.0.0-beta.1 - 5.1.7,high,1224659,https://github.com/advisories/GHSA-v56q-mh7h-f735,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,joi,<=17.13.7,high,1120656,https://github.com/advisories/GHSA-q7cg-457f-vx79,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,joi,<=17.13.7,high,1193674,https://github.com/advisories/GHSA-6w3j-5fw6-r9vr,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,joi,<=17.13.7,high,1193679,https://github.com/advisories/GHSA-gg4h-3hg2-grpc,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,joi,<=17.13.7,high,1241212,https://github.com/advisories/GHSA-wr44-6hxh-3jwq,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,joi,<=17.13.7,high,1241279,https://github.com/advisories/GHSA-6h2x-m376-mqjq,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,js-yaml,<=3.15.2,high,1121859,https://github.com/advisories/GHSA-h67p-54hq-rp68,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,js-yaml,<=3.15.2,high,1123912,https://github.com/advisories/GHSA-52cp-r559-cp3m,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,js-yaml,<=3.15.2,high,1138114,https://github.com/advisories/GHSA-5p4m-2wfm-xmqj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,js-yaml,<=3.15.2,high,1193726,https://github.com/advisories/GHSA-2883-xcg3-v3hh,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,launch-editor,<=2.14.0,moderate,1120787,https://github.com/advisories/GHSA-v6wh-96g9-6wx3,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,lodash,<=4.17.23,high,1115806,https://github.com/advisories/GHSA-r5fr-rjxr-66jc,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,lodash,<=4.17.23,high,1115810,https://github.com/advisories/GHSA-f23m-r3pf-42rh,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,lodash,<=4.17.23,high,1120370,https://github.com/advisories/GHSA-xxjr-mmjv-4gpg,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,micromatch,>=0.2.0,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,minimatch,<=3.1.3,high,1113459,https://github.com/advisories/GHSA-3ppc-4f35-3m26,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,minimatch,<=3.1.3,high,1113538,https://github.com/advisories/GHSA-7r86-cg39-jmmj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,minimatch,<=3.1.3,high,1113546,https://github.com/advisories/GHSA-23c5-xmqv-rm74,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,nanoid,<=3.3.17,high,1138811,https://github.com/advisories/GHSA-28wg-ghj8-5hjv,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,nanoid,<=3.3.17,high,1139427,https://github.com/advisories/GHSA-2v37-7h3g-55p8,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,nanoid,<=3.3.17,high,1153189,https://github.com/advisories/GHSA-xwg4-73v4-xw9w,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1110996,https://github.com/advisories/GHSA-554w-wpv2-vw27,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1110998,https://github.com/advisories/GHSA-5gfm-wpxj-wjgq,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1111068,https://github.com/advisories/GHSA-65ch-62r8-g69g,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1115545,https://github.com/advisories/GHSA-2328-f5f3-gj25,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1115546,https://github.com/advisories/GHSA-q67f-28xg-22rw,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1115548,https://github.com/advisories/GHSA-5m6q-g25r-mvwx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1115612,https://github.com/advisories/GHSA-ppp5-5v6c-4jwp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,node-forge,*,high,1240912,https://github.com/advisories/GHSA-86w9-cpqp-85rv,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,path-to-regexp,<0.1.13,high,1115527,https://github.com/advisories/GHSA-37ch-88jc-xwx2,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,picomatch,<=2.3.1,high,1115549,https://github.com/advisories/GHSA-3v7f-55p6-f55p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,picomatch,<=2.3.1,high,1115552,https://github.com/advisories/GHSA-c2c7-rcm5-vvqj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss,<=8.5.22,high,1109574,https://github.com/advisories/GHSA-7fh5-64p2-3v2j,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss,<=8.5.22,high,1117015,https://github.com/advisories/GHSA-qx2v-qp2m-jg93,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss,<=8.5.22,high,1124252,https://github.com/advisories/GHSA-6g55-p6wh-862q,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss,<=8.5.22,high,1130709,https://github.com/advisories/GHSA-fxqj-rqcc-2cmp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss,<=8.5.22,high,1139510,https://github.com/advisories/GHSA-r28c-9q8g-f849,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss-selector-parser,<=7.1.5,moderate,1153169,https://github.com/advisories/GHSA-w9m9-85wc-3x92,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss-selector-parser,<=7.1.5,moderate,1153170,https://github.com/advisories/GHSA-w9m9-85wc-3x92,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,postcss-selector-parser,<=7.1.5,moderate,1241232,https://github.com/advisories/GHSA-rj75-hqrm-r3gf,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,proxy-addr,1.1.0 - 2.0.7,critical,1241210,https://github.com/advisories/GHSA-jqcg-44mw-7w3h,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,qs,<=6.15.3,moderate,1113161,https://github.com/advisories/GHSA-w7fw-mjwx-w883,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,qs,<=6.15.3,moderate,1113719,https://github.com/advisories/GHSA-6rw7-vpxm-498p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,qs,<=6.15.3,moderate,1119502,https://github.com/advisories/GHSA-q8mj-m7cp-5q26,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,qs,<=6.15.3,moderate,1158507,https://github.com/advisories/GHSA-4mjr-xmp4-gh2g,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,serialize-javascript,<=7.0.4,high,1113686,https://github.com/advisories/GHSA-5c6j-r48x-rmvq,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,serialize-javascript,<=7.0.4,high,1119440,https://github.com/advisories/GHSA-qj8w-gfj5-8c6v,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,shell-quote,<=1.8.4,critical,1120422,https://github.com/advisories/GHSA-w7jw-789q-3m8p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,shell-quote,<=1.8.4,critical,1123944,https://github.com/advisories/GHSA-395f-4hp3-45gv,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,sockjs,>=0.3.17,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,source-map-js,1.0.0 - 1.2.1,high,1241209,https://github.com/advisories/GHSA-68fv-2mgg-jv7q,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,sprintf-js,*,moderate,1241202,https://github.com/advisories/GHSA-hp3w-g68c-fv3c,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,svgo,1.0.0 - 2.8.3,high,1114152,https://github.com/advisories/GHSA-xpqw-6gx7-v673,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,svgo,1.0.0 - 2.8.3,high,1139520,https://github.com/advisories/GHSA-2p49-hgcm-8545,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,svgo,1.0.0 - 2.8.3,high,1193737,https://github.com/advisories/GHSA-w27v-7q3p-w38r,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,svgo,1.0.0 - 2.8.3,high,1193740,https://github.com/advisories/GHSA-4vpr-x523-8j87,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,terser-webpack-plugin,4.2.1 - 5.3.16,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,uuid,<11.1.1,moderate,1119441,https://github.com/advisories/GHSA-w5hq-g745-h8pq,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,vue,2.0.0-alpha.1 - 2.7.16,low,1100238,https://github.com/advisories/GHSA-5j4c-8p2g-v4jx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,vue-loader,15.0.0-beta.1 - 15.11.1,moderate,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,vue-template-compiler,>=2.0.0,moderate,1111772,https://github.com/advisories/GHSA-g3ch-rx76-35fx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,vuex,3.1.3 - 3.6.2,low,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack,5.49.0 - 5.104.0,low,1113041,https://github.com/advisories/GHSA-8fgc-7cc6-rx7x,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack,5.49.0 - 5.104.0,low,1113042,https://github.com/advisories/GHSA-38r7-794h-5758,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-middleware,<7.4.5,high,1240027,https://github.com/advisories/GHSA-g84c-rxfj-3j2c,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1108429,https://github.com/advisories/GHSA-9jgg-88mc-972h,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1108430,https://github.com/advisories/GHSA-4v9v-hfq4-rm2v,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1119074,https://github.com/advisories/GHSA-79cf-xcqc-c78w,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1121087,https://github.com/advisories/GHSA-mx8g-39q3-5c79,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1123965,https://github.com/advisories/GHSA-f5vj-f2hx-8m93,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,webpack-dev-server,<=5.2.6,high,1123966,https://github.com/advisories/GHSA-m28w-2pqf-7qgj,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,websocket-driver,<=0.7.4,critical,1123482,https://github.com/advisories/GHSA-mp7j-qc5w-4988,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,websocket-driver,<=0.7.4,critical,1123483,https://github.com/advisories/GHSA-xv26-6w52-cph6,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,ws,7.0.0 - 7.5.10 || 8.0.0 - 8.20.1,high,1119108,https://github.com/advisories/GHSA-58qx-3vcg-4xpx,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,ws,7.0.0 - 7.5.10 || 8.0.0 - 8.20.1,high,1123259,https://github.com/advisories/GHSA-96hv-2xvq-fx4p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,ws,7.0.0 - 7.5.10 || 8.0.0 - 8.20.1,high,1123260,https://github.com/advisories/GHSA-96hv-2xvq-fx4p,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,yaml,1.0.0 - 1.10.2,moderate,1115555,https://github.com/advisories/GHSA-48c2-rrv3-qjmp,未修复/需适用性复核,唐杰统筹，前端岗位认领
+npm,yorkie,*,high,传递影响,见npm原始报告,未修复/需适用性复核,唐杰统筹，前端岗位认领
+PyPI,flask,1.1.4,工具未提供等级，按风险复核,PYSEC-2023-62,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,flask,1.1.4,工具未提供等级，按风险复核,PYSEC-2026-2151,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,jinja2,2.11.3,工具未提供等级，按风险复核,PYSEC-2026-1473,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,jinja2,2.11.3,工具未提供等级，按风险复核,PYSEC-2026-1474,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,jinja2,2.11.3,工具未提供等级，按风险复核,PYSEC-2026-1475,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,jinja2,2.11.3,工具未提供等级，按风险复核,PYSEC-2026-1471,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2022-203,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2023-57,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2023-58,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2023-221,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2026-2043,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2026-2045,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2026-2046,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2026-2044,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,PYSEC-2026-2320,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,werkzeug,1.0.1,工具未提供等级，按风险复核,CVE-2026-102598,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-120,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2025-183,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-179,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-175,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-177,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-178,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-176,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4145,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4149,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4152,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4144,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4148,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4140,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4141,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4147,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,pyjwt,2.10.1,工具未提供等级，按风险复核,PYSEC-2026-4183,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,cryptography,46.0.6,工具未提供等级，按风险复核,PYSEC-2026-36,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,cryptography,46.0.6,工具未提供等级，按风险复核,PYSEC-2026-3554,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,cryptography,46.0.6,工具未提供等级，按风险复核,PYSEC-2026-3552,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,cryptography,46.0.6,工具未提供等级，按风险复核,PYSEC-2026-3553,见pip-audit原始报告aliases/description,未修复,唐杰
+PyPI,cryptography,46.0.6,工具未提供等级，按风险复核,GHSA-537c-gmf6-5ccf,见pip-audit原始报告aliases/description,未修复,唐杰

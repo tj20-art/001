@@ -257,8 +257,11 @@ const isJsonObject = (value) =>
 
 const shouldEncrypt = (config) => {
   const method = String(config.method || 'get').toLowerCase()
-  return ['post', 'put', 'patch', 'delete'].includes(method) && isJsonObject(config.data)
+  const hasJsonPayload = config.data == null || isJsonObject(config.data)
+  return ['post', 'put', 'patch', 'delete'].includes(method) && hasJsonPayload
 }
+
+const normalizeSecurePayload = (data) => (data == null ? {} : data)
 
 const requestPath = (url) => new URL(url, window.location.origin).pathname
 
@@ -274,10 +277,12 @@ export const sealSecureRequest = async (config) => {
   const timestamp = Date.now()
   const method = String(config.method || 'post').toUpperCase()
   const path = requestPath(config.url)
-  const plaintext = encoder.encode(JSON.stringify(config.data))
+  const originalData = config.data
+  const payload = normalizeSecurePayload(originalData)
+  const plaintext = encoder.encode(JSON.stringify(payload))
   const { ciphertext, tag } = sm4GcmEncrypt(plaintext, key, iv, requestAad(method, path, timestamp, nonce, requestId))
 
-  config._secureOriginalData = config.data
+  config._secureOriginalData = originalData
   config._secureEnvelopeSealed = true
   config._secureContext = { key, requestId }
   config.data = {
@@ -329,7 +334,9 @@ export const __test__ = {
   encryptBlock,
   expandKey,
   fromHex,
+  normalizeSecurePayload,
   requestAad,
+  shouldEncrypt,
   sm4GcmDecrypt,
   sm4GcmEncrypt,
   toHex

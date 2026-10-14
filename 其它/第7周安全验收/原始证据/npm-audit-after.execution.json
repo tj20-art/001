@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:/C/nodejs/npm.cmd",
+    "audit",
+    "--json",
+    "--package-lock-only",
+    "--registry=https://registry.npmjs.org"
+  ],
+  "cwd": "C:\\Users\\r7000\\PycharmProjects\\PythonProject1\\api-service4-frontend",
+  "started_utc": "2026-10-14T12:13:54.868014+00:00",
+  "finished_utc": "2026-10-14T12:13:57.401957+00:00",
+  "exit_code": 1
+}

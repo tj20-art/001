@@ -13,6 +13,10 @@ def success(data=None, message="操作成功"):
 
 def error(code=400, message="操作失败", details=None):
     """错误响应：包含错误码、提示、详情、时间戳"""
+    # Operational exceptions belong in server logs, never in public responses.
+    if code >= 500:
+        message = "服务暂时不可用，请稍后重试"
+        details = {"reason": "internal_error"}
     return jsonify({
         "code": code,
         "message": message,

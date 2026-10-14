@@ -98,6 +98,14 @@ def _audit_filters():
     }, None
 
 
+def _csv_safe_value(value):
+    """Keep untrusted text from being interpreted as a spreadsheet formula."""
+    if isinstance(value, str) and value:
+        if value[0] in "\t\r\n" or value.lstrip().startswith(("=", "+", "-", "@")):
+            return "'" + value
+    return value
+
+
 @security_bp.route("/audit-logs", methods=["GET"])
 @admin_api_rate_limit()
 @role_required("admin", "auditor")
@@ -137,7 +145,7 @@ def export_audit_logs():
     ]
     writer = csv.DictWriter(output, fieldnames=fieldnames, extrasaction="ignore")
     writer.writeheader()
-    writer.writerows(rows)
+    writer.writerows({field: _csv_safe_value(row.get(field)) for field in fieldnames} for row in rows)
     csv_bytes = ("\ufeff" + output.getvalue()).encode("utf-8")
     return Response(
         csv_bytes,

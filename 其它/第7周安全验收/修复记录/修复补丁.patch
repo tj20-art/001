@@ -1,0 +1,534 @@
+diff --git a/api-service4-frontend/package-lock.json b/api-service4-frontend/package-lock.json
+index 448a498..f0572bb 100644
+--- a/api-service4-frontend/package-lock.json
++++ b/api-service4-frontend/package-lock.json
+@@ -8,10 +8,10 @@
+       "name": "api-service4-frontend",
+       "version": "0.1.0",
+       "dependencies": {
+-        "axios": "^1.13.2",
++        "axios": "^1.20.0",
+         "core-js": "^3.8.3",
+         "element-ui": "^2.15.14",
+-        "sm-crypto": "^0.3.13",
++        "sm-crypto": "^0.5.7",
+         "vue": "^2.6.14",
+         "vue-router": "^3.5.1",
+         "vuex": "^3.6.2",
+@@ -3546,6 +3546,18 @@
+         "node": ">= 10.0.0"
+       }
+     },
++    "node_modules/agent-base": {
++      "version": "6.0.2",
++      "resolved": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz",
++      "integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",
++      "license": "MIT",
++      "dependencies": {
++        "debug": "4"
++      },
++      "engines": {
++        "node": ">= 6.0.0"
++      }
++    },
+     "node_modules/ajv": {
+       "version": "6.12.6",
+       "resolved": "https://registry.npmmirror.com/ajv/-/ajv-6.12.6.tgz",
+@@ -3770,7 +3782,7 @@
+     },
+     "node_modules/asynckit": {
+       "version": "0.4.0",
+-      "resolved": "https://registry.npmmirror.com/asynckit/-/asynckit-0.4.0.tgz",
++      "resolved": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz",
+       "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==",
+       "license": "MIT"
+     },
+@@ -3823,14 +3835,15 @@
+       }
+     },
+     "node_modules/axios": {
+-      "version": "1.13.2",
+-      "resolved": "https://registry.npmmirror.com/axios/-/axios-1.13.2.tgz",
+-      "integrity": "sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==",
++      "version": "1.20.0",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.20.0.tgz",
++      "integrity": "sha512-r8aOh8j9cGKpgQAqpzrUHnSIc6a59Y3Xf/cv8sy1DrHCkZHzQGEuoq1tARk6qSyDdtQGSDgpb9kFlruzPvrgwg==",
+       "license": "MIT",
+       "dependencies": {
+-        "follow-redirects": "^1.15.6",
+-        "form-data": "^4.0.4",
+-        "proxy-from-env": "^1.1.0"
++        "follow-redirects": "^1.16.0",
++        "form-data": "^4.0.6",
++        "https-proxy-agent": "^5.0.1",
++        "proxy-from-env": "^2.1.0"
+       }
+     },
+     "node_modules/babel-helper-vue-jsx-merge-props": {
+@@ -4553,7 +4566,7 @@
+     },
+     "node_modules/combined-stream": {
+       "version": "1.0.8",
+-      "resolved": "https://registry.npmmirror.com/combined-stream/-/combined-stream-1.0.8.tgz",
++      "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",
+       "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
+       "license": "MIT",
+       "dependencies": {
+@@ -5158,7 +5171,6 @@
+       "version": "4.4.3",
+       "resolved": "https://registry.npmmirror.com/debug/-/debug-4.4.3.tgz",
+       "integrity": "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ms": "^2.1.3"
+@@ -5389,7 +5401,7 @@
+     },
+     "node_modules/delayed-stream": {
+       "version": "1.0.0",
+-      "resolved": "https://registry.npmmirror.com/delayed-stream/-/delayed-stream-1.0.0.tgz",
++      "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
+       "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==",
+       "license": "MIT",
+       "engines": {
+@@ -5783,7 +5795,7 @@
+     },
+     "node_modules/es-set-tostringtag": {
+       "version": "2.1.0",
+-      "resolved": "https://registry.npmmirror.com/es-set-tostringtag/-/es-set-tostringtag-2.1.0.tgz",
++      "resolved": "https://registry.npmjs.org/es-set-tostringtag/-/es-set-tostringtag-2.1.0.tgz",
+       "integrity": "sha512-j6vWzfrGVfyXxge+O0x5sh6cvxAog0a/4Rdd2K36zCMV5eJ+/+tOAngRO8cODMNWbVRdVlmGZQL2YS3yR8bIUA==",
+       "license": "MIT",
+       "dependencies": {
+@@ -6756,9 +6768,9 @@
+       "license": "ISC"
+     },
+     "node_modules/follow-redirects": {
+-      "version": "1.15.11",
+-      "resolved": "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.15.11.tgz",
+-      "integrity": "sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==",
++      "version": "1.16.1",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.1.tgz",
++      "integrity": "sha512-FNvFGzoMLWmE6Yj9spb/zjd7yiNCHiAW9/Tg9CXrQ8wuu32HtlJOwWO11OJafl5FfY3DxTdQ0vj42zU1kvv5jg==",
+       "funding": [
+         {
+           "type": "individual",
+@@ -6776,16 +6788,16 @@
+       }
+     },
+     "node_modules/form-data": {
+-      "version": "4.0.5",
+-      "resolved": "https://registry.npmmirror.com/form-data/-/form-data-4.0.5.tgz",
+-      "integrity": "sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==",
++      "version": "4.0.6",
++      "resolved": "https://registry.npmjs.org/form-data/-/form-data-4.0.6.tgz",
++      "integrity": "sha512-vKatAh4SlVfgbv+YtmhiRjhEMJsYpsG1Y2rMQtR+SVSbytsSD1YGzDIcrAJmdFec88u/+VoGmxnl+80gL1tRCQ==",
+       "license": "MIT",
+       "dependencies": {
+         "asynckit": "^0.4.0",
+         "combined-stream": "^1.0.8",
+         "es-set-tostringtag": "^2.1.0",
+-        "hasown": "^2.0.2",
+-        "mime-types": "^2.1.12"
++        "hasown": "^2.0.4",
++        "mime-types": "^2.1.35"
+       },
+       "engines": {
+         "node": ">= 6"
+@@ -7127,7 +7139,7 @@
+     },
+     "node_modules/has-tostringtag": {
+       "version": "1.0.2",
+-      "resolved": "https://registry.npmmirror.com/has-tostringtag/-/has-tostringtag-1.0.2.tgz",
++      "resolved": "https://registry.npmjs.org/has-tostringtag/-/has-tostringtag-1.0.2.tgz",
+       "integrity": "sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==",
+       "license": "MIT",
+       "dependencies": {
+@@ -7148,9 +7160,9 @@
+       "license": "MIT"
+     },
+     "node_modules/hasown": {
+-      "version": "2.0.2",
+-      "resolved": "https://registry.npmmirror.com/hasown/-/hasown-2.0.2.tgz",
+-      "integrity": "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==",
++      "version": "2.0.4",
++      "resolved": "https://registry.npmjs.org/hasown/-/hasown-2.0.4.tgz",
++      "integrity": "sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==",
+       "license": "MIT",
+       "dependencies": {
+         "function-bind": "^1.1.2"
+@@ -7422,6 +7434,19 @@
+         }
+       }
+     },
++    "node_modules/https-proxy-agent": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz",
++      "integrity": "sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==",
++      "license": "MIT",
++      "dependencies": {
++        "agent-base": "6",
++        "debug": "4"
++      },
++      "engines": {
++        "node": ">= 6"
++      }
++    },
+     "node_modules/human-signals": {
+       "version": "2.1.0",
+       "resolved": "https://registry.npmmirror.com/human-signals/-/human-signals-2.1.0.tgz",
+@@ -8628,7 +8653,6 @@
+       "version": "2.1.3",
+       "resolved": "https://registry.npmmirror.com/ms/-/ms-2.1.3.tgz",
+       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/multicast-dns": {
+@@ -10085,10 +10109,13 @@
+       }
+     },
+     "node_modules/proxy-from-env": {
+-      "version": "1.1.0",
+-      "resolved": "https://registry.npmmirror.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
+-      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==",
+-      "license": "MIT"
++      "version": "2.1.0",
++      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-2.1.0.tgz",
++      "integrity": "sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=10"
++      }
+     },
+     "node_modules/pseudomap": {
+       "version": "1.0.2",
+@@ -11044,9 +11071,9 @@
+       }
+     },
+     "node_modules/sm-crypto": {
+-      "version": "0.3.13",
+-      "resolved": "https://registry.npmmirror.com/sm-crypto/-/sm-crypto-0.3.13.tgz",
+-      "integrity": "sha512-ztNF+pZq6viCPMA1A6KKu3bgpkmYti5avykRHbcFIdSipFdkVmfUw2CnpM2kBJyppIalqvczLNM3wR8OQ0pT5w==",
++      "version": "0.5.7",
++      "resolved": "https://registry.npmjs.org/sm-crypto/-/sm-crypto-0.5.7.tgz",
++      "integrity": "sha512-Bxz1jWGtI7t/bn6Vbf4iGKcntslKVYAi6oBTtboTL+0WhqBTwsDFinIxIezjkBidxt8aNnEF1V3ZYU6TI0V1gQ==",
+       "license": "MIT",
+       "dependencies": {
+         "jsbn": "^1.1.0"
+diff --git a/api-service4-frontend/package.json b/api-service4-frontend/package.json
+index e395168..61c79ab 100644
+--- a/api-service4-frontend/package.json
++++ b/api-service4-frontend/package.json
+@@ -10,10 +10,10 @@
+     "test:tunnel-live": "node scripts/verify-live-tunnel.cjs"
+   },
+   "dependencies": {
+-    "axios": "^1.13.2",
++    "axios": "^1.20.0",
+     "core-js": "^3.8.3",
+     "element-ui": "^2.15.14",
+-    "sm-crypto": "^0.3.13",
++    "sm-crypto": "^0.5.7",
+     "vue": "^2.6.14",
+     "vue-router": "^3.5.1",
+     "vuex": "^3.6.2",
+diff --git a/api-service4-frontend/scripts/verify-live-tunnel.cjs b/api-service4-frontend/scripts/verify-live-tunnel.cjs
+index 0e40405..cca9a79 100644
+--- a/api-service4-frontend/scripts/verify-live-tunnel.cjs
++++ b/api-service4-frontend/scripts/verify-live-tunnel.cjs
+@@ -16,7 +16,7 @@ const sourcePath = path.resolve(__dirname, '../src/utils/secureTunnel.js')
+ const source = fs.readFileSync(sourcePath, 'utf8')
+ const transformed = babel.transformSync(source, {
+   filename: sourcePath,
+-  plugins: ['@babel/plugin-transform-modules-commonjs']
++  plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')]
+ }).code
+ const cryptoModule = new Module(sourcePath, module)
+ cryptoModule.filename = sourcePath
+diff --git a/api-service4-frontend/scripts/verify-secure-tunnel.cjs b/api-service4-frontend/scripts/verify-secure-tunnel.cjs
+index c928c24..c3ba4e2 100644
+--- a/api-service4-frontend/scripts/verify-secure-tunnel.cjs
++++ b/api-service4-frontend/scripts/verify-secure-tunnel.cjs
+@@ -12,7 +12,7 @@ const sourcePath = path.resolve(__dirname, '../src/utils/secureTunnel.js')
+ const source = fs.readFileSync(sourcePath, 'utf8')
+ const transformed = babel.transformSync(source, {
+   filename: sourcePath,
+-  plugins: ['@babel/plugin-transform-modules-commonjs']
++  plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')]
+ }).code
+ const cryptoModule = new Module(sourcePath, module)
+ cryptoModule.filename = sourcePath
+diff --git a/api_service4/app/api/v1/products.py b/api_service4/app/api/v1/products.py
+index ed96f76..c3f6717 100644
+--- a/api_service4/app/api/v1/products.py
++++ b/api_service4/app/api/v1/products.py
+@@ -2,14 +2,13 @@ import json
+ import os
+ import uuid
+ 
+-from flask import Blueprint, g, request
++from flask import Blueprint, current_app, g, request
+ from werkzeug.utils import secure_filename
+ 
+ from api_service4.app.middleware.auth import jwt_required, optional_jwt, role_required
+ from api_service4.app.middleware.rate_limit import common_api_rate_limit
+ from api_service4.app.services.model_3_product import ProductSystem
+ from api_service4.app.utils.response import error, success
+-import traceback
+ from datetime import datetime, date
+ 
+ 
+@@ -248,9 +247,9 @@ def list_products():
+         return success(data={"product_list": processed}, message=f"共查询到{len(processed)}个商品")
+     except ValueError as exc:
+         return error(400, str(exc))
+-    except Exception as exc:
+-        traceback.print_exc()
+-        return error(500, "查询商品列表失败", details=str(exc))
++    except Exception:
++        current_app.logger.exception("查询商品列表失败")
++        return error(500, "查询商品列表失败")
+ 
+ 
+ @products_bp.route("/<int:product_id>", methods=["GET"])
+diff --git a/api_service4/app/api/v1/security.py b/api_service4/app/api/v1/security.py
+index 3e942db..c33b4b2 100644
+--- a/api_service4/app/api/v1/security.py
++++ b/api_service4/app/api/v1/security.py
+@@ -98,6 +98,14 @@ def _audit_filters():
+     }, None
+ 
+ 
++def _csv_safe_value(value):
++    """Keep untrusted text from being interpreted as a spreadsheet formula."""
++    if isinstance(value, str) and value:
++        if value[0] in "\t\r\n" or value.lstrip().startswith(("=", "+", "-", "@")):
++            return "'" + value
++    return value
++
++
+ @security_bp.route("/audit-logs", methods=["GET"])
+ @admin_api_rate_limit()
+ @role_required("admin", "auditor")
+@@ -137,7 +145,7 @@ def export_audit_logs():
+     ]
+     writer = csv.DictWriter(output, fieldnames=fieldnames, extrasaction="ignore")
+     writer.writeheader()
+-    writer.writerows(rows)
++    writer.writerows({field: _csv_safe_value(row.get(field)) for field in fieldnames} for row in rows)
+     csv_bytes = ("\ufeff" + output.getvalue()).encode("utf-8")
+     return Response(
+         csv_bytes,
+diff --git a/api_service4/app/middleware/rate_limit.py b/api_service4/app/middleware/rate_limit.py
+index 59bb4ca..f7041fc 100644
+--- a/api_service4/app/middleware/rate_limit.py
++++ b/api_service4/app/middleware/rate_limit.py
+@@ -42,7 +42,6 @@ def _extract_user_id_from_bearer():
+             token,
+             JWT_SECRET,
+             algorithms=["HS256"],
+-            options={"verify_exp": False},
+         )
+         return payload.get("user_id")
+     except Exception:
+@@ -57,7 +56,9 @@ def _request_identity():
+     if token_user_id:
+         return f"user:{token_user_id}"
+ 
+-    return f"ip:{request.headers.get('X-Forwarded-For', request.remote_addr) or 'unknown'}"
++    # Forwarded headers are untrusted unless trusted proxy middleware has
++    # explicitly normalized REMOTE_ADDR. Never use the raw header here.
++    return f"ip:{request.remote_addr or 'unknown'}"
+ 
+ 
+ def _request_scope(scope="route"):
+@@ -69,11 +70,11 @@ def _request_scope(scope="route"):
+     return f"{method}:{endpoint}"
+ 
+ 
+-def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="default"):
++def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="default", identity_scope="auto"):
+     def decorator(f):
+         @wraps(f)
+         def wrapper(*args, **kwargs):
+-            identity = _request_identity()
++            identity = f"ip:{request.remote_addr or 'unknown'}" if identity_scope == "ip" else _request_identity()
+             request_scope = _request_scope(scope)
+             limit_key = f"{key_prefix}:{identity}:{request_scope}"
+ 
+@@ -108,13 +109,13 @@ def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="defau
+ 
+ 
+ def login_rate_limit():
+-    # 登录接口：按路由 + IP / token-user 粒度限制，5 分钟最多 10 次
+-    return rate_limit(max_requests=10, window_seconds=300, scope="route", key_prefix="login")
++    # Authentication attempts share a peer-IP budget, regardless of bearer headers.
++    return rate_limit(max_requests=10, window_seconds=300, scope="route", key_prefix="login", identity_scope="ip")
+ 
+ 
+ def register_rate_limit():
+     # 注册接口：5 分钟最多 5 次
+-    return rate_limit(max_requests=5, window_seconds=300, scope="route", key_prefix="register")
++    return rate_limit(max_requests=5, window_seconds=300, scope="route", key_prefix="register", identity_scope="ip")
+ 
+ 
+ def common_api_rate_limit():
+diff --git a/api_service4/app/utils/response.py b/api_service4/app/utils/response.py
+index 81daa68..34b3b18 100644
+--- a/api_service4/app/utils/response.py
++++ b/api_service4/app/utils/response.py
+@@ -13,9 +13,13 @@ def success(data=None, message="操作成功"):
+ 
+ def error(code=400, message="操作失败", details=None):
+     """错误响应：包含错误码、提示、详情、时间戳"""
++    # Operational exceptions belong in server logs, never in public responses.
++    if code >= 500:
++        message = "服务暂时不可用，请稍后重试"
++        details = {"reason": "internal_error"}
+     return jsonify({
+         "code": code,
+         "message": message,
+         "details": details or {},
+         "timestamp": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+-    }), code  # 返回HTTP状态码
+\ No newline at end of file
++    }), code  # 返回HTTP状态码
+diff --git a/api_service4/run.py b/api_service4/run.py
+index e33fb46..0c04eff 100644
+--- a/api_service4/run.py
++++ b/api_service4/run.py
+@@ -98,12 +98,21 @@ def audit_and_seal_response(response):
+             result="success" if response.status_code < 400 else "denied" if response.status_code in {401, 403} else "failure",
+             http_status=response.status_code,
+             user=user,
+-            ip_address=request.headers.get("X-Forwarded-For", request.remote_addr),
++            ip_address=request.remote_addr,
+             request_method=request.method,
+             request_path=request.path,
+             details={"secure_tunnel": bool(getattr(g, "secure_tunnel", None))},
+         )
+-    return encrypt_flask_response(response)
++    response = encrypt_flask_response(response)
++    response.headers["X-Content-Type-Options"] = "nosniff"
++    response.headers["X-Frame-Options"] = "DENY"
++    response.headers["Referrer-Policy"] = "no-referrer"
++    if request.path.startswith("/api/"):
++        response.headers["Cache-Control"] = "no-store"
++        response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
++    if request.is_secure:
++        response.headers["Strict-Transport-Security"] = "max-age=31536000"
++    return response
+ 
+ app.register_blueprint(auth_bp)
+ app.register_blueprint(users_bp)
+@@ -122,7 +131,7 @@ if __name__ == "__main__":
+         else:
+             ssl_context = "adhoc"
+     app.run(
+-        host="0.0.0.0",
++        host=os.getenv("API_BIND_HOST", "127.0.0.1"),
+         port=config.PORT,
+         debug=os.getenv("FLASK_DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"},
+         ssl_context=ssl_context,
+diff --git a/api_service4/tests/test_week7_security.py b/api_service4/tests/test_week7_security.py
+new file mode 100644
+index 0000000..4041385
+--- /dev/null
++++ b/api_service4/tests/test_week7_security.py
+@@ -0,0 +1,85 @@
++"""Regression tests for three independently reproduced security weaknesses."""
++from datetime import datetime, timedelta
++
++from flask import Flask
++import jwt
++import pytest
++
++from api_service4.app.middleware import rate_limit as limiter
++from api_service4.app.api.v1.security import _csv_safe_value
++from api_service4.app.utils.response import error
++
++
++@pytest.fixture
++def app():
++    limiter._request_records.clear()
++    application = Flask(__name__)
++    yield application
++    limiter._request_records.clear()
++
++
++def test_spoofed_forwarded_headers_cannot_reset_limit(app):
++    @app.route("/probe", methods=["POST"])
++    @limiter.rate_limit(2, identity_scope="ip")
++    def probe():
++        return "ok"
++    client = app.test_client()
++    results = [client.post("/probe", headers={"X-Forwarded-For": f"198.51.100.{i}"}).status_code for i in range(3)]
++    assert results == [200, 200, 429]
++
++
++def test_login_budget_cannot_be_reset_with_valid_bearer_tokens(app):
++    @app.route("/login", methods=["POST"])
++    @limiter.login_rate_limit()
++    def probe():
++        return "ok"
++    client = app.test_client()
++    for i in range(10):
++        token = jwt.encode({"user_id": i+1, "exp": datetime.utcnow()+timedelta(minutes=1)}, limiter.JWT_SECRET, algorithm="HS256")
++        assert client.post("/login", headers={"Authorization": "Bearer " + token}).status_code == 200
++    assert client.post("/login").status_code == 429
++
++
++def test_distinct_network_peers_have_independent_budgets(app):
++    @app.route("/probe")
++    @limiter.rate_limit(1, identity_scope="ip")
++    def probe():
++        return "ok"
++    client = app.test_client()
++    assert client.get("/probe", environ_base={"REMOTE_ADDR":"192.0.2.1"}).status_code == 200
++    assert client.get("/probe", environ_base={"REMOTE_ADDR":"192.0.2.1"}).status_code == 429
++    assert client.get("/probe", environ_base={"REMOTE_ADDR":"192.0.2.2"}).status_code == 200
++
++
++def test_expired_token_does_not_set_throttle_identity(app):
++    token = jwt.encode({"user_id": 42, "exp": datetime.utcnow()-timedelta(minutes=1)},limiter.JWT_SECRET,algorithm="HS256")
++    with app.test_request_context(headers={"Authorization":"Bearer " + token}, environ_base={"REMOTE_ADDR":"192.0.2.1"}):
++        assert limiter._extract_user_id_from_bearer() is None
++        assert limiter._request_identity() == "ip:192.0.2.1"
++
++
++@pytest.mark.parametrize("payload", ["=1+1", "+SUM(1,2)", "-1+2", "@SUM(1,2)", "  =1+1", "\t=1+1", "\r=1+1", "\n=1+1"])
++def test_csv_formula_prefixes_are_neutralized(payload):
++    assert _csv_safe_value(payload) == "'" + payload
++
++
++@pytest.mark.parametrize("value", ["普通审计记录", "2026-10-14", "GET", 200, -1, None])
++def test_csv_normal_values_are_preserved(value):
++    assert _csv_safe_value(value) == value
++
++
++def test_server_errors_do_not_disclose_exception_details(app):
++    with app.app_context():
++        response, status = error(500, "database credentials INTERNAL_ONLY", details="driver/internal/path")
++        assert status == 500
++        data = response.get_json()
++        assert data["details"] == {"reason":"internal_error"}
++        assert "INTERNAL_ONLY" not in response.get_data(as_text=True)
++        assert "driver/internal/path" not in response.get_data(as_text=True)
++
++
++def test_validation_error_details_remain_available(app):
++    with app.app_context():
++        response, status = error(400, "请求格式错误", details={"reason":"invalid_envelope"})
++        assert status == 400
++        assert response.get_json()["details"]["reason"] == "invalid_envelope"
+diff --git a/mock_bank/run.py b/mock_bank/run.py
+index ac53628..bf99f23 100644
+--- a/mock_bank/run.py
++++ b/mock_bank/run.py
+@@ -210,4 +210,4 @@ def process_payment():
+ 
+ if __name__ == "__main__":
+     init_db()
+-    app.run(host="0.0.0.0", port=int(os.getenv("BANK_PORT", "8080")), debug=True)
++    app.run(host=os.getenv("MOCK_BANK_HOST", "127.0.0.1"), port=int(os.getenv("BANK_PORT", "8080")), debug=False)

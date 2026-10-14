@@ -98,12 +98,21 @@ def audit_and_seal_response(response):
             result="success" if response.status_code < 400 else "denied" if response.status_code in {401, 403} else "failure",
             http_status=response.status_code,
             user=user,
-            ip_address=request.headers.get("X-Forwarded-For", request.remote_addr),
+            ip_address=request.remote_addr,
             request_method=request.method,
             request_path=request.path,
             details={"secure_tunnel": bool(getattr(g, "secure_tunnel", None))},
         )
-    return encrypt_flask_response(response)
+    response = encrypt_flask_response(response)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    if request.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
+    if request.is_secure:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000"
+    return response
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(users_bp)
@@ -122,7 +131,7 @@ if __name__ == "__main__":
         else:
             ssl_context = "adhoc"
     app.run(
-        host="0.0.0.0",
+        host=os.getenv("API_BIND_HOST", "127.0.0.1"),
         port=config.PORT,
         debug=os.getenv("FLASK_DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"},
         ssl_context=ssl_context,
