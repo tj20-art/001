@@ -210,4 +210,4 @@ def process_payment():
 
 if __name__ == "__main__":
     init_db()
-    app.run(host="0.0.0.0", port=int(os.getenv("BANK_PORT", "8080")), debug=True)
+    app.run(host=os.getenv("MOCK_BANK_HOST", "127.0.0.1"), port=int(os.getenv("BANK_PORT", "8080")), debug=False)
