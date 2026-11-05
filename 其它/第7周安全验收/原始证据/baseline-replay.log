@@ -1,0 +1,114 @@
+2026-10-14 20:18:33,634 - User Auth System - INFO - �û���֤ϵͳ��ʼ���ɹ���MySQL������
+2026-10-14 20:18:33,973 - Cart Order System - INFO - ���ﳵ/����ϵͳ��ʼ���ɹ���MySQL������
+2026-10-14 20:18:34,061 - Product System - INFO - ��Ʒϵͳ��ʼ���ɹ���MySQL������
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:34] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "POST /api/v1/auth/login HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/products HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/security/audit-logs/export HTTP/1.1" 200 -
+Traceback (most recent call last):
+  File "C:\Users\r7000\PycharmProjects\PythonProject1\����\��7�ܰ�ȫ����\�޸���¼\�޸�ǰԴ��\api_service4\app\api\v1\products.py", line 240, in list_products
+    products = product_system.list_products(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python3.11\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+RuntimeError: INTERNAL_ONLY db=week7_fixture table=products driver=pymysql
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/products HTTP/1.1" 500 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/users HTTP/1.1" 403 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/products?name=%27%20OR%201%3D1-- HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/products?product_id=1%20OR%201%3D1 HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/orders/1 HTTP/1.1" 404 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "POST /api/v1/orders HTTP/1.1" 400 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "POST /api/v1/orders HTTP/1.1" 401 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "GET /api/v1/security/public-key HTTP/1.1" 200 -
+127.0.0.1 - - [14/Oct/2026 20:18:35] "POST /api/v1/orders HTTP/1.1" 400 -
+根证书和私钥已存在，跳过生成步骤。
+{
+  "phase": "before",
+  "checks": [
+    {
+      "id": "V1",
+      "class": "CWE-307 / CWE-807",
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "normal-product-list",
+      "passed": true
+    },
+    {
+      "id": "V2",
+      "class": "CWE-1236",
+      "csv_cell": "=1+1",
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "V3",
+      "class": "CWE-209",
+      "status": 500,
+      "fault_injection": "list_products raises a synthetic RuntimeError; DB outage not induced",
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "rbac-user-admin",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-name",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-id",
+      "passed": true
+    },
+    {
+      "id": "idor-foreign-order",
+      "passed": true
+    },
+    {
+      "id": "csrf-cross-origin-unsealed-write",
+      "passed": true,
+      "scope": "JSON tunnel gate and CORS only; no claim of full CSRF coverage for multipart endpoints"
+    },
+    {
+      "id": "valid-envelope-unauthenticated",
+      "passed": true
+    },
+    {
+      "id": "valid-envelope-business-error",
+      "passed": true
+    }
+  ]
+}

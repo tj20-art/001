@@ -1,0 +1,22 @@
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@achrinza/node-ipc@9.2.9',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20 || 21 || 22'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v25.2.1', npm: '11.19.1' }
+npm warn EBADENGINE }
+
+added 2 packages, changed 6 packages, and audited 955 packages in 9s
+
+125 packages are looking for funding
+  run `npm fund` for details
+
+64 vulnerabilities (5 low, 19 moderate, 37 high, 3 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

@@ -1,0 +1,602 @@
+{
+  "phase": "before",
+  "timestamp_utc": "2026-10-14T12:18:35.582942Z",
+  "base": "https://127.0.0.1:2445",
+  "database": "week7_test_20261014_before_8437370b",
+  "authentication": "test-issued JWTs in an isolated schema; no claim of certificate/MFA end-to-end login validation",
+  "proxy": null,
+  "checks": [
+    {
+      "id": "V1",
+      "class": "CWE-307 / CWE-807",
+      "statuses": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "normal-product-list",
+      "passed": true
+    },
+    {
+      "id": "V2",
+      "class": "CWE-1236",
+      "csv_cell": "=1+1",
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "V3",
+      "class": "CWE-209",
+      "status": 500,
+      "fault_injection": "list_products raises a synthetic RuntimeError; DB outage not induced",
+      "vulnerable": true,
+      "fixed": false
+    },
+    {
+      "id": "rbac-user-admin",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-name",
+      "passed": true
+    },
+    {
+      "id": "sql-injection-product-id",
+      "passed": true
+    },
+    {
+      "id": "idor-foreign-order",
+      "passed": true
+    },
+    {
+      "id": "csrf-cross-origin-unsealed-write",
+      "passed": true,
+      "scope": "JSON tunnel gate and CORS only; no claim of full CSRF coverage for multipart endpoints"
+    },
+    {
+      "id": "valid-envelope-unauthenticated",
+      "passed": true
+    },
+    {
+      "id": "valid-envelope-business-error",
+      "passed": true
+    }
+  ],
+  "transcripts": [
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.1"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.2"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.3"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.4"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.5"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.6"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.7"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.8"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.9"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.10"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.11"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:34 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:34Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/auth/login",
+        "headers": {
+          "X-Forwarded-For": "198.51.100.12"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "123",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"请求格式错误，仅支持multipart/form-data\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/products",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "383",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":0,\"data\":{\"product_list\":[{\"category\":\"test\",\"created_at\":\"2026-10-14 20:18:34\",\"description\":\"fixture only\",\"id\":1,\"image_url\":\"\",\"image_urls\":[],\"name\":\"安全测试商品\",\"price\":10.0,\"price_cents\":1000,\"seller_id\":2,\"status\":\"on_sale\",\"stock\":10,\"updated_at\":\"2026-10-14 20:18:34\",\"video_url\":\"\"}]},\"message\":\"共查询到1个商品\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/security/audit-logs/export",
+        "headers": {
+          "Authorization": "Bearer <TEST_FIXTURE_TOKEN>"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Disposition": "attachment; filename=audit-logs.csv",
+          "Cache-Control": "no-store",
+          "Content-Type": "text/csv; charset=utf-8; charset=utf-8",
+          "Content-Length": "230",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "﻿id,created_at,user_id,username,role,event_type,resource_type,resource_id,operation,result,http_status,ip_address,request_method,request_path\r\n1,2026-10-14 20:18:34,1,wk7_user,user,FIXTURE_CSV,,,probe,denied,400,=1+1,,/fixture\r\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/products",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "status": 500,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "158",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":500,\"details\":\"INTERNAL_ONLY db=week7_fixture table=products driver=pymysql\",\"message\":\"查询商品列表失败\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/users",
+        "headers": {
+          "Authorization": "Bearer <TEST_FIXTURE_TOKEN>"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "108",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":403,\"details\":{},\"message\":\"权限不足，需要角色: admin\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/products?name=%27%20OR%201%3D1--",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "108",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":0,\"data\":{\"product_list\":[]},\"message\":\"共查询到0个商品\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/products?product_id=1%20OR%201%3D1",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "97",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{},\"message\":\"product_id 格式错误\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://127.0.0.1:2445/api/v1/orders/1",
+        "headers": {
+          "Authorization": "Bearer <TEST_FIXTURE_TOKEN>"
+        },
+        "body": null
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "89",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":404,\"details\":{},\"message\":\"订单不存在\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/orders",
+        "headers": {
+          "Origin": "https://attacker.invalid"
+        },
+        "body": {}
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "150",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\":400,\"details\":{\"reason\":\"envelope_required\"},\"message\":\"敏感写请求必须使用应用层安全信封\",\"timestamp\":\"2026-10-14T12:18:35Z\"}\n"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/orders",
+        "headers": {
+          "X-Secure-Envelope": "1"
+        },
+        "body": {
+          "version": "1",
+          "algorithm": "SM2+SM4-GCM",
+          "encrypted_key": "f1093f32d22a7177e45bc07a169e1527a9f707d7c1b8518240d3a66d0c5b8000417fc07c8bd03236ac6a8602e7cc4d533b4b3b0d37fc6b46f6cd023bc68a3f6669906b1f8df611c7048d6ef250930a3afb9e2b4b2bdae3b40a6d5848dec345c0e6f51fa70d9e8b96eb5b522c46d26181",
+          "nonce": "f31eeb98cca857f552fabb06d76aba39",
+          "timestamp": 1791980315412,
+          "request_id": "f2b6b3ae6c7bc25909f4995e27241394",
+          "iv": "01c9dbe0e7a31015d6fc1c3c",
+          "ciphertext": "ace0",
+          "tag": "8cc5f37ac3c1ef2df37e60cb33ea57c7"
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Length": "392",
+          "X-Secure-Response": "1",
+          "Cache-Control": "no-store",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\": 401, \"details\": {}, \"message\": \"未提供有效令牌，请先登录\", \"timestamp\": \"2026-10-14T12:18:35Z\"}"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "https://127.0.0.1:2445/api/v1/orders",
+        "headers": {
+          "Authorization": "Bearer <TEST_FIXTURE_TOKEN>",
+          "X-Secure-Envelope": "1"
+        },
+        "body": {
+          "version": "1",
+          "algorithm": "SM2+SM4-GCM",
+          "encrypted_key": "96344c7e1df953d983d01b3a9f00e376c7156f0a57ab7a05f8a4277cec25713a71a0eb0f50220ca802d36575cf9232654011cad6f11937dcc2ab4b37a37803864b524bc4ef9a4045d85d0d104061d5e30d673f459fafa7a9f34325607d04bda9da465c8fa5a6ece60ff6c623fab33c22",
+          "nonce": "dfe02d828486237ec16bbf469113a7c4",
+          "timestamp": 1791980315528,
+          "request_id": "7642b23e9c2e99397513a56f03bda5e1",
+          "iv": "951e0c2f55bd1be844349270",
+          "ciphertext": "e7ee",
+          "tag": "369d33b0db8b150537903959c306df82"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Length": "386",
+          "X-Secure-Response": "1",
+          "Cache-Control": "no-store",
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081",
+          "Access-Control-Expose-Headers": "Content-Disposition, X-Secure-Response",
+          "Vary": "Origin",
+          "Server": "Werkzeug/1.0.1 Python/3.11.5",
+          "Date": "Wed, 14 Oct 2026 12:18:35 GMT"
+        },
+        "body": "{\"code\": 400, \"details\": {}, \"message\": \"没有已勾选的购物车商品\", \"timestamp\": \"2026-10-14T12:18:35Z\"}"
+      }
+    }
+  ]
+}

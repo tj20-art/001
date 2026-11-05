@@ -1,0 +1,29 @@
+(node:23620) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "protocolVersion": "1",
+  "encryptedResponseDecrypted": true,
+  "replayRejected": {
+    "status": 409,
+    "reason": "replay_detected"
+  },
+  "ciphertextTamperRejected": {
+    "status": 400,
+    "reason": "invalid_tag"
+  },
+  "aadTamperRejected": {
+    "status": 400,
+    "reason": "invalid_tag"
+  },
+  "expiredTimestampRejected": {
+    "status": 408,
+    "reason": "expired_timestamp"
+  },
+  "perRequestRandomValuesChanged": [
+    "encrypted_key",
+    "iv",
+    "nonce",
+    "request_id",
+    "session_key"
+  ]
+}

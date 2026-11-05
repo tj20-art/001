@@ -1,0 +1,64 @@
+
+> api-service4-frontend@0.1.0 build
+> vue-cli-service build
+
+All browser targets in the browserslist configuration have supported ES module.
+Therefore we don't build two separate bundles for differential loading.
+
+
+-  Building for production...
+ WARNING  Compiled with 2 warnings20:15:22
+
+ warning  
+
+asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets: 
+  js/chunk-vendors.a9daa616.js (1.02 MiB)
+
+ warning  
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+Entrypoints:
+  app (1.24 MiB)
+      css/chunk-vendors.10dd4e95.css
+      js/chunk-vendors.a9daa616.js
+      css/app.d45c49a8.css
+      js/app.ccd4ee14.js
+
+
+  File                                   Size              Gzipped
+
+  dist\js\chunk-vendors.a9daa616.js      1039.53 KiB       295.71 KiB
+  dist\js\app.ccd4ee14.js                25.69 KiB         9.94 KiB
+  dist\js\748.f87fdeb2.js                20.34 KiB         6.52 KiB
+  dist\js\991.51004c4c.js                18.80 KiB         5.64 KiB
+  dist\js\678.0b3482d5.js                14.41 KiB         5.12 KiB
+  dist\js\955.ccce3784.js                13.45 KiB         4.51 KiB
+  dist\js\56.ffe691a7.js                 12.22 KiB         4.55 KiB
+  dist\js\635.5993c193.js                9.42 KiB          3.29 KiB
+  dist\js\273.1f7e7075.js                8.95 KiB          3.25 KiB
+  dist\js\643.9fc39c88.js                7.98 KiB          3.21 KiB
+  dist\js\334.76548c4c.js                6.69 KiB          2.80 KiB
+  dist\js\4.17f8cbe6.js                  4.93 KiB          1.99 KiB
+  dist\js\395.6bae1693.js                0.94 KiB          0.61 KiB
+  dist\css\chunk-vendors.10dd4e95.css    206.20 KiB        33.51 KiB
+  dist\css\748.cec14d04.css              10.14 KiB         2.58 KiB
+  dist\css\56.9797e9df.css               7.09 KiB          1.94 KiB
+  dist\css\991.32bc7abc.css              5.28 KiB          1.47 KiB
+  dist\css\955.57590223.css              4.63 KiB          1.36 KiB
+  dist\css\635.329981ae.css              4.36 KiB          1.26 KiB
+  dist\css\273.092d6a9f.css              3.71 KiB          1.15 KiB
+  dist\css\678.76011765.css              3.56 KiB          1.17 KiB
+  dist\css\334.aa217d47.css              3.22 KiB          1.04 KiB
+  dist\css\4.3b2eb6b6.css                2.15 KiB          0.79 KiB
+  dist\css\643.eeba0daf.css              1.87 KiB          0.66 KiB
+  dist\css\app.d45c49a8.css              0.66 KiB          0.43 KiB
+  dist\css\395.f1e9556a.css              0.50 KiB          0.27 KiB
+
+  Images and other types of assets omitted.
+  Build at: 2026-10-14T12:15:22.669Z - Hash: be1397aa233a2192 - Time: 55810ms
+
+ DONE  Build complete. The dist directory is ready to be deployed.
+ INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
+       

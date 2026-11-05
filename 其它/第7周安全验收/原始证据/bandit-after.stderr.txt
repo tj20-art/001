@@ -1,0 +1,5 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[json]	INFO	JSON output written to file: C:\Users\r7000\PycharmProjects\PythonProject1\其它\第7周安全验收\原始证据\bandit-after.json
