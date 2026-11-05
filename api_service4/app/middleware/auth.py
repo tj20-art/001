@@ -127,7 +127,7 @@ def jwt_required(f):
         if reason == "invalid":
             return error(401, "无效令牌，请重新登录")
 
-        current_user = user_auth.get_user_by_id(payload.get("user_id"))
+        current_user = user_auth.get_auth_state_by_id(payload.get("user_id"))
         if not current_user:
             return error(401, "用户不存在、已禁用或登录状态已失效")
         if not _token_version_matches(payload, current_user):
@@ -148,7 +148,7 @@ def optional_jwt(f):
         g.user = None
         payload, reason = _decode_bearer_token()
         if reason is None and payload:
-            current_user = user_auth.get_user_by_id(payload.get("user_id"))
+            current_user = user_auth.get_auth_state_by_id(payload.get("user_id"))
             if current_user and _token_version_matches(payload, current_user):
                 payload["role"] = current_user["role"]
                 payload["username"] = current_user["username"]

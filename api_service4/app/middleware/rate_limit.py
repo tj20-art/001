@@ -7,6 +7,7 @@
 
 from functools import wraps
 from threading import Lock
+import os
 import time
 
 import jwt
@@ -108,9 +109,21 @@ def rate_limit(max_requests, window_seconds=60, scope="route", key_prefix="defau
     return decorator
 
 
+def get_rate_limit_settings():
+    """Return the same startup settings used when route decorators are built."""
+    performance_mode = os.getenv("PERF_TEST_MODE") == "1"
+    return {
+        "performance_test_mode": performance_mode,
+        "login_max_requests": 10000 if performance_mode else 10,
+        "common_max_requests": 6000 if performance_mode else 60,
+    }
+
+
 def login_rate_limit():
     # Authentication attempts share a peer-IP budget, regardless of bearer headers.
-    return rate_limit(max_requests=10, window_seconds=300, scope="route", key_prefix="login", identity_scope="ip")
+    # Set before starting the local benchmark server; decorators bind at startup.
+    maximum = get_rate_limit_settings()["login_max_requests"]
+    return rate_limit(max_requests=maximum, window_seconds=300, scope="route", key_prefix="login", identity_scope="ip")
 
 
 def register_rate_limit():
@@ -120,7 +133,8 @@ def register_rate_limit():
 
 def common_api_rate_limit():
     # 普通接口：按用户 + 路由统计，1 分钟最多 60 次
-    return rate_limit(max_requests=60, window_seconds=60, scope="route", key_prefix="common")
+    maximum = get_rate_limit_settings()["common_max_requests"]
+    return rate_limit(max_requests=maximum, window_seconds=60, scope="route", key_prefix="common")
 
 
 def admin_api_rate_limit():

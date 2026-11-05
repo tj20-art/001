@@ -8,6 +8,7 @@ import pymysql
 
 from api_service4.config.init import get_config
 from api_service4.app.utils.singleton import Singleton
+from api_service4.app.services.read_pool import ReadConnectionPool
 from api_service4.app.services.gm_crypto import (
     CertificateAlgorithmMismatchError,
     CertificateExpiredError,
@@ -47,6 +48,7 @@ class UserAuthSystem(Singleton):
 
         self.use_mysql = hasattr(self._config, "USE_MYSQL") and self._config.USE_MYSQL
         self.db_config = self._config.MYSQL_CONFIG if self.use_mysql else {"path": db_path or self._config.USER_DB_PATH}
+        self._read_pool = ReadConnectionPool(self.db_config) if self.use_mysql else None
         self.jwt_secret = jwt_secret
         self.conn = None
         self.cursor = None
@@ -416,8 +418,31 @@ class UserAuthSystem(Singleton):
             self.logger.error(f"查询用户 {username} 失败: {str(e)}")
             return None
 
+    def get_auth_state_by_id(self, user_id):
+        """Fresh authorization state without decrypting unrelated profile data."""
+        if self._read_pool is None:
+            return self.get_user_by_id(user_id)
+        try:
+            with self._read_pool.cursor() as cursor:
+                cursor.execute(
+                    "SELECT id, username, role, auth_version, totp_enabled FROM users WHERE id = %s AND is_active = 1",
+                    (user_id,),
+                )
+                return cursor.fetchone()
+        except Exception as exc:
+            self.logger.error('读取账号授权状态失败: %s', exc)
+            return None
+
     def get_user_by_id(self, user_id, include_private_key=False):
         try:
+            if self._read_pool is not None:
+                fields = "id, username, phone, role, is_active, created_at, sm2_public_key, totp_enabled, auth_version"
+                if include_private_key:
+                    fields += ", sm2_private_key"
+                with self._read_pool.cursor() as cursor:
+                    cursor.execute(f"SELECT {fields} FROM users WHERE id = %s AND is_active = 1", (user_id,))
+                    user = cursor.fetchone()
+                return self._row_to_user_dict(user, include_private_key=include_private_key)
             with self._db_lock:
                 fields = "id, username, phone, role, is_active, created_at, sm2_public_key, totp_enabled, auth_version"
                 if include_private_key:
@@ -723,6 +748,8 @@ class UserAuthSystem(Singleton):
             return False
 
     def close(self):
+        if getattr(self, '_read_pool', None):
+            self._read_pool.close()
         if self.conn:
             self.conn.close()
             self.logger.info("数据库连接已关闭")

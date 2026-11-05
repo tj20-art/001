@@ -11,6 +11,7 @@ from api_service4.app.api.v1.payments import payments_bp
 from api_service4.app.api.v1.products import products_bp
 from api_service4.app.api.v1.users import users_bp
 from api_service4.app.api.v1.security import security_bp
+from api_service4.app.middleware.rate_limit import get_rate_limit_settings
 from api_service4.app.services.security_control import SecurityControlSystem
 from api_service4.app.services.security_tunnel import decrypt_flask_request, encrypt_flask_response
 from api_service4.app.services.security_tunnel_policy import requires_security_tunnel
@@ -123,16 +124,28 @@ app.register_blueprint(payments_bp)
 app.register_blueprint(security_bp)
 
 
+def serve_application(*, host, port, ssl_context=None):
+    from api_service4.app.services.wsgi_runtime import serve
+    serve(app,host=host,port=port,ssl_context=ssl_context)
+
+
 if __name__ == "__main__":
+    rate_settings = get_rate_limit_settings()
+    print(
+        f"性能测试模式：{'开启' if rate_settings['performance_test_mode'] else '关闭'}；"
+        f"登录限额：{rate_settings['login_max_requests']}次/300秒（同一IP）；"
+        f"普通接口限额：{rate_settings['common_max_requests']}次/60秒（按用户/路由）",
+        flush=True,
+    )
     ssl_context = None
     if config.HTTPS_ENABLED:
         if config.TLS_CERT_PATH and config.TLS_KEY_PATH:
             ssl_context = (config.TLS_CERT_PATH, config.TLS_KEY_PATH)
         else:
             ssl_context = "adhoc"
-    app.run(
-        host=os.getenv("API_BIND_HOST", "127.0.0.1"),
-        port=config.PORT,
-        debug=os.getenv("FLASK_DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"},
-        ssl_context=ssl_context,
-    )
+    if os.getenv("FLASK_DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"}:
+        app.run(host=os.getenv("API_BIND_HOST", "127.0.0.1"),port=config.PORT,
+                debug=True,ssl_context=ssl_context)
+    else:
+        serve_application(host=os.getenv("API_BIND_HOST", "127.0.0.1"),
+                          port=config.PORT,ssl_context=ssl_context)

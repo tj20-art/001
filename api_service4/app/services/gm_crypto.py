@@ -5,7 +5,6 @@ import shutil
 import subprocess
 import tempfile
 from datetime import datetime, timedelta, timezone
-from email.utils import parsedate_to_datetime
 from functools import lru_cache
 from typing import Optional, Tuple
 
@@ -248,8 +247,17 @@ def _verify_certificate_with_openssl(
     enforce_gm: bool = False,
 ):
     cert, cert_pem = _load_certificate_any_format(cert_pem_or_bytes)
-    _, root_cert_pem_bytes = _load_certificate_any_format(root_cert_pem)
+    root_cert, root_cert_pem_bytes = _load_certificate_any_format(root_cert_pem)
     _check_certificate_validity(cert)
+    if cert.issuer != root_cert.subject:
+        raise CertificateIssuerMismatchError("证书签发者与 Root CA 不匹配")
+
+    if expected_username:
+        attrs = cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
+        if not attrs:
+            raise CertificateFormatError("证书中缺少 CN 字段")
+        if attrs[0].value.strip() != expected_username:
+            raise CertificateUsernameMismatchError("证书用户名与系统用户不匹配")
 
     with tempfile.TemporaryDirectory() as tmpdir:
         cert_path = os.path.join(tmpdir, "user.crt")
@@ -267,22 +275,14 @@ def _verify_certificate_with_openssl(
         if "OK" not in verify_stdout:
             raise CertificateVerificationError("证书签名校验失败")
 
-        subject_line = _run_openssl(["x509", "-noout", "-subject", "-in", cert_path]).decode("utf-8", errors="ignore")
-        issuer_line = _run_openssl(["x509", "-noout", "-issuer", "-in", cert_path]).decode("utf-8", errors="ignore")
-        root_subject_line = _run_openssl(["x509", "-noout", "-subject", "-in", root_path]).decode("utf-8", errors="ignore")
-        dates_text = _run_openssl(["x509", "-noout", "-dates", "-in", cert_path]).decode("utf-8", errors="ignore")
-        cert_pubkey = _run_openssl(["x509", "-pubkey", "-noout", "-in", cert_path]).decode("utf-8", errors="ignore")
-        cert_text = _run_openssl(["x509", "-text", "-noout", "-in", cert_path]).decode("utf-8", errors="ignore")
-
-    if issuer_line.split("=", 1)[-1].strip() != root_subject_line.split("=", 1)[-1].strip():
-        raise CertificateIssuerMismatchError("证书签发者与 Root CA 不匹配")
-
-    if expected_username:
-        cert_cn = _extract_cn_from_subject_line(subject_line)
-        if not cert_cn:
-            raise CertificateFormatError("证书中缺少 CN 字段")
-        if cert_cn != expected_username:
-            raise CertificateUsernameMismatchError("证书用户名与系统用户不匹配")
+    # SM2 public-key export is not supported by all cryptography builds. Obtain
+    # it and the algorithm description in one OpenSSL invocation. Chain/signature
+    # verification above still runs on every login; no authentication is cached.
+    cert_text = _run_openssl(["x509", "-pubkey", "-text", "-noout"], input_bytes=cert_pem).decode("utf-8", errors="strict")
+    match = re.search(r"-----BEGIN PUBLIC KEY-----.*?-----END PUBLIC KEY-----", cert_text, re.DOTALL)
+    if not match:
+        raise CertificateFormatError("无法导出证书公钥")
+    cert_pubkey = match.group(0)
 
     if expected_public_key_pem:
         if _normalize_pem_text(cert_pubkey) != _normalize_pem_text(expected_public_key_pem):
@@ -292,23 +292,6 @@ def _verify_certificate_with_openssl(
         upper_text = cert_text.upper()
         if "SM2" not in upper_text or "SM3" not in upper_text:
             raise CertificateAlgorithmMismatchError("当前证书不是 SM2/SM3 体系")
-
-    not_before = None
-    not_after = None
-    for line in dates_text.splitlines():
-        if line.startswith("notBefore="):
-            not_before = parsedate_to_datetime(line.split("=", 1)[1].strip())
-        elif line.startswith("notAfter="):
-            not_after = parsedate_to_datetime(line.split("=", 1)[1].strip())
-
-    if not_before and not_after:
-        now = datetime.now(timezone.utc)
-        not_before = not_before.astimezone(timezone.utc)
-        not_after = not_after.astimezone(timezone.utc)
-        if now < not_before:
-            raise CertificateNotYetValidError("证书尚未生效")
-        if now > not_after:
-            raise CertificateExpiredError("证书已过期")
 
     return cert, cert_pem
 

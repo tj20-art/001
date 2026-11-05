@@ -7,6 +7,7 @@ import pymysql
 
 from api_service4.app.utils.singleton import Singleton
 from api_service4.config.init import get_config
+from api_service4.app.services.read_pool import ReadConnectionPool
 
 
 class CartOrderSystem(Singleton):
@@ -25,6 +26,7 @@ class CartOrderSystem(Singleton):
             self.logger.addHandler(handler)
 
         self.db_config = self._config.MYSQL_CONFIG
+        self._read_pool = ReadConnectionPool(self.db_config)
         self.conn = None
         self.cursor = None
         try:
@@ -243,10 +245,9 @@ class CartOrderSystem(Singleton):
         WHERE c.user_id = %s
         ORDER BY c.id DESC
         """
-        with self._db_lock:
-            self.cursor.execute(query, (user_id,))
-            rows = self.cursor.fetchall()
-            self.conn.commit()
+        with self._read_pool.cursor() as cursor:
+            cursor.execute(query, (user_id,))
+            rows = cursor.fetchall()
         return [self._normalize_cart_item(row) for row in rows]
 
     def update_cart_item(self, cart_item_id, user_id, quantity=None, selected=None):
@@ -438,21 +439,19 @@ class CartOrderSystem(Singleton):
         return [self._normalize_order_row(row) for row in orders]
 
     def get_order_detail(self, order_id, user_id):
-        with self._db_lock:
-            self.cursor.execute(
+        with self._read_pool.cursor(consistent=True) as cursor:
+            cursor.execute(
                 "SELECT id, order_no, user_id, total_amount_cents, status, created_at, pay_time, cancel_time, bank_trade_no, paid_amount_cents, payment_notify_time FROM orders WHERE id = %s AND user_id = %s",
                 (order_id, user_id),
             )
-            order = self.cursor.fetchone()
+            order = cursor.fetchone()
             if not order:
-                self.conn.commit()
                 return None
-            self.cursor.execute(
+            cursor.execute(
                 "SELECT id, order_id, product_id, seller_id, product_name, price_cents, quantity FROM order_items WHERE order_id = %s ORDER BY id ASC",
                 (order_id,),
             )
-            items = self.cursor.fetchall()
-            self.conn.commit()
+            items = cursor.fetchall()
         order_data = self._normalize_order_row(order)
         order_data["items"] = [self._normalize_order_item(item) for item in items]
         return order_data
@@ -558,6 +557,8 @@ class CartOrderSystem(Singleton):
             return False, f"取消订单失败: {str(exc)}"
 
     def close(self):
+        if getattr(self, '_read_pool', None):
+            self._read_pool.close()
         if self.conn:
             self.conn.close()
             self.logger.info("购物车/订单数据库连接已关闭")

@@ -5,6 +5,7 @@ from typing import Any, Dict, Tuple
 
 from gmssl import sm2, func
 from gmssl.sm4 import CryptSM4, SM4_ENCRYPT, SM4_DECRYPT
+from api_service4.app.services.native_sm2 import native_sm2_backend
 
 
 SIGN_RAW_TEMPLATE = "{order_no}|{amount_cents}|{merchant_id}|{timestamp}|{nonce}"
@@ -75,6 +76,10 @@ def sm2_encrypt(public_key_hex: str, plaintext: bytes) -> str:
 def sm2_decrypt(private_key_hex: str, ciphertext_hex: str) -> bytes:
     private_key = _normalize_hex(private_key_hex)
     ciphertext = bytes.fromhex(_normalize_hex(ciphertext_hex))
+    native = native_sm2_backend()
+    if native is not None:
+        # Invalid ciphertext must fail here, never retry via a weaker backend.
+        return native.decrypt(private_key, ciphertext)
     crypt_sm2 = sm2.CryptSM2(public_key="", private_key=private_key)
     return crypt_sm2.decrypt(ciphertext)
 

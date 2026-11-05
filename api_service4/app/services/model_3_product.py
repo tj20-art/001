@@ -7,6 +7,7 @@ import pymysql
 
 from api_service4.app.utils.singleton import Singleton
 from api_service4.config.init import get_config
+from api_service4.app.services.read_pool import ReadConnectionPool
 
 
 class ProductSystem(Singleton):
@@ -25,6 +26,7 @@ class ProductSystem(Singleton):
             self.logger.addHandler(handler)
 
         self.db_config = self._config.MYSQL_CONFIG
+        self._read_pool = ReadConnectionPool(self.db_config)
         self.conn = None
         self.cursor = None
         try:
@@ -253,11 +255,9 @@ class ProductSystem(Singleton):
             query += " AND status = 'on_sale'"
 
         query += " ORDER BY id DESC"
-        with self._db_lock:
-            self.cursor.execute(query, params)
-            rows = self.cursor.fetchall()
-            # 关键修复：读完立即提交，结束只读事务，避免后续一直读取旧库存快照
-            self.conn.commit()
+        with self._read_pool.cursor() as cursor:
+            cursor.execute(query, params)
+            rows = cursor.fetchall()
         return [self._clean_product_row(row) for row in rows]
 
     def get_product_by_id(self, product_id, current_user_id=None, include_off_shelf=False):
@@ -371,6 +371,8 @@ class ProductSystem(Singleton):
         return self.update_product_for_seller(product_id, seller_id, status="off_shelf")
 
     def close(self):
+        if getattr(self, '_read_pool', None):
+            self._read_pool.close()
         if self.conn:
             self.conn.close()
             self.logger.info("商品数据库连接已关闭")
