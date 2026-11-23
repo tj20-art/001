@@ -1,37 +1,36 @@
 <template>
   <header class="common-header">
     <div class="topbar">
-      <div class="brand" @click="$router.push('/home')">
-        <div class="brand-mark">FS</div>
-        <div class="brand-text">
-          <strong>FreeSpace Mall</strong>
-          <span>可信身份 · 安全交易</span>
-        </div>
+      <RouterLink class="brand" to="/home" aria-label="FreeSpace Mall 商城首页">
+        <span class="brand-mark" aria-hidden="true">FS</span>
+        <strong>FreeSpace Mall</strong>
+      </RouterLink>
+      <nav class="nav-center" aria-label="商城导航">
+        <RouterLink to="/home" class="nav-link">商城首页</RouterLink>
+        <template v-if="isAuthenticated">
+          <RouterLink v-if="canManageProducts" to="/my-products" class="nav-link">商品管理</RouterLink>
+          <RouterLink v-if="isAdmin" to="/cart-management" class="nav-link">购物车管理</RouterLink>
+          <RouterLink v-if="canShop" to="/orders" class="nav-link">我的订单</RouterLink>
+          <RouterLink v-if="isAdmin" to="/user-list" class="nav-link">用户管理</RouterLink>
+          <RouterLink v-if="isAdmin || isAuditor" to="/security-center" class="nav-link">安全审计</RouterLink>
+        </template>
+      </nav>
+      <div v-if="!isAuthenticated" class="actions">
+        <RouterLink to="/user-login" class="account-link">登录</RouterLink>
+        <RouterLink to="/user-register" class="register-link">注册</RouterLink>
       </div>
-
-      <div class="nav-center">
-        <router-link to="/home" class="nav-link">商城首页</router-link>
-        <router-link v-if="isAuthenticated" :to="`/profile/${userId}`" class="nav-link">个人中心</router-link>
-        <router-link v-if="canManageProducts" to="/my-products" class="nav-link">商品管理</router-link>
-        <router-link v-if="canShop" to="/orders" class="nav-link">我的订单</router-link>
-        <router-link v-if="isAdmin" to="/user-list" class="nav-link">用户管理</router-link>
-        <router-link v-if="isAdmin || isAuditor" to="/security-center" class="nav-link">安全审计</router-link>
-      </div>
-
-      <div class="actions" v-if="!isAuthenticated">
-        <router-link to="/user-login" class="ghost-link">登录</router-link>
-        <el-button type="primary" size="small" round @click="$router.push('/user-register')">立即注册</el-button>
-      </div>
-
-      <div class="actions" v-else>
-        <router-link v-if="canShop" to="/cart" class="cart-link">
+      <div v-else class="actions">
+        <RouterLink v-if="canShop" to="/cart" class="cart-link" aria-label="购物车">
           <el-badge :value="cartCount" :hidden="!cartCount" :max="99">
-            <i class="el-icon-shopping-cart-2"></i>
+            <el-icon aria-hidden="true"><ShoppingCart /></el-icon>
           </el-badge>
-        </router-link>
-        <el-tag size="mini" :type="roleTagType">{{ roleLabel }}</el-tag>
-        <div class="welcome">你好，{{ username }}</div>
-        <el-button type="text" @click="handleLogout">退出</el-button>
+        </RouterLink>
+        <RouterLink :to="'/profile/' + userId" :aria-label="'个人中心，' + username" class="account-link">
+          <span class="account-name">{{ username }}</span>
+          <span class="account-compact">我的</span>
+        </RouterLink>
+        <el-tag class="role-tag" size="small" :type="roleTagType">{{ roleLabel }}</el-tag>
+        <button class="sign-out" type="button" @click="handleLogout">退出</button>
       </div>
     </div>
   </header>
@@ -54,7 +53,7 @@ export default {
       return labels[this.user?.role] || '访客'
     },
     roleTagType() {
-      return { user: 'success', merchant: '', admin: 'warning', auditor: 'info' }[this.user?.role] || 'info'
+      return { user: 'success', merchant: 'primary', admin: 'warning', auditor: 'info' }[this.user?.role] || 'info'
     }
   },
   methods: {
@@ -68,7 +67,7 @@ export default {
         .then(() => {
           this.LOGOUT()
           this.$message.success('已安全退出')
-          this.$router.push('/user-login')
+          return this.$router.replace('/user-login')
         })
         .catch(() => {})
     }
@@ -76,124 +75,158 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .common-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background: rgba(12, 23, 36, 0.88);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: #fffdf9;
+  border-bottom: 1px solid var(--mall-border);
 }
-
 .topbar {
   max-width: 1280px;
-  margin: 0 auto;
-  min-height: 72px;
-  padding: 0 24px;
+  min-height: 64px;
+  margin: auto;
+  padding: 8px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  gap: 20px;
 }
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #409eff, #7c4dff);
-  color: #fff;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 18px rgba(64, 158, 255, 0.32);
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  strong {
-    color: #fff;
-    font-size: 17px;
-    line-height: 1.2;
-  }
-
-  span {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 12px;
-    margin-top: 2px;
-  }
-}
-
-.nav-center {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex: 1;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.nav-link,
-.ghost-link,
-.cart-link {
-  color: rgba(255, 255, 255, 0.86);
-  text-decoration: none;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.nav-link:hover,
-.ghost-link:hover,
-.cart-link:hover {
-  color: #ffffff;
-}
-
-.cart-link {
-  font-size: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.brand,
+.nav-center,
 .actions {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
-
-.welcome {
-  color: #fff;
+.brand {
+  flex: none;
+  gap: 8px;
+  font-size: 16px;
+  letter-spacing: -0.025em;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--mall-accent);
+  color: white;
+  font-size: 13px;
+}
+.nav-center {
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+.nav-link {
+  min-height: 36px;
+  padding: 8px 6px;
+  color: var(--mall-muted);
   font-size: 14px;
-  max-width: 180px;
+  border-bottom: 2px solid transparent;
+}
+.nav-link:hover,
+.nav-link.router-link-active {
+  color: var(--mall-accent);
+}
+.nav-link.router-link-active {
+  border-color: var(--mall-accent);
+}
+.actions {
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.account-link,
+.sign-out,
+.register-link,
+.cart-link {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 14px;
   white-space: nowrap;
+}
+.account-name {
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-@media screen and (max-width: 960px) {
+.account-compact {
+  display: none;
+}
+.sign-out {
+  border: 0;
+  background: transparent;
+  color: var(--mall-muted);
+  cursor: pointer;
+}
+.register-link {
+  background: var(--mall-accent);
+  border-radius: 8px;
+  color: white;
+  padding-inline: 12px;
+}
+.cart-link {
+  width: 34px;
+  font-size: 21px;
+}
+.cart-link :deep(.el-badge) {
+  display: inline-flex;
+}
+.role-tag {
+  flex: none;
+}
+@media (max-width: 820px) {
   .topbar {
     flex-wrap: wrap;
-    padding: 14px 16px;
+    gap: 0 12px;
+    padding-inline: 16px;
   }
-
   .nav-center {
-    order: 3;
-    width: 100%;
     justify-content: flex-start;
-    gap: 14px;
-    padding-bottom: 6px;
+    order: 3;
+    flex: 1 0 100%;
+  }
+}
+@media (max-width: 510px) {
+  .topbar {
+    column-gap: 4px;
+  }
+  .brand {
+    font-size: 14px;
+    gap: 6px;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+  }
+  .actions {
+    gap: 2px;
+  }
+  .account-name,
+  .role-tag {
+    display: none;
+  }
+  .account-compact {
+    display: inline;
+  }
+  .nav-link {
+    font-size: 13px;
+  }
+}
+@media (max-width: 350px) {
+  .cart-link {
+    width: 26px;
+  }
+  .sign-out,
+  .account-link {
+    padding-inline: 3px;
   }
 }
 </style>

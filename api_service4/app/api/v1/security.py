@@ -42,12 +42,16 @@ PERMISSION_MATRIX = {
         ],
     },
     "admin": {
-        "description": "管理员，管理用户与全站商品，登录必须完成 TOTP",
+        "description": "管理员，管理用户、全站商品和购物车，登录必须完成 TOTP",
         "permissions": [
             "user:read:any",
             "user:role:update",
             "user:delete:any",
             "product:*:any",
+            "cart:read:any",
+            "cart:update-quantity:any",
+            "cart:remove:any",
+            "cart:clear:any",
             "audit:read",
             "audit:export",
             "certificate:issue",

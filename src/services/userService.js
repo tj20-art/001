@@ -22,8 +22,9 @@ export const getUserInfo = (userId) => {
   })
 }
 
-export const getUserList = (params) => {
+export const getUserList = (params, config = {}) => {
   return apiClient({
+    ...config,
     url: '/api/v1/users',
     method: 'GET',
     params

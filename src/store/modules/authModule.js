@@ -1,4 +1,5 @@
 import { enrollMfaApi, loginByCert as loginByCertApi, refreshTokenApi, verifyMfaApi } from '@/services/authService'
+import message from '@/utils/message'
 import {
   setAccessToken,
   getAccessToken,
@@ -48,15 +49,17 @@ const initialRefreshToken = getRefreshToken()
 
 const state = {
   isAuthenticated: !!initialAccessToken && !isTokenExpired(initialAccessToken),
+  sessionVersion: 0,
   user: normalizeUser(null, initialAccessToken),
   accessToken: initialAccessToken || null,
   refreshToken: initialRefreshToken || null
 }
 
 const mutations = {
-  SET_AUTH_DATA(state, { user, accessToken, refreshToken }) {
+  SET_AUTH_DATA(state, { user, accessToken, refreshToken, newSession = false }) {
     const normalizedUser = normalizeUser(user || state.user, accessToken || state.accessToken)
 
+    if (newSession) state.sessionVersion += 1
     state.user = normalizedUser || null
     state.accessToken = accessToken || null
     state.refreshToken = refreshToken || null
@@ -87,6 +90,7 @@ const mutations = {
   },
 
   LOGOUT(state) {
+    state.sessionVersion += 1
     state.isAuthenticated = false
     state.user = null
     state.accessToken = null
@@ -109,7 +113,8 @@ const actions = {
     commit('SET_AUTH_DATA', {
       user: userInfo,
       accessToken: res.data.access_token,
-      refreshToken: res.data.refresh_token
+      refreshToken: res.data.refresh_token,
+      newSession: true
     })
     return res
   },
@@ -122,21 +127,27 @@ const actions = {
     commit('SET_AUTH_DATA', {
       user: userInfo,
       accessToken: res.data.access_token,
-      refreshToken: res.data.refresh_token
+      refreshToken: res.data.refresh_token,
+      newSession: true
     })
     return res
   },
 
   async refreshToken({ state, commit }) {
     const currentUser = normalizeUser(state.user, state.accessToken)
-    if (!state.refreshToken || !currentUser || !currentUser.id) {
+    const { refreshToken, sessionVersion } = state
+    if (!refreshToken || !currentUser || !currentUser.id) {
       throw new Error('缺少刷新令牌，请重新登录')
     }
 
     const res = await refreshTokenApi({
       user_id: currentUser.id,
-      refresh_token: state.refreshToken
+      refresh_token: refreshToken
     })
+
+    if (state.sessionVersion !== sessionVersion || state.refreshToken !== refreshToken) {
+      throw new Error('登录状态已变更')
+    }
 
     if (!res || res.code !== 0 || !res.data || !res.data.access_token) {
       throw new Error((res && res.message) || '刷新令牌失败')
@@ -167,15 +178,14 @@ const actions = {
     }
 
     if (state.refreshToken && normalizedUser) {
+      const sessionVersion = state.sessionVersion
       try {
-        const newAccessToken = await dispatch('refreshToken')
-        commit('SET_AUTH_DATA', {
-          user: normalizedUser,
-          accessToken: newAccessToken,
-          refreshToken: state.refreshToken
-        })
+        await dispatch('refreshToken')
       } catch (error) {
-        commit('LOGOUT')
+        if (state.sessionVersion === sessionVersion) {
+          commit('LOGOUT')
+          message.warning('登录状态已失效，请重新登录')
+        }
       }
       return
     }

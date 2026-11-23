@@ -6,14 +6,13 @@
       <section class="page-head section-card">
         <div>
           <h1>我的订单</h1>
-          <p>订单列表、详情和取消订单都已经对齐后端接口，并且只读取当前用户自己的订单数据。</p>
         </div>
         <div class="head-actions">
           <el-select
             v-model="statusFilter"
             clearable
             placeholder="订单状态"
-            @change="fetchOrders"
+            @change="fetchOrders(1)"
             class="status-select"
           >
             <el-option label="全部订单" value="" />
@@ -28,15 +27,16 @@
       <section class="summary-grid">
         <div class="summary-card section-card">
           <span>订单总数</span>
-          <strong>{{ orderList.length }}</strong>
+          <strong>{{ summary.total ?? 0 }}</strong>
         </div>
         <div class="summary-card section-card">
           <span>待支付</span>
-          <strong>{{ pendingCount }}</strong>
+          <strong>{{ summary.pending ?? 0 }}</strong>
         </div>
       </section>
 
       <app-loading v-if="loading" />
+      <ListError v-else-if="loadError" :message="loadError" @retry="fetchOrders()" />
 
       <section v-else class="order-list-wrap">
         <div v-if="orderList.length" class="order-grid">
@@ -63,6 +63,7 @@
                 type="success"
                 plain
                 :loading="payingOrderId === order.id"
+                :disabled="payingOrderId !== null"
                 @click="handleStartPayment(order)"
                 >去支付</el-button
               >
@@ -74,14 +75,24 @@
         </div>
 
         <div v-else class="empty-wrap section-card">
-          <el-empty description="还没有订单记录，先去购物车提交订单吧">
+          <el-empty :description="statusFilter ? '没有符合条件的订单' : '还没有订单记录'">
             <el-button type="primary" @click="$router.push('/cart')">前往购物车</el-button>
           </el-empty>
+        </div>
+        <div v-if="total > pageSize" class="pagination-bar">
+          <el-pagination
+            :current-page="page"
+            :page-size="pageSize"
+            :total="total"
+            layout="prev, pager, next"
+            :pager-count="5"
+            @current-change="fetchOrders"
+          />
         </div>
       </section>
     </main>
 
-    <el-dialog title="订单详情" :visible.sync="detailVisible" width="860px">
+    <el-dialog title="订单详情" v-model="detailVisible" width="860px">
       <div v-if="currentOrder" class="detail-panel">
         <div class="detail-top">
           <div class="detail-item">
@@ -100,11 +111,11 @@
           <el-table-column label="商品名称" prop="product_name" min-width="200" />
           <el-table-column label="卖家ID" prop="seller_id" width="100" align="center" />
           <el-table-column label="单价" width="120" align="center">
-            <template slot-scope="scope">{{ formatPrice(scope.row.price) }}</template>
+            <template #default="scope">{{ formatPrice(scope.row.price) }}</template>
           </el-table-column>
           <el-table-column label="数量" prop="quantity" width="100" align="center" />
           <el-table-column label="小计" width="120" align="center">
-            <template slot-scope="scope">{{ formatPrice(scope.row.subtotal) }}</template>
+            <template #default="scope">{{ formatPrice(scope.row.subtotal) }}</template>
           </el-table-column>
         </el-table>
       </div>
@@ -113,13 +124,20 @@
 </template>
 
 <script>
-import CommonHeader from '@/components/CommonHeader'
-import AppLoading from '@/components/AppLoading'
-import { mapActions, mapState, mapGetters } from 'vuex'
+import CommonHeader from '@/components/CommonHeader.vue'
+import AppLoading from '@/components/AppLoading.vue'
+import ListError from '@/components/ListError.vue'
+import { mapActions, mapState } from 'vuex'
+import { getOrderList } from '@/services/orderService'
+import { usePagedList } from '@/utils/usePagedList'
 
 export default {
   name: 'OrderList',
-  components: { CommonHeader, AppLoading },
+  components: { CommonHeader, AppLoading, ListError },
+  setup() {
+    const { items: orderList, ...list } = usePagedList(getOrderList, 'order_list')
+    return { orderList, ...list }
+  },
   data() {
     return {
       statusFilter: '',
@@ -128,29 +146,33 @@ export default {
     }
   },
   computed: {
-    ...mapState('orderModule', ['orderList', 'currentOrder']),
-    ...mapGetters('orderModule', ['pendingOrderCount', 'isOrderLoading']),
-    loading() {
-      return this.isOrderLoading
-    },
-    pendingCount() {
-      return this.pendingOrderCount
-    }
+    ...mapState('orderModule', ['currentOrder'])
+  },
+  watch: {
+    '$route.query.order': 'openLinkedOrder'
   },
   mounted() {
     this.fetchOrders()
+    this.openLinkedOrder(this.$route.query.order)
   },
   methods: {
-    ...mapActions('orderModule', ['fetchOrderList', 'fetchOrderDetail', 'cancelOrder', 'startPayment']),
-    async fetchOrders() {
-      await this.fetchOrderList({ status: this.statusFilter || undefined })
+    ...mapActions('orderModule', ['fetchOrderDetail', 'cancelOrder', 'startPayment']),
+    fetchOrders(page = this.page) {
+      return this.fetchPage({ status: this.statusFilter || undefined }, page)
+    },
+    openLinkedOrder(orderId) {
+      if (typeof orderId === 'string' && /^[1-9]\d*$/.test(orderId)) this.openOrderDetail(orderId)
     },
     async openOrderDetail(orderId) {
-      await this.fetchOrderDetail(orderId)
-      this.detailVisible = true
+      try {
+        await this.fetchOrderDetail(orderId)
+        this.detailVisible = true
+      } catch {
+        // The API client reports the failure.
+      }
     },
     async handleStartPayment(order) {
-      if (!order || order.status !== 'pending') return
+      if (!order || order.status !== 'pending' || this.payingOrderId !== null) return
       this.payingOrderId = order.id
       try {
         const response = await this.startPayment(order.id)
@@ -160,6 +182,8 @@ export default {
           return
         }
         window.location.href = payUrl
+      } catch {
+        // The API client reports payment start failures.
       } finally {
         this.payingOrderId = null
       }
@@ -227,7 +251,7 @@ export default {
 
 .page-head p {
   margin: 0;
-  color: #6b7280;
+  color: var(--mall-muted);
 }
 
 .head-actions {
@@ -253,7 +277,7 @@ export default {
 
 .summary-card span {
   display: block;
-  color: #6b7280;
+  color: var(--mall-muted);
   margin-bottom: 8px;
 }
 
@@ -263,7 +287,7 @@ export default {
 
 .order-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -280,13 +304,13 @@ export default {
 }
 
 .order-head strong {
-  color: #111827;
+  color: var(--mall-ink);
   word-break: break-all;
 }
 
 .order-head p {
   margin: 8px 0 0;
-  color: #6b7280;
+  color: var(--mall-muted);
   font-size: 13px;
 }
 
@@ -299,7 +323,7 @@ export default {
 
 .meta-item,
 .detail-item {
-  background: #f8fbff;
+  background: var(--mall-bg);
   border-radius: 16px;
   padding: 14px;
 }
@@ -307,14 +331,14 @@ export default {
 .meta-item span,
 .detail-item span {
   display: block;
-  color: #6b7280;
+  color: var(--mall-muted);
   font-size: 12px;
   margin-bottom: 6px;
 }
 
 .meta-item strong,
 .detail-item strong {
-  color: #111827;
+  color: var(--mall-ink);
 }
 
 .order-actions {

@@ -1,4 +1,3 @@
-/* global BigInt */
 import axios from 'axios'
 import { sm2 } from 'sm-crypto'
 

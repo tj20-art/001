@@ -1,23 +1,15 @@
 <template>
-  <div class="page-shell pay-result-page">
-    <common-header />
-
+  <div class="page-shell">
+    <CommonHeader />
     <main class="page-main pay-result-main">
       <section class="section-card result-card">
-        <el-result :icon="resultIcon" :title="resultTitle" :sub-title="resultMessage">
-          <template slot="extra">
-            <el-descriptions :column="1" border class="result-desc">
-              <el-descriptions-item label="订单号">{{ orderNo || '--' }}</el-descriptions-item>
-              <el-descriptions-item label="银行流水号">{{ bankTradeNo || '--' }}</el-descriptions-item>
-              <el-descriptions-item label="状态">{{ status || '--' }}</el-descriptions-item>
-            </el-descriptions>
-
-            <div v-if="!isAuthenticated" class="login-tip">
-              当前登录状态可能已丢失，但支付结果已返回。重新登录后可查看订单状态。
-            </div>
-
+        <el-result :icon="result.icon" :title="result.title" :sub-title="result.message">
+          <template #extra>
+            <p v-if="orderNo" class="order-reference">订单号 {{ orderNo }}</p>
             <div class="result-actions">
-              <el-button type="primary" @click="goOrders">查看订单</el-button>
+              <el-button v-if="!isAuthenticated && orderNo" type="primary" @click="signIn">登录查看状态</el-button>
+              <el-button v-else-if="orderId" type="primary" @click="goOrders">查看订单</el-button>
+              <el-button v-if="isAuthenticated && orderNo && canRetry" plain @click="checkStatus"> 重新查询 </el-button>
               <el-button plain @click="$router.push('/home')">继续购物</el-button>
             </div>
           </template>
@@ -27,89 +19,105 @@
   </div>
 </template>
 
-<script>
-import CommonHeader from '@/components/CommonHeader'
-import { mapActions, mapState } from 'vuex'
+<script setup>
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import CommonHeader from '@/components/CommonHeader.vue'
+import { getOrderStatus } from '@/services/orderService'
 
-export default {
-  name: 'PayResult',
-  components: { CommonHeader },
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+const orderNo = computed(() => (typeof route.query.order_no === 'string' ? route.query.order_no : ''))
+const isAuthenticated = computed(() => store.state.authModule.isAuthenticated)
+const orderId = ref(null)
+const state = ref('waiting')
+let activeRequest
+let timer
 
-  computed: {
-    ...mapState('authModule', ['isAuthenticated']),
+const results = {
+  waiting: { icon: 'info', title: '支付确认中', message: '正在查询商城订单的入账状态。' },
+  pending: { icon: 'info', title: '仍在等待确认', message: '可重新查询，或稍后在我的订单查看。' },
+  paid: { icon: 'success', title: '支付成功', message: '商城订单已确认入账。' },
+  cancelled: { icon: 'warning', title: '订单已取消', message: '请在我的订单查看详情。' },
+  unavailable: { icon: 'warning', title: '暂时无法确认', message: '请重新查询或前往我的订单。' },
+  missing: { icon: 'warning', title: '无法查询这笔订单', message: '请在我的订单查看支付状态。' },
+  signed_out: { icon: 'info', title: '支付结果待确认', message: '登录后可查询这笔订单的状态。' }
+}
+const result = computed(() => results[state.value])
+const canRetry = computed(() => ['pending', 'unavailable'].includes(state.value))
 
-    status() {
-      return this.$route.query.status || ''
-    },
+function stopChecking() {
+  clearTimeout(timer)
+  activeRequest?.abort()
+  activeRequest = undefined
+}
 
-    orderNo() {
-      return this.$route.query.order_no || ''
-    },
-
-    bankTradeNo() {
-      return this.$route.query.bank_trade_no || ''
-    },
-
-    resultIcon() {
-      return this.status === 'SUCCESS' ? 'success' : 'error'
-    },
-
-    resultTitle() {
-      return this.status === 'SUCCESS' ? '支付成功' : '支付失败'
-    },
-
-    resultMessage() {
-      return this.$route.query.message || '银行已返回支付结果，请稍后在订单列表确认最终状态。'
+async function poll(controller, attemptsLeft) {
+  try {
+    const response = await getOrderStatus(orderNo.value, { signal: controller.signal, silentError: true })
+    if (controller.signal.aborted) return
+    const order = response.data?.order
+    orderId.value = order?.id ?? null
+    if (order?.status === 'paid' || order?.status === 'cancelled') {
+      state.value = order.status
+    } else if (attemptsLeft > 1) {
+      timer = setTimeout(() => poll(controller, attemptsLeft - 1), 2500)
+    } else {
+      state.value = 'pending'
     }
-  },
-
-  mounted() {
-    // 只有仍然保持登录态时才刷新订单列表，避免 401 后被 apiClient 强制踢回登录页
-    if (this.isAuthenticated) {
-      this.fetchOrderList().catch(() => {})
-    }
-  },
-
-  methods: {
-    ...mapActions('orderModule', ['fetchOrderList']),
-
-    goOrders() {
-      if (this.isAuthenticated) {
-        this.$router.push('/orders')
-      } else {
-        this.$router.push('/user-login')
-      }
-    }
+  } catch (error) {
+    if (!controller.signal.aborted) state.value = error.response?.status === 404 ? 'missing' : 'unavailable'
   }
 }
+
+function checkStatus() {
+  stopChecking()
+  orderId.value = null
+  if (!orderNo.value) {
+    state.value = 'missing'
+    return
+  }
+  if (!isAuthenticated.value) {
+    state.value = 'signed_out'
+    return
+  }
+  state.value = 'waiting'
+  const controller = new AbortController()
+  activeRequest = controller
+  poll(controller, 10)
+}
+
+function signIn() {
+  router.push({ path: '/user-login', query: { redirect: route.fullPath } })
+}
+function goOrders() {
+  router.push({ path: '/orders', query: { order: orderId.value } })
+}
+
+watch([orderNo, isAuthenticated], checkStatus, { immediate: true })
+onBeforeUnmount(stopChecking)
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .pay-result-main {
-  max-width: 880px;
+  max-width: 740px;
 }
-
 .result-card {
-  padding: 28px;
+  padding: 16px;
 }
-
-.result-desc {
-  margin: 18px auto 22px;
-  max-width: 620px;
-  text-align: left;
+.order-reference {
+  overflow-wrap: anywhere;
+  color: var(--mall-muted);
 }
-
-.login-tip {
-  margin: 0 auto 18px;
-  max-width: 620px;
-  color: #e6a23c;
-  font-size: 14px;
-  text-align: center;
-}
-
 .result-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
+}
+.result-actions :deep(.el-button) {
+  margin: 0;
 }
 </style>

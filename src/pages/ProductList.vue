@@ -3,111 +3,109 @@
     <common-header />
 
     <main class="dashboard-main page-main">
-      <section class="dashboard-head section-card">
+      <header class="management-heading">
+        <h1>{{ isAdmin ? '全部商品管理' : '我的商品中心' }}</h1>
+        <el-button type="primary" icon="Plus" @click="handleAddProduct">发布商品</el-button>
+      </header>
+      <dl class="management-summary section-card">
         <div>
-          <h1>我的商品中心</h1>
-          <p>对齐后端 seller_id 逻辑：你只能查看、编辑和上下架自己的商品。</p>
+          <dt>商品总数</dt>
+          <dd>{{ summary.total ?? 0 }}</dd>
         </div>
-        <div class="head-actions">
-          <el-tag type="success">卖家视图</el-tag>
-          <el-button type="primary" round icon="el-icon-plus" @click="handleAddProduct">发布商品</el-button>
+        <div>
+          <dt>在售</dt>
+          <dd>{{ summary.on_sale ?? 0 }}</dd>
         </div>
-      </section>
-
-      <section class="summary-grid">
-        <div class="summary-card section-card">
-          <span>我的商品总数</span>
-          <strong>{{ productList.length }}</strong>
+        <div>
+          <dt>已下架</dt>
+          <dd>{{ summary.off_shelf ?? 0 }}</dd>
         </div>
-        <div class="summary-card section-card">
-          <span>在售商品</span>
-          <strong>{{ onSaleCount }}</strong>
+        <div>
+          <dt>总库存</dt>
+          <dd>{{ summary.stock ?? 0 }}</dd>
         </div>
-        <div class="summary-card section-card">
-          <span>已下架</span>
-          <strong>{{ offShelfCount }}</strong>
-        </div>
-        <div class="summary-card section-card">
-          <span>总库存</span>
-          <strong>{{ totalStock }}</strong>
-        </div>
-      </section>
-
-      <section class="toolbar-card section-card">
-        <div class="toolbar-row">
-          <el-input v-model="searchParams.product_id" placeholder="输入商品ID" class="search-input" clearable />
-          <el-input v-model="searchParams.name" placeholder="输入商品名称" class="search-input" clearable />
-          <el-select v-model="searchParams.status" clearable class="search-input" placeholder="商品状态">
+      </dl>
+      <section class="section-card management-list" aria-label="商品列表">
+        <form class="management-toolbar" @submit.prevent="handleSearch">
+          <el-input v-model.trim="searchParams.name" placeholder="商品名称" aria-label="商品名称" clearable />
+          <el-input v-model.trim="searchParams.product_id" placeholder="商品 ID" aria-label="商品 ID" clearable />
+          <el-select v-model="searchParams.status" clearable placeholder="全部状态" aria-label="商品状态">
             <el-option label="在售" value="on_sale" />
             <el-option label="已下架" value="off_shelf" />
           </el-select>
-          <el-button type="primary" @click="handleSearch">查询</el-button>
+          <el-button native-type="submit" type="primary">查询</el-button>
           <el-button @click="handleReset">重置</el-button>
-        </div>
-      </section>
-
-      <app-loading v-if="loading" />
-
-      <section v-else class="table-card section-card">
-        <el-table :data="productList" border stripe style="width: 100%">
-          <el-table-column label="商品ID" prop="id" width="90" align="center" />
-          <el-table-column label="商品名称" prop="name" min-width="180" />
-          <el-table-column label="分类" prop="category" min-width="120" />
-          <el-table-column label="状态" width="110" align="center">
-            <template slot-scope="scope">
-              <el-tag :type="scope.row.status === 'on_sale' ? 'success' : 'info'">
-                {{ scope.row.status === 'on_sale' ? '在售' : '已下架' }}
-              </el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column label="价格（元）" width="120" align="center">
-            <template slot-scope="scope">{{ formatPrice(scope.row.price) }}</template>
-          </el-table-column>
-          <el-table-column label="库存" prop="stock" width="100" align="center" />
-          <el-table-column label="封面" width="120" align="center">
-            <template slot-scope="scope">
-              <div class="table-media-wrap">
-                <el-image
-                  v-if="getCoverImage(scope.row)"
-                  :src="getCoverImage(scope.row)"
-                  fit="cover"
-                  class="table-image-preview"
-                  :preview-src-list="scope.row.image_urls || []"
-                />
-                <span v-else class="table-media-empty">无媒体</span>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="更新时间" min-width="170">
-            <template slot-scope="scope">{{ formatTime(scope.row.updated_at || scope.row.created_at) }}</template>
-          </el-table-column>
-          <el-table-column label="操作" width="240" align="center">
-            <template slot-scope="scope">
-              <el-button type="text" @click="handleEditProduct(scope.row)">编辑</el-button>
-              <el-button type="text" @click="handleViewProduct(scope.row)">详情</el-button>
-              <el-button
-                type="text"
-                :style="{ color: scope.row.status === 'on_sale' ? '#ef4444' : '#10b981' }"
-                @click="handleToggleStatus(scope.row)"
-              >
-                {{ scope.row.status === 'on_sale' ? '下架' : '重新上架' }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <div class="empty-wrap" v-if="!productList.length">
-          <el-empty description="当前还没有自己的商品，点击上方按钮发布第一个商品吧" />
-        </div>
+        </form>
+        <AppLoading v-if="loading" />
+        <ListError v-else-if="loadError" :message="loadError" @retry="fetchPage()" />
+        <el-empty v-else-if="!productList.length" description="没有符合条件的商品" />
+        <template v-else>
+          <table class="management-table">
+            <thead>
+              <tr>
+                <th scope="col">商品</th>
+                <th v-if="isAdmin" scope="col" class="wide-column">卖家 ID</th>
+                <th scope="col" class="wide-column">价格</th>
+                <th scope="col" class="wide-column">库存</th>
+                <th scope="col">状态</th>
+                <th scope="col" class="manage-actions">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="product in productList" :key="product.id">
+                <td>
+                  <div class="managed-product">
+                    <div class="managed-thumbnail"><ProductCover :src="getCoverImage(product)" /></div>
+                    <div>
+                      <strong>{{ product.name }}</strong>
+                      <span
+                        >#{{ product.id }}<template v-if="product.category"> · {{ product.category }}</template></span
+                      >
+                    </div>
+                  </div>
+                </td>
+                <td v-if="isAdmin" class="wide-column">{{ product.seller_id }}</td>
+                <td class="wide-column">{{ formatPrice(product.price) }}</td>
+                <td class="wide-column">{{ product.stock }}</td>
+                <td>
+                  <el-tag size="small" :type="product.status === 'on_sale' ? 'success' : 'info'">{{
+                    product.status === 'on_sale' ? '在售' : '已下架'
+                  }}</el-tag>
+                </td>
+                <td class="manage-actions">
+                  <div>
+                    <el-button text type="primary" :disabled="!!rowBusy" @click="handleEditProduct(product)"
+                      >编辑</el-button
+                    >
+                    <el-button text :disabled="!!rowBusy" @click="handleViewProduct(product)">详情</el-button>
+                    <el-button
+                      text
+                      :type="product.status === 'on_sale' ? 'danger' : 'success'"
+                      :disabled="!!rowBusy"
+                      @click="handleToggleStatus(product)"
+                    >
+                      {{ product.status === 'on_sale' ? '下架' : '上架' }}
+                    </el-button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div v-if="total > pageSize" class="pagination-bar">
+            <el-pagination
+              :current-page="page"
+              :page-size="pageSize"
+              :total="total"
+              :pager-count="5"
+              layout="prev, pager, next"
+              @current-change="fetchPage(appliedFilters, $event)"
+            />
+          </div>
+        </template>
       </section>
     </main>
 
-    <el-dialog
-      :title="isEdit ? '编辑商品' : '发布商品'"
-      :visible.sync="dialogVisible"
-      width="820px"
-      @closed="resetFormState"
-    >
+    <el-dialog :title="isEdit ? '编辑商品' : '发布商品'" v-model="dialogVisible" width="820px" @closed="resetFormState">
       <el-form ref="formRef" :model="formData" :rules="formRules" label-width="90px">
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="formData.name" />
@@ -132,8 +130,8 @@
         </el-row>
         <el-form-item v-if="isEdit" label="状态" prop="status">
           <el-radio-group v-model="formData.status">
-            <el-radio-button label="on_sale">在售</el-radio-button>
-            <el-radio-button label="off_shelf">下架</el-radio-button>
+            <el-radio-button value="on_sale">在售</el-radio-button>
+            <el-radio-button value="off_shelf">下架</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
@@ -167,30 +165,34 @@
           <input ref="videoInput" type="file" accept="video/*" @change="handleVideoChange" />
           <div class="upload-tip">支持 mp4 / webm / ogg / mov。重新选择会替换原视频。</div>
           <div v-if="selectedVideoPreview || formData.video_url" class="video-preview-wrap">
-            <video :src="selectedVideoPreview || formData.video_url" class="dialog-video-preview" controls></video>
+            <video
+              :src="selectedVideoPreview || mediaUrl(formData.video_url)"
+              class="dialog-video-preview"
+              controls
+            ></video>
           </div>
           <el-checkbox v-if="isEdit && formData.video_url && !selectedVideoPreview" v-model="formData.remove_video">
             删除原视频
           </el-checkbox>
         </el-form-item>
       </el-form>
-      <span slot="footer">
+      <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmitForm">保存</el-button>
-      </span>
+        <el-button type="primary" :loading="submitting" @click="handleSubmitForm">保存</el-button>
+      </template>
     </el-dialog>
 
-    <el-dialog title="商品详情" :visible.sync="detailVisible" width="760px">
+    <el-dialog title="商品详情" v-model="detailVisible" width="760px">
       <div v-if="selectedProduct" class="detail-panel">
         <div class="detail-preview-grid">
           <el-carousel v-if="(selectedProduct.image_urls || []).length" height="320px" :autoplay="false">
             <el-carousel-item v-for="(img, index) in selectedProduct.image_urls" :key="`detail-img-${index}`">
-              <img :src="img" class="dialog-image" alt="detail-image" />
+              <img :src="mediaUrl(img)" class="dialog-image" alt="detail-image" />
             </el-carousel-item>
           </el-carousel>
           <video
             v-if="selectedProduct.video_url"
-            :src="selectedProduct.video_url"
+            :src="mediaUrl(selectedProduct.video_url)"
             class="dialog-video-preview"
             controls
           ></video>
@@ -198,6 +200,9 @@
         <div class="detail-rows">
           <div>
             <span>商品名称</span><strong>{{ selectedProduct.name }}</strong>
+          </div>
+          <div>
+            <span>卖家 ID</span><strong>{{ selectedProduct.seller_id }}</strong>
           </div>
           <div>
             <span>分类</span><strong>{{ selectedProduct.category || '未分类' }}</strong>
@@ -219,9 +224,14 @@
 </template>
 
 <script>
-import CommonHeader from '@/components/CommonHeader'
-import AppLoading from '@/components/AppLoading'
-import { mapActions, mapState } from 'vuex'
+import CommonHeader from '@/components/CommonHeader.vue'
+import AppLoading from '@/components/AppLoading.vue'
+import { addProduct, deleteProduct, getProductDetail, getProductList, updateProduct } from '@/services/productService'
+import { mapGetters, useStore } from 'vuex'
+import ProductCover from '@/components/ProductCover.vue'
+import ListError from '@/components/ListError.vue'
+import { coverOf, mediaUrl, money } from '@/utils/productDisplay'
+import { usePagedList } from '@/utils/usePagedList'
 
 const createDefaultForm = () => ({
   id: null,
@@ -239,10 +249,19 @@ const createDefaultForm = () => ({
 
 export default {
   name: 'ProductList',
-  components: { CommonHeader, AppLoading },
+  components: { CommonHeader, AppLoading, ListError, ProductCover },
+  setup() {
+    const store = useStore()
+    const { items: productList, ...list } = usePagedList((params, config) => {
+      const scope = store.getters['authModule/isAdmin'] ? { include_off_shelf: true } : { mine: true }
+      return getProductList({ ...params, ...scope, view: 'summary', overview: true }, config)
+    }, 'product_list')
+    return { productList, ...list }
+  },
   data() {
     return {
-      loading: true,
+      rowBusy: null,
+      submitting: false,
       dialogVisible: false,
       detailVisible: false,
       isEdit: false,
@@ -289,76 +308,72 @@ export default {
     }
   },
   computed: {
-    ...mapState('productModule', ['productList', 'currentProduct']),
-    onSaleCount() {
-      return this.productList.filter((item) => item.status === 'on_sale').length
-    },
-    offShelfCount() {
-      return this.productList.filter((item) => item.status === 'off_shelf').length
-    },
-    totalStock() {
-      return this.productList.reduce((total, item) => total + Number(item.stock || 0), 0)
-    }
+    ...mapGetters('authModule', ['isAdmin'])
   },
   mounted() {
-    this.fetchProductListData()
+    this.fetchPage()
+  },
+  beforeUnmount() {
+    this.resetFormState()
   },
   methods: {
-    ...mapActions('productModule', [
-      'fetchProductList',
-      'addProduct',
-      'updateProduct',
-      'deleteProduct',
-      'fetchProductDetail'
-    ]),
-    async fetchProductListData(params = {}) {
-      this.loading = true
-      try {
-        await this.fetchProductList({ mine: true, ...params })
-      } finally {
-        this.loading = false
-      }
-    },
-    async handleSearch() {
-      await this.fetchProductListData({
-        product_id: this.searchParams.product_id || undefined,
-        name: this.searchParams.name || undefined,
-        status: this.searchParams.status || undefined
-      })
+    getCoverImage: coverOf,
+    mediaUrl,
+    formatPrice: money,
+    handleSearch() {
+      return this.fetchPage(
+        {
+          product_id: this.searchParams.product_id || undefined,
+          name: this.searchParams.name || undefined,
+          status: this.searchParams.status || undefined
+        },
+        1
+      )
     },
     handleReset() {
       this.searchParams = { product_id: '', name: '', status: '' }
-      this.fetchProductListData()
-    },
-    getCoverImage(product) {
-      return (product.image_urls && product.image_urls[0]) || product.image_url || ''
+      return this.fetchPage({}, 1)
     },
     handleAddProduct() {
       this.isEdit = false
-      this.dialogVisible = true
       this.formData = createDefaultForm()
+      this.dialogVisible = true
+    },
+    async readDetails(product) {
+      if (this.rowBusy) return null
+      this.rowBusy = product.id
+      try {
+        const response = await getProductDetail(product.id)
+        return response.data?.product_info
+      } catch {
+        return null
+      } finally {
+        this.rowBusy = null
+      }
     },
     async handleEditProduct(product) {
+      const detail = await this.readDetails(product)
+      if (!detail) return
       this.isEdit = true
-      this.dialogVisible = true
-      await this.fetchProductDetail(product.id)
       this.formData = {
-        id: this.currentProduct.id,
-        name: this.currentProduct.name,
-        category: this.currentProduct.category || '',
-        description: this.currentProduct.description || '',
-        price: Number(this.currentProduct.price),
-        stock: Number(this.currentProduct.stock),
-        status: this.currentProduct.status,
-        image_urls: this.currentProduct.image_urls || [],
-        video_url: this.currentProduct.video_url || '',
+        id: detail.id,
+        name: detail.name,
+        category: detail.category || '',
+        description: detail.description || '',
+        price: Number(detail.price),
+        stock: Number(detail.stock),
+        status: detail.status,
+        image_urls: detail.image_urls || [],
+        video_url: detail.video_url || '',
         remove_all_images: false,
         remove_video: false
       }
+      this.dialogVisible = true
     },
     async handleViewProduct(product) {
-      await this.fetchProductDetail(product.id)
-      this.selectedProduct = this.currentProduct
+      const detail = await this.readDetails(product)
+      if (!detail) return
+      this.selectedProduct = detail
       this.detailVisible = true
     },
     clearImagePreviews() {
@@ -407,29 +422,31 @@ export default {
       }
       return formData
     },
-    handleSubmitForm() {
-      this.$refs.formRef.validate(async (valid) => {
+    async handleSubmitForm() {
+      if (this.submitting) return
+      this.submitting = true
+      try {
+        const valid = await this.$refs.formRef.validate().catch(() => false)
         if (!valid) return
-        try {
-          const payload = this.buildFormData()
-          if (this.isEdit) {
-            await this.updateProduct({
-              productId: this.formData.id,
-              productData: payload
-            })
-            this.$message.success('商品更新成功')
-          } else {
-            await this.addProduct(payload)
-            this.$message.success('商品发布成功')
-          }
-          this.dialogVisible = false
-          this.fetchProductListData({ status: this.searchParams.status || undefined })
-        } catch (error) {
-          // handled by interceptor
+        const payload = this.buildFormData()
+        if (this.isEdit) {
+          await updateProduct(this.formData.id, payload)
+          this.$message.success('商品更新成功')
+        } else {
+          await addProduct(payload)
+          this.$message.success('商品发布成功')
         }
-      })
+        this.dialogVisible = false
+        await this.fetchPage()
+      } catch {
+        // The API client reports save errors.
+      } finally {
+        this.submitting = false
+      }
     },
     async handleToggleStatus(product) {
+      if (this.rowBusy) return
+      this.rowBusy = product.id
       try {
         if (product.status === 'on_sale') {
           await this.$confirm('确定要下架该商品吗？', '下架商品', {
@@ -437,19 +454,19 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           })
-          await this.deleteProduct(product.id)
+          await deleteProduct(product.id)
           this.$message.success('商品已下架')
         } else {
           const payload = new FormData()
           payload.append('status', 'on_sale')
-          await this.updateProduct({ productId: product.id, productData: payload })
+          await updateProduct(product.id, payload)
           this.$message.success('商品已重新上架')
         }
-        this.fetchProductListData({ status: this.searchParams.status || undefined })
-      } catch (error) {
-        if (error !== 'cancel' && error.message !== 'cancel') {
-          // handled by interceptor
-        }
+        await this.fetchPage()
+      } catch {
+        // Cancellation and request errors are handled by their callers.
+      } finally {
+        this.rowBusy = null
       }
     },
     resetFormState() {
@@ -464,9 +481,6 @@ export default {
       if (this.$refs.imageInput) this.$refs.imageInput.value = ''
       if (this.$refs.videoInput) this.$refs.videoInput.value = ''
     },
-    formatPrice(price) {
-      return `¥${Number(price || 0).toFixed(2)}`
-    },
     formatTime(timeStr) {
       if (!timeStr) return '--'
       return new Date(timeStr).toLocaleString('zh-CN', { hour12: false })
@@ -476,90 +490,138 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.dashboard-head,
-.toolbar-card,
-.table-card {
-  padding: 24px;
-}
-
-.dashboard-head {
+.management-heading {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
-
-.dashboard-head h1 {
-  margin: 0 0 10px;
-  font-size: 30px;
-  color: #111827;
-}
-
-.dashboard-head p {
+.management-heading h1 {
   margin: 0;
-  color: #6b7280;
+  font-size: clamp(22px, 4vw, 32px);
 }
-
-.head-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.summary-grid {
+.management-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 12px 4px;
+  margin: 0 0 16px;
 }
-
-.summary-card {
-  padding: 24px;
+.management-summary div {
+  padding: 4px 16px;
 }
-
-.summary-card span {
-  display: block;
-  color: #6b7280;
-  margin-bottom: 8px;
+.management-summary div + div {
+  border-left: 1px solid var(--mall-border);
 }
-
-.summary-card strong {
-  font-size: 28px;
-  color: #111827;
+.management-summary dt {
+  color: var(--mall-muted);
+  font-size: 13px;
 }
-
-.toolbar-card {
-  margin-bottom: 18px;
+.management-summary dd {
+  font-size: 23px;
+  font-weight: 700;
+  margin: 5px 0 0;
 }
-
-.toolbar-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.search-input {
-  width: 220px;
-}
-
-.table-media-wrap {
+.management-toolbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px;
 }
-
-.table-image-preview {
-  width: 88px;
-  height: 88px;
-  border-radius: 12px;
-  object-fit: cover;
-  overflow: hidden;
+.management-toolbar :deep(.el-input),
+.management-toolbar :deep(.el-select) {
+  width: 156px;
 }
-
-.table-media-empty {
-  color: #9ca3af;
+.management-toolbar :deep(.el-button),
+.manage-actions :deep(.el-button) {
+  margin: 0;
+}
+.management-list {
+  padding-bottom: 10px;
+}
+.management-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+.management-table th,
+.management-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--mall-border);
+}
+.management-table th {
+  background: #faf8f4;
+  color: var(--mall-muted);
+  font-size: 13px;
+}
+.managed-product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.managed-product strong,
+.managed-product span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.managed-product span {
+  margin-top: 2px;
+  color: var(--mall-muted);
   font-size: 12px;
+}
+.managed-thumbnail {
+  overflow: hidden;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+}
+.manage-actions {
+  width: 1%;
+}
+.manage-actions > div {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 155px;
+}
+.manage-actions :deep(.el-button) {
+  padding-inline: 7px;
+}
+@media (max-width: 680px) {
+  .wide-column {
+    display: none;
+  }
+  .management-summary div {
+    padding-inline: 8px;
+  }
+  .management-summary dd {
+    font-size: 18px;
+  }
+  .management-toolbar :deep(.el-input),
+  .management-toolbar :deep(.el-select) {
+    flex: 1 1 105px;
+    min-width: 0;
+  }
+  .management-table th,
+  .management-table td {
+    padding: 8px 5px;
+  }
+  .managed-product {
+    gap: 5px;
+  }
+  .managed-thumbnail {
+    width: 32px;
+    height: 32px;
+  }
+  .manage-actions > div {
+    min-width: 60px;
+  }
+  .manage-actions :deep(.el-button) {
+    padding: 4px;
+    min-height: 28px;
+  }
 }
 
 .upload-tip {
@@ -650,28 +712,10 @@ export default {
   line-height: 1.8;
 }
 
-@media screen and (max-width: 1024px) {
-  .summary-grid,
-  .detail-preview-grid,
-  .detail-rows {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .dashboard-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .summary-grid,
+@media (max-width: 768px) {
   .detail-preview-grid,
   .detail-rows {
     grid-template-columns: 1fr;
-  }
-
-  .search-input {
-    width: 100%;
   }
 }
 </style>

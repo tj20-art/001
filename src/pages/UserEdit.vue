@@ -1,5 +1,11 @@
 <template>
-  <el-dialog title="修改个人信息" :visible="visible" width="400px" :close-on-click-modal="false">
+  <el-dialog
+    title="修改个人信息"
+    :model-value="visible"
+    @update:model-value="$emit('update:visible', $event)"
+    width="400px"
+    :close-on-click-modal="false"
+  >
     <el-form ref="form" :model="formData" label-width="100px">
       <el-form-item label="旧密码" prop="old_password" :rules="[{ required: true, message: '请输入旧密码' }]">
         <el-input v-model="formData.old_password" type="password"></el-input>
@@ -11,19 +17,19 @@
 
       <el-form-item label="新用户名" prop="new_username">
         <el-input v-model="formData.new_username" placeholder="不修改请留空"></el-input>
-        <div slot="help">5-20位字母、数字、下划线</div>
+        <div class="muted-text">5-20位字母、数字、下划线</div>
       </el-form-item>
 
       <el-form-item label="新密码" prop="new_password">
         <el-input v-model="formData.new_password" type="password" placeholder="不修改请留空"></el-input>
-        <div slot="help">需包含大小写字母、数字、特殊符号，8-20位</div>
+        <div class="muted-text">需包含大小写字母、数字、特殊符号，8-20位</div>
       </el-form-item>
     </el-form>
 
-    <div slot="footer">
+    <template #footer>
       <el-button @click="handleCancel">取消</el-button>
       <el-button type="primary" @click="handleSubmit">确定</el-button>
-    </div>
+    </template>
   </el-dialog>
 </template>
 

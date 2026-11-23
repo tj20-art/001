@@ -37,18 +37,18 @@ export default {
   font-size: 72px;
   font-weight: 800;
   line-height: 1;
-  color: #409eff;
+  color: var(--mall-accent);
   margin-bottom: 12px;
 }
 
 h1 {
   margin: 0 0 12px;
-  color: #111827;
+  color: var(--mall-ink);
 }
 
 p {
   margin: 0;
-  color: #6b7280;
+  color: var(--mall-muted);
   line-height: 1.8;
 }
 

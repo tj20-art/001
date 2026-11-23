@@ -131,7 +131,7 @@ def jwt_required(f):
         if not current_user:
             return error(401, "用户不存在、已禁用或登录状态已失效")
         if not _token_version_matches(payload, current_user):
-            return error(401, "账号安全信息已变更，请重新登录")
+            return error(401, "账号安全信息已变更，请重新登录", details={"reason": "auth_version_changed"})
         if current_user["role"] in MFA_ROLES and not payload.get("mfa_verified"):
             return error(401, "该角色必须完成 TOTP 双因素认证")
         payload["role"] = current_user["role"]
@@ -149,7 +149,11 @@ def optional_jwt(f):
         payload, reason = _decode_bearer_token()
         if reason is None and payload:
             current_user = user_auth.get_auth_state_by_id(payload.get("user_id"))
-            if current_user and _token_version_matches(payload, current_user):
+            if (
+                current_user
+                and _token_version_matches(payload, current_user)
+                and (current_user["role"] not in MFA_ROLES or payload.get("mfa_verified"))
+            ):
                 payload["role"] = current_user["role"]
                 payload["username"] = current_user["username"]
                 _set_request_user(payload)

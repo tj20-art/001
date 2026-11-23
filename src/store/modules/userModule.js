@@ -1,6 +1,5 @@
 import {
   getUserInfo,
-  getUserList,
   deleteUser,
   updateUserInfo,
   updateUserRole,
@@ -9,16 +8,12 @@ import {
 } from '@/services/userService'
 
 const state = {
-  userDetail: null,
-  userList: []
+  userDetail: null
 }
 
 const mutations = {
   SET_USER_DETAIL(state, detail) {
     state.userDetail = detail || null
-  },
-  SET_USER_LIST(state, list) {
-    state.userList = list || []
   },
   CLEAR_USER_DETAIL(state) {
     state.userDetail = null
@@ -32,11 +27,6 @@ const actions = {
   async getUserInfo({ commit }, userId) {
     const response = await getUserInfo(userId)
     commit('SET_USER_DETAIL', response.data && response.data.user_info)
-    return response
-  },
-  async getUserList({ commit }, params) {
-    const response = await getUserList(params)
-    commit('SET_USER_LIST', (response.data && response.data.user_list) || [])
     return response
   },
   async deleteUser(_, userId) {
@@ -53,14 +43,9 @@ const actions = {
   }
 }
 
-const getters = {
-  userListCount: (state) => state.userList.length
-}
-
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
-  getters
+  actions
 }

@@ -1,70 +1,43 @@
 <template>
   <div class="page-shell login-page">
     <div class="login-layout">
-      <section class="marketing-panel">
-        <div class="eyebrow">FreeSpace Mall</div>
-        <h1>多重身份校验，安心进入你的数字商城</h1>
-        <p>密码与用户证书共同验证身份。管理员和审计员还需要认证器动态验证码，每一次关键访问都有迹可循。</p>
-        <div class="feature-list">
-          <div class="feature-item">
-            <i class="el-icon-lock"></i>
-            <span>密码与证书双重校验</span>
-          </div>
-          <div class="feature-item">
-            <i class="el-icon-goods"></i>
-            <span>国密安全信封保护敏感请求</span>
-          </div>
-          <div class="feature-item">
-            <i class="el-icon-user-solid"></i>
-            <span>角色最小权限与审计追踪</span>
-          </div>
-        </div>
+      <section class="login-cover" aria-label="FreeSpace Mall">
+        <img :src="heroImage" alt="" width="1536" height="1024" />
+        <div><RouterLink to="/home">FreeSpace Mall</RouterLink></div>
       </section>
-
-      <section class="login-card">
+      <form class="login-card section-card" @submit.prevent="handleCertLogin">
         <div class="card-head">
-          <h2>欢迎回来</h2>
-          <p>输入登录密码，并选择注册后下载的用户证书</p>
+          <RouterLink class="back-home" to="/home">返回商城</RouterLink>
+          <h1>登录商城</h1>
+          <p>使用注册时保存的证书和密码验证身份。</p>
         </div>
-
+        <label class="field-label" for="login-password">密码</label>
         <el-input
+          id="login-password"
           v-model="password"
+          type="password"
           show-password
           autocomplete="current-password"
-          prefix-icon="el-icon-lock"
-          placeholder="请输入登录密码"
-          @keyup.enter.native="handleCertLogin"
+          placeholder="输入密码"
         />
 
-        <div class="upload-panel" @click="triggerFile">
-          <div class="upload-icon"><i class="el-icon-upload2"></i></div>
-          <div class="upload-main">{{ certFileName || '点击上传证书文件' }}</div>
-          <div class="upload-sub">仅支持 PEM / CRT / CER 文件</div>
-        </div>
+        <label class="field-label" for="login-certificate-button">登录证书</label>
+        <button id="login-certificate-button" type="button" class="upload-panel" @click="triggerFile">
+          <el-icon class="upload-icon" aria-hidden="true"><Upload /></el-icon>
+          <span class="upload-main">{{ certFileName || '选择证书文件' }}</span>
+          <span v-if="certFileName" class="upload-sub">更换</span>
+        </button>
         <input ref="fileInput" type="file" accept=".pem,.crt,.cer" class="hidden-input" @change="handleCertSelect" />
+        <p class="file-hint">支持 PEM、CRT 和 CER。</p>
 
-        <el-alert
-          title="提示"
-          type="info"
-          :closable="false"
-          show-icon
-          description="如果你刚完成注册，请先保存自动下载的证书，再使用该证书登录。"
-        />
-
-        <el-button type="primary" class="action-btn" @click="handleCertLogin" :loading="loading" :disabled="!certFile">
-          安全登录
-        </el-button>
-
-        <div class="footer-line">
-          还没有账号？
-          <router-link to="/user-register">立即注册并领取证书</router-link>
-        </div>
-      </section>
+        <el-button type="primary" native-type="submit" class="action-btn" :loading="loading">安全登录</el-button>
+        <p class="footer-line">还没有账号？<RouterLink to="/user-register">注册并领取证书</RouterLink></p>
+      </form>
     </div>
 
     <el-dialog
       :title="mfaSetupRequired ? '绑定认证器' : '双因素认证'"
-      :visible.sync="mfaVisible"
+      v-model="mfaVisible"
       width="520px"
       :close-on-click-modal="false"
     >
@@ -77,7 +50,7 @@
             <strong>{{ totpSecret }}</strong>
           </div>
           <el-input v-model="otpauthUri" readonly>
-            <template slot="prepend">URI</template>
+            <template #prepend>URI</template>
           </el-input>
         </template>
         <template v-else>
@@ -88,40 +61,42 @@
           maxlength="16"
           autocomplete="one-time-code"
           placeholder="6 位验证码或恢复码"
-          prefix-icon="el-icon-key"
-          @keyup.enter.native="submitMfa"
+          prefix-icon="Key"
+          @keyup.enter="submitMfa"
         />
       </div>
-      <span slot="footer">
+      <template #footer>
         <el-button @click="mfaVisible = false">取消</el-button>
         <el-button type="primary" :loading="mfaLoading" @click="submitMfa">
           {{ mfaSetupRequired ? '绑定并登录' : '验证并登录' }}
         </el-button>
-      </span>
+      </template>
     </el-dialog>
 
-    <el-dialog title="请保存恢复码" :visible.sync="recoveryVisible" width="500px" :show-close="false">
+    <el-dialog title="请保存恢复码" v-model="recoveryVisible" width="500px" :show-close="false">
       <div class="recovery-dialog">
         <el-alert title="每个恢复码只能使用一次，关闭后系统不会再次明文显示" type="warning" :closable="false" />
         <div class="recovery-grid">
           <code v-for="code in recoveryCodes" :key="code">{{ code }}</code>
         </div>
       </div>
-      <span slot="footer">
+      <template #footer>
         <el-button @click="copyRecoveryCodes">复制恢复码</el-button>
         <el-button type="primary" @click="finishRecovery">我已安全保存</el-button>
-      </span>
+      </template>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import heroImage from '@/assets/storefront-homewares.jpg'
 
 export default {
   name: 'UserLogin',
   data() {
     return {
+      heroImage,
       certFile: null,
       certFileName: '',
       password: '',
@@ -149,6 +124,7 @@ export default {
       this.certFileName = file.name
     },
     async handleCertLogin() {
+      if (this.loading) return
       if (!this.certFile) {
         this.$message.warning('请先选择证书文件')
         return
@@ -177,6 +153,7 @@ export default {
       }
     },
     async submitMfa() {
+      if (this.mfaLoading) return
       if (!this.mfaCode.trim()) {
         this.$message.warning('请输入动态验证码或恢复码')
         return
@@ -195,6 +172,8 @@ export default {
         } else {
           this.finishLogin()
         }
+      } catch {
+        // The API client displays MFA errors.
       } finally {
         this.mfaLoading = false
       }
@@ -210,7 +189,12 @@ export default {
     finishLogin() {
       const userId = this.$store.getters['authModule/userId']
       this.$message.success('身份验证通过，欢迎回来')
-      this.$router.push(`/profile/${userId}`)
+      const redirect = this.$route.query.redirect
+      const internal = typeof redirect === 'string' && /^\/(?!\/)/.test(redirect) && !redirect.includes('\\')
+      const target = internal && this.$router.resolve(redirect)
+      const destination =
+        target && (target.meta.requiresAuth || target.meta.restoreAuth) ? target.fullPath : '/profile/' + userId
+      this.$router.replace(destination).catch(() => {})
     }
   }
 }
@@ -218,147 +202,130 @@ export default {
 
 <style scoped lang="scss">
 .login-page {
-  padding: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
-
 .login-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 18px;
+  width: min(960px, 100%);
+}
+.login-cover {
+  position: relative;
+  min-height: 460px;
+  border-radius: var(--mall-radius);
+  overflow: hidden;
+}
+.login-cover img {
   width: 100%;
-  max-width: 1180px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.95fr;
-  gap: 28px;
-  align-items: stretch;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
 }
-
-.marketing-panel {
-  padding: 44px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, rgba(64, 158, 255, 0.96), rgba(87, 61, 255, 0.92));
-  color: #fff;
-  box-shadow: 0 24px 60px rgba(64, 158, 255, 0.28);
-
-  .eyebrow {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.16);
-    margin-bottom: 22px;
-    font-size: 13px;
-  }
-
-  h1 {
-    font-size: 38px;
-    line-height: 1.25;
-    margin: 0 0 16px;
-  }
-
-  p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.88);
-    max-width: 520px;
-  }
+.login-cover div {
+  position: absolute;
+  inset: 0 0 auto;
+  padding: 20px;
+  background: linear-gradient(180deg, rgb(28 22 16 / 65%), transparent);
+  color: white;
+  font-weight: 700;
 }
-
-.feature-list {
-  margin-top: 28px;
-  display: grid;
-  gap: 16px;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-
-  i {
-    font-size: 18px;
-  }
-}
-
 .login-card {
-  padding: 32px;
-  background: #fff;
-  border-radius: 28px;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.card-head {
-  text-align: left;
-
-  h2 {
-    margin: 0 0 8px;
-    font-size: 28px;
-    color: #111827;
-  }
-
-  p {
-    margin: 0;
-    color: #6b7280;
-    line-height: 1.7;
-  }
-}
-
-.upload-panel {
-  border: 1.5px dashed #cbd5e1;
-  border-radius: 22px;
-  padding: 28px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: linear-gradient(180deg, #f8fbff, #ffffff);
-
-  &:hover {
-    border-color: #409eff;
-    transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(64, 158, 255, 0.12);
-  }
-}
-
-.upload-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 12px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  background: rgba(64, 158, 255, 0.12);
-  color: #409eff;
-  font-size: 24px;
+  padding: clamp(18px, 4vw, 36px);
 }
-
-.upload-main {
-  color: #111827;
+.card-head h1 {
+  margin: 12px 0 6px;
+  font-size: 34px;
+  letter-spacing: -0.04em;
+}
+.card-head p,
+.file-hint {
+  color: var(--mall-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.card-head p {
+  margin: 0 0 18px;
+}
+.back-home,
+.footer-line a {
+  color: var(--mall-accent);
   font-weight: 600;
-  margin-bottom: 6px;
-  word-break: break-all;
+  font-size: 14px;
 }
-
+.field-label {
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.login-card > .el-input {
+  margin-bottom: 14px;
+}
+.upload-panel {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 46px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px dashed #b9a99c;
+  border-radius: 8px;
+  background: #faf8f4;
+  color: var(--mall-ink);
+  cursor: pointer;
+  text-align: left;
+}
+.upload-icon {
+  flex: none;
+  color: var(--mall-accent);
+  font-size: 18px;
+}
+.upload-main {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  flex: 1;
+  font-size: 14px;
+}
 .upload-sub {
-  color: #6b7280;
+  color: var(--mall-accent);
   font-size: 13px;
 }
-
 .hidden-input {
   display: none;
 }
-
+.file-hint {
+  margin: 6px 0 16px;
+}
 .action-btn {
+  min-height: 44px;
   width: 100%;
-  height: 48px;
-  border-radius: 14px;
-  font-size: 16px;
+}
+.footer-line {
+  margin: 16px 0 0;
+  font-size: 14px;
+}
+@media (max-width: 700px) {
+  .login-page {
+    padding: 16px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .login-layout {
+    display: block;
+    max-width: 460px;
+  }
+  .login-cover {
+    display: none;
+  }
+  .card-head h1 {
+    font-size: 28px;
+  }
 }
 
 .mfa-dialog,
@@ -416,25 +383,6 @@ export default {
   a {
     color: #409eff;
     margin-left: 4px;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .login-page {
-    padding: 18px;
-  }
-
-  .login-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .marketing-panel,
-  .login-card {
-    padding: 24px;
-  }
-
-  .marketing-panel h1 {
-    font-size: 30px;
   }
 }
 </style>

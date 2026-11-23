@@ -1,9 +1,8 @@
 <template>
-  <div class="app-loading">
-    <div class="spinner"></div>
+  <div class="app-loading" role="status">
+    <div class="spinner" aria-hidden="true"></div>
     <div class="meta">
-      <strong>正在加载数据</strong>
-      <p>请稍候，平台正在为你准备最新内容…</p>
+      <strong>加载中…</strong>
     </div>
   </div>
 </template>
@@ -22,15 +21,14 @@ export default {
   gap: 16px;
   padding: 48px 20px;
   border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  background: var(--mall-surface);
 }
 
 .spinner {
   width: 44px;
   height: 44px;
   border: 4px solid #e8edf5;
-  border-top-color: #409eff;
+  border-top-color: var(--mall-accent);
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
@@ -40,15 +38,15 @@ export default {
 
   strong {
     display: block;
-    color: #1f2937;
+    color: var(--mall-ink);
     font-size: 16px;
     margin-bottom: 4px;
   }
+}
 
-  p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 13px;
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
   }
 }
 

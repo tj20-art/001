@@ -10,7 +10,7 @@
           <p>集中查看角色权限边界、身份验证结果与敏感操作记录。</p>
         </div>
         <div class="hero-badge">
-          <i class="el-icon-lock"></i>
+          <el-icon aria-hidden="true"><Lock /></el-icon>
           <div>
             <strong>国密安全链路</strong>
             <span>SM2 + SM4-GCM · HTTPS</span>
@@ -25,28 +25,36 @@
 
         <section class="stats-grid">
           <article class="stat-card">
-            <span class="stat-icon blue"><i class="el-icon-user-solid"></i></span>
+            <span class="stat-icon blue"
+              ><el-icon aria-hidden="true"><UserFilled /></el-icon
+            ></span>
             <div>
               <strong>{{ roleEntries.length }}</strong
               ><span>系统角色</span>
             </div>
           </article>
           <article class="stat-card">
-            <span class="stat-icon violet"><i class="el-icon-key"></i></span>
+            <span class="stat-icon violet"
+              ><el-icon aria-hidden="true"><Key /></el-icon
+            ></span>
             <div>
               <strong>{{ permissionCount }}</strong
               ><span>权限规则</span>
             </div>
           </article>
           <article class="stat-card">
-            <span class="stat-icon green"><i class="el-icon-document-checked"></i></span>
+            <span class="stat-icon green"
+              ><el-icon aria-hidden="true"><DocumentChecked /></el-icon
+            ></span>
             <div>
               <strong>{{ auditLogs.length }}</strong
               ><span>当前审计记录</span>
             </div>
           </article>
           <article class="stat-card">
-            <span class="stat-icon red"><i class="el-icon-warning-outline"></i></span>
+            <span class="stat-icon red"
+              ><el-icon aria-hidden="true"><Warning /></el-icon
+            ></span>
             <div>
               <strong>{{ deniedCount }}</strong
               ><span>失败或拒绝</span>
@@ -61,7 +69,7 @@
               <h2>角色权限矩阵</h2>
               <p>前端展示用于辅助理解，最终权限始终由后端资源级鉴权决定。</p>
             </div>
-            <el-button icon="el-icon-refresh" round @click="loadAll">刷新</el-button>
+            <el-button icon="Refresh" round @click="loadAll">刷新</el-button>
           </div>
 
           <div class="role-grid">
@@ -77,7 +85,7 @@
               <p>{{ role.description }}</p>
               <div class="permission-list">
                 <span v-for="permission in role.permissions" :key="permission">
-                  <i class="el-icon-check"></i>{{ formatPermission(permission) }}
+                  <el-icon aria-hidden="true"><Check /></el-icon>{{ formatPermission(permission) }}
                 </span>
               </div>
             </article>
@@ -91,7 +99,7 @@
               <h2>安全事件记录</h2>
               <p>只记录必要的主体、资源与结果，不保存密码、验证码和私钥正文。</p>
             </div>
-            <el-button type="primary" icon="el-icon-download" round :loading="exporting" @click="handleExport">
+            <el-button type="primary" icon="Download" round :loading="exporting" @click="handleExport">
               导出 CSV
             </el-button>
           </div>
@@ -104,14 +112,14 @@
               <el-option label="失败" value="failure" />
             </el-select>
             <el-input v-model.trim="filters.user_id" clearable placeholder="用户 ID" />
-            <el-button type="primary" icon="el-icon-search" @click="loadAuditLogs">查询</el-button>
+            <el-button type="primary" icon="Search" @click="loadAuditLogs">查询</el-button>
             <el-button @click="resetFilters">重置</el-button>
           </div>
 
           <el-table v-if="auditLogs.length" :data="auditLogs" stripe class="audit-table">
             <el-table-column prop="created_at" label="时间" min-width="155" />
             <el-table-column label="操作者" min-width="130">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <div class="operator-cell">
                   <strong>{{ scope.row.username || '匿名请求' }}</strong>
                   <span>{{ roleLabel(scope.row.role) }} · ID {{ scope.row.user_id || '-' }}</span>
@@ -120,12 +128,12 @@
             </el-table-column>
             <el-table-column prop="event_type" label="事件" min-width="190" show-overflow-tooltip />
             <el-table-column label="操作" width="92">
-              <template slot-scope="scope"
+              <template #default="scope"
                 ><code>{{ String(scope.row.operation || '').toUpperCase() }}</code></template
               >
             </el-table-column>
             <el-table-column label="结果" width="88">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-tag size="small" :type="resultType(scope.row.result)">{{ resultLabel(scope.row.result) }}</el-tag>
               </template>
             </el-table-column>
@@ -142,8 +150,8 @@
 </template>
 
 <script>
-import AppLoading from '@/components/AppLoading'
-import CommonHeader from '@/components/CommonHeader'
+import AppLoading from '@/components/AppLoading.vue'
+import CommonHeader from '@/components/CommonHeader.vue'
 import { exportAuditLogs, getAuditLogs, getPermissionMatrix } from '@/services/securityService'
 
 const ROLE_META = {
@@ -258,8 +266,8 @@ export default {
 <style lang="scss" scoped>
 .security-page {
   min-height: 100vh;
-  background: #f3f6fb;
-  color: #172033;
+  background: var(--mall-bg);
+  color: var(--mall-ink);
 }
 
 .security-main {
@@ -276,7 +284,7 @@ export default {
   padding: 38px 42px;
   color: white;
   border-radius: 28px;
-  background: linear-gradient(125deg, #17243a 0%, #173f4e 52%, #116466 100%);
+  background: #203d35;
   box-shadow: 0 24px 55px rgba(23, 50, 65, 0.2);
 
   h1 {
@@ -351,7 +359,7 @@ export default {
   }
   div > span {
     margin-top: 3px;
-    color: #7b879b;
+    color: var(--mall-muted);
     font-size: 13px;
   }
 }
@@ -403,7 +411,7 @@ export default {
   }
   p {
     margin: 0;
-    color: #7b8799;
+    color: var(--mall-muted);
     font-size: 14px;
   }
 }
@@ -433,7 +441,7 @@ export default {
     font-size: 17px;
   }
   header div span {
-    color: #94a0b2;
+    color: var(--mall-muted);
     font-size: 12px;
   }
   > p {

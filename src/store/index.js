@@ -1,26 +1,23 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+import { createStore } from 'vuex'
 import authModule from './modules/authModule'
 import userModule from './modules/userModule'
-import productModule from './modules/productModule'
 import cartModule from './modules/cartModule'
 import orderModule from './modules/orderModule'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default createStore({
   modules: {
     authModule,
     userModule,
-    productModule,
     cartModule,
     orderModule
   },
   plugins: [
-    createPersistedState({
-      storage: window.sessionStorage,
-      paths: ['authModule.user', 'authModule.accessToken', 'authModule.refreshToken']
-    })
+    (store) =>
+      store.subscribe(({ type }) => {
+        if (type !== 'authModule/LOGOUT') return
+        store.commit('cartModule/CLEAR_CART')
+        store.commit('userModule/CLEAR_USER_DETAIL')
+        store.commit('orderModule/SET_CURRENT_ORDER', null)
+      })
   ]
 })

@@ -8,8 +8,9 @@ export const addCartItem = (data) => {
   })
 }
 
-export const getCartItems = () => {
+export const getCartItems = (config = {}) => {
   return apiClient({
+    ...config,
     url: '/api/v1/cart/items',
     method: 'GET'
   })
@@ -44,3 +45,16 @@ export const bulkSelectCartItems = (data) => {
     data
   })
 }
+
+const managementPath = '/api/v1/cart/management'
+
+export const getCartOwners = (params, config = {}) => apiClient.get(managementPath, { ...config, params })
+
+export const getManagedCart = (userId, config = {}) => apiClient.get(`${managementPath}/${userId}`, config)
+
+export const updateManagedCartQuantity = (userId, itemId, quantity) =>
+  apiClient.put(`${managementPath}/${userId}/items/${itemId}`, { quantity })
+
+export const removeManagedCartItem = (userId, itemId) => apiClient.delete(`${managementPath}/${userId}/items/${itemId}`)
+
+export const clearManagedCart = (userId) => apiClient.delete(`${managementPath}/${userId}/items`)

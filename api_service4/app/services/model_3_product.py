@@ -233,32 +233,60 @@ class ProductSystem(Singleton):
             self.conn.rollback()
             return False, f"商品发布失败: {str(exc)}"
 
-    def list_products(self, product_id=None, name=None, seller_id=None, status=None, include_off_shelf=False):
-        query = (
-            "SELECT id, seller_id, name, category, description, price_cents, stock, image_url, image_urls, video_url, status, "
-            "created_at, updated_at FROM products WHERE 1=1"
-        )
-        params = []
+    def list_products(
+        self, product_id=None, name=None, seller_id=None, status=None, include_off_shelf=False, *,
+        category=None, page=1, page_size=24, compact=False, include_overview=False,
+    ):
+        scope = " WHERE 1=1"
+        scope_params = []
+        if seller_id is not None:
+            scope += " AND seller_id = %s"
+            scope_params.append(seller_id)
+        if not include_off_shelf:
+            scope += " AND status = 'on_sale'"
+
+        where = scope
+        params = scope_params.copy()
         if product_id:
-            query += " AND id = %s"
+            where += " AND id = %s"
             params.append(product_id)
         if name:
-            query += " AND name LIKE %s"
+            where += " AND name LIKE %s"
             params.append(f"%{name}%")
-        if seller_id:
-            query += " AND seller_id = %s"
-            params.append(seller_id)
-        if status:
-            query += " AND status = %s"
+        if category:
+            where += " AND category = %s"
+            params.append(category)
+        if status and (include_off_shelf or status != "on_sale"):
+            where += " AND status = %s"
             params.append(self._normalize_status(status))
-        elif not include_off_shelf:
-            query += " AND status = 'on_sale'"
 
-        query += " ORDER BY id DESC"
-        with self._read_pool.cursor() as cursor:
-            cursor.execute(query, params)
+        fields = "id, seller_id, name, category, price_cents, stock, image_url, image_urls, status, created_at, updated_at"
+        if not compact:
+            fields += ", description, video_url"
+        overview = {}
+        with self._read_pool.cursor(consistent=True) as cursor:
+            cursor.execute("SELECT COUNT(*) AS total FROM products" + where, params)
+            total = cursor.fetchone()["total"]
+            cursor.execute(
+                f"SELECT {fields} FROM products" + where + " ORDER BY id DESC LIMIT %s OFFSET %s",
+                [*params, page_size, (page - 1) * page_size],
+            )
             rows = cursor.fetchall()
-        return [self._clean_product_row(row) for row in rows]
+            if include_overview and include_off_shelf:
+                cursor.execute(
+                    "SELECT COUNT(*) AS total, COALESCE(SUM(status = 'on_sale'), 0) AS on_sale, "
+                    "COALESCE(SUM(status = 'off_shelf'), 0) AS off_shelf, COALESCE(SUM(stock), 0) AS stock "
+                    "FROM products" + scope,
+                    scope_params,
+                )
+                overview["summary"] = {key: int(value) for key, value in cursor.fetchone().items()}
+            if include_overview and not include_off_shelf:
+                cursor.execute(
+                    "SELECT DISTINCT category FROM products" + scope + " AND category IS NOT NULL AND category != '' ORDER BY category",
+                    scope_params,
+                )
+                overview["categories"] = [row["category"] for row in cursor.fetchall()]
+        return [self._clean_product_row(row) for row in rows], total, overview
 
     def get_product_by_id(self, product_id, current_user_id=None, include_off_shelf=False):
         query = (

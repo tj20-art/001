@@ -8,16 +8,18 @@ export const addProduct = (productData) => {
   })
 }
 
-export const getProductList = (params) => {
+export const getProductList = (params, config = {}) => {
   return apiClient({
+    ...config,
     url: '/api/v1/products',
     method: 'GET',
     params
   })
 }
 
-export const getProductDetail = (productId) => {
+export const getProductDetail = (productId, config = {}) => {
   return apiClient({
+    ...config,
     url: `/api/v1/products/${productId}`,
     method: 'GET'
   })

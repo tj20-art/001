@@ -30,8 +30,7 @@ def _bank_pay_url() -> str:
 
 
 def _frontend_result_base() -> str:
-    # 银行占用 8080 时，建议 Vue 开发服务器改到 8081：npm run serve -- --port 8081
-    return os.getenv("ECOMMERCE_FRONTEND_BASE_URL", "https://127.0.0.1:8081/#/pay-result")
+    return os.getenv("ECOMMERCE_FRONTEND_BASE_URL", "https://localhost:8081/#/pay-result")
 
 
 def _backend_base_url() -> str:
@@ -107,17 +106,9 @@ def pay_return():
     }
     try:
         result = _open_bank_envelope(envelope)
-        params = {
-            "order_no": result.get("order_no", ""),
-            "status": result.get("status", "UNKNOWN"),
-            "bank_trade_no": result.get("bank_trade_no", ""),
-            "message": result.get("message") or result.get("reason") or "银行已返回支付结果",
-        }
-    except Exception as exc:
-        params = {
-            "status": "FAILED",
-            "message": f"支付结果解密失败：{str(exc)}",
-        }
+        params = {"order_no": result.get("order_no", "")}
+    except Exception:
+        params = {}
     return redirect(f"{_frontend_result_base()}?{urlencode(params)}")
 
 

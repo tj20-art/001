@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
-import { getAccessToken, getRefreshToken, removeAllTokens } from '@/utils/tokenManager'
+import { getAccessToken, getRefreshToken } from '@/utils/tokenManager'
 import { handleApiError } from '@/utils/errorHandler'
 import { openSecureResponse, resetSecureRequestForRetry, sealSecureRequest } from '@/utils/secureTunnel'
 
@@ -10,31 +10,39 @@ const apiClient = axios.create({
   timeout: 15000
 })
 
-let isRefreshing = false
-let pendingRequests = []
+let pendingRefresh = null
 
-const processPendingRequests = (error, token = null) => {
-  pendingRequests.forEach(({ resolve, reject }) => {
-    if (error) {
-      reject(error)
-    } else {
-      resolve(token)
-    }
-  })
-  pendingRequests = []
+const refreshSession = (version) => {
+  if (pendingRefresh?.version !== version) {
+    const promise = store.dispatch('authModule/refreshToken').finally(() => {
+      if (pendingRefresh?.version === version) pendingRefresh = null
+    })
+    pendingRefresh = { version, promise }
+  }
+  return pendingRefresh.promise
 }
 
-const forceLogout = () => {
-  removeAllTokens()
+const expireSession = (version, error) => {
+  if (store.state.authModule.sessionVersion !== version) return
   store.commit('authModule/LOGOUT')
-  if (router.currentRoute.path !== '/user-login') {
-    router.push('/user-login')
+  handleApiError(error)
+  const route = router.currentRoute.value
+  if (route.path !== '/user-login') {
+    const redirect = route.meta.requiresAuth || route.meta.restoreAuth ? route.fullPath : undefined
+    router.replace({ path: '/user-login', query: { redirect } }).catch(() => {})
   }
 }
 
 apiClient.interceptors.request.use(
   async (config) => {
+    const { sessionVersion } = store.state.authModule
+    if (config._retry && config._sessionVersion !== sessionVersion) {
+      throw new axios.CanceledError()
+    }
+
     const token = getAccessToken()
+    config._sessionVersion = sessionVersion
+    config._accessToken = token
     if (token) {
       config.headers = config.headers || {}
       config.headers.Authorization = `Bearer ${token}`
@@ -55,12 +63,16 @@ apiClient.interceptors.response.use(
     return response.data
   },
   async (error) => {
+    if (axios.isCancel(error)) throw error
+
+    const originalRequest = error.config || {}
+    const isRefreshRequest = originalRequest.url === '/api/v1/auth/refresh'
     if (error.response) {
       try {
         error.response = openSecureResponse(error.response)
       } catch (decryptError) {
-        handleApiError(decryptError)
-        return Promise.reject(decryptError)
+        if (!isRefreshRequest && !originalRequest.silentError) handleApiError(decryptError)
+        throw decryptError
       }
     }
 
@@ -78,48 +90,35 @@ apiClient.interceptors.response.use(
       }
     }
 
-    const originalRequest = error.config || {}
-    const status = error.response && error.response.status
-    const hasRefreshToken = !!getRefreshToken()
-    const isRefreshRequest = originalRequest.url && originalRequest.url.includes('/api/v1/auth/refresh')
+    // The caller handles refresh failures for the entire session.
+    if (isRefreshRequest) throw error
 
-    if (status === 401 && !originalRequest._retry && !isRefreshRequest && hasRefreshToken) {
-      originalRequest._retry = true
-
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          pendingRequests.push({ resolve, reject })
-        }).then((newToken) => {
-          originalRequest.headers = originalRequest.headers || {}
-          originalRequest.headers.Authorization = `Bearer ${newToken}`
-          resetSecureRequestForRetry(originalRequest)
-          return apiClient(originalRequest)
-        })
-      }
-
-      isRefreshing = true
-      try {
-        const newAccessToken = await store.dispatch('authModule/refreshToken')
-        processPendingRequests(null, newAccessToken)
-        originalRequest.headers = originalRequest.headers || {}
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
-        resetSecureRequestForRetry(originalRequest)
-        return apiClient(originalRequest)
-      } catch (refreshError) {
-        processPendingRequests(refreshError, null)
-        forceLogout()
-        return Promise.reject(refreshError)
-      } finally {
-        isRefreshing = false
-      }
+    const isAuthRequest = originalRequest.url?.startsWith('/api/v1/auth/')
+    if (error.response?.status !== 401 || isAuthRequest || !originalRequest._accessToken) {
+      if (!originalRequest.silentError) handleApiError(error)
+      throw error
     }
 
-    if (status === 401) {
-      forceLogout()
+    const version = originalRequest._sessionVersion
+    if (version !== store.state.authModule.sessionVersion) throw error
+
+    const reason = error.response.data?.details?.reason
+    if (reason === 'auth_version_changed' || originalRequest._retry || !getRefreshToken()) {
+      expireSession(version, error)
+      throw error
     }
 
-    handleApiError(error)
-    return Promise.reject(error)
+    try {
+      if (originalRequest._accessToken === getAccessToken()) await refreshSession(version)
+    } catch (refreshError) {
+      expireSession(version, error)
+      throw refreshError
+    }
+
+    if (version !== store.state.authModule.sessionVersion) throw error
+    originalRequest._retry = true
+    resetSecureRequestForRetry(originalRequest)
+    return apiClient(originalRequest)
   }
 )
 

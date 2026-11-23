@@ -34,11 +34,12 @@ const mutations = {
 }
 
 const actions = {
-  async fetchCart({ commit }) {
+  async fetchCart({ commit, rootState }, config) {
+    const version = rootState.authModule.sessionVersion
     commit('SET_LOADING', true)
     try {
-      const response = await getCartItems()
-      commit('SET_CART', response.data)
+      const response = await getCartItems(config)
+      if (rootState.authModule.sessionVersion === version) commit('SET_CART', response.data)
       return response
     } finally {
       commit('SET_LOADING', false)

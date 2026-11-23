@@ -102,11 +102,20 @@ class CartOrderSystem(Singleton):
             INDEX idx_order_items_product_id (product_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单明细表';
         """
+        checkout_sql = """
+        CREATE TABLE IF NOT EXISTS order_checkout_requests (
+            user_id INT NOT NULL,
+            request_key CHAR(36) CHARACTER SET ascii NOT NULL,
+            order_id INT NULL,
+            PRIMARY KEY (user_id, request_key)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        """
         with self._db_lock:
             self._begin_tx()
             self.cursor.execute(cart_sql)
             self.cursor.execute(order_sql)
             self.cursor.execute(order_item_sql)
+            self.cursor.execute(checkout_sql)
             self.conn.commit()
             self._ensure_payment_schema()
 
@@ -220,7 +229,12 @@ class CartOrderSystem(Singleton):
             return False, f"加入购物车失败: {str(exc)}"
 
     def list_cart_items(self, user_id):
-        query = """
+        with self._read_pool.cursor() as cursor:
+            return self._read_cart_items(cursor, user_id)
+
+    def _read_cart_items(self, cursor, user_id, *, include_missing_products=False):
+        product_join = "LEFT JOIN" if include_missing_products else "JOIN"
+        query = f"""
         SELECT
             c.id AS cart_item_id,
             c.id,
@@ -241,20 +255,62 @@ class CartOrderSystem(Singleton):
             c.created_at,
             c.updated_at
         FROM cart_items c
-        JOIN products p ON p.id = c.product_id
+        {product_join} products p ON p.id = c.product_id
         WHERE c.user_id = %s
         ORDER BY c.id DESC
         """
-        with self._read_pool.cursor() as cursor:
-            cursor.execute(query, (user_id,))
-            rows = cursor.fetchall()
-        return [self._normalize_cart_item(row) for row in rows]
+        cursor.execute(query, (user_id,))
+        return [self._normalize_cart_item(row) for row in cursor.fetchall()]
+
+    def list_cart_owners(self, *, user_id=None, username=None, page=1, page_size=24):
+        filters = " WHERE 1=1"
+        params = []
+        if user_id is not None:
+            filters += " AND id = %s"
+            params.append(user_id)
+        if username:
+            filters += " AND INSTR(username, %s) > 0"
+            params.append(username)
+
+        with self._read_pool.cursor(consistent=True) as cursor:
+            cursor.execute("SELECT COUNT(*) AS total FROM users" + filters, params)
+            total = cursor.fetchone()["total"]
+            cursor.execute(
+                "SELECT id AS user_id, username, role, is_active FROM users" + filters
+                + " ORDER BY id DESC LIMIT %s OFFSET %s",
+                [*params, page_size, (page - 1) * page_size],
+            )
+            owners = cursor.fetchall()
+            if not owners:
+                return [], total
+
+            owner_ids = [owner["user_id"] for owner in owners]
+            placeholders = ",".join(["%s"] * len(owner_ids))
+            cursor.execute(
+                "SELECT user_id, COUNT(*) AS item_count, SUM(quantity) AS quantity_total FROM cart_items "
+                f"WHERE user_id IN ({placeholders}) GROUP BY user_id",
+                owner_ids,
+            )
+            counts = {row["user_id"]: row for row in cursor.fetchall()}
+        for owner in owners:
+            count = counts.get(owner["user_id"], {})
+            owner["item_count"] = count.get("item_count", 0)
+            owner["quantity_total"] = int(count.get("quantity_total", 0))
+        return owners, total
+
+    def get_cart_for_admin(self, user_id):
+        with self._read_pool.cursor(consistent=True) as cursor:
+            cursor.execute("SELECT id AS user_id, username, role, is_active FROM users WHERE id = %s", (user_id,))
+            owner = cursor.fetchone()
+            if owner is None:
+                return None
+            return owner, self._read_cart_items(cursor, user_id, include_missing_products=True)
 
     def update_cart_item(self, cart_item_id, user_id, quantity=None, selected=None):
         update_fields = []
         params = []
-        try:
-            with self._db_lock:
+        with self._db_lock:
+            try:
                 self._begin_tx()
                 self.cursor.execute(
                     """
@@ -262,6 +318,7 @@ class CartOrderSystem(Singleton):
                     FROM cart_items c
                     JOIN products p ON p.id = c.product_id
                     WHERE c.id = %s AND c.user_id = %s
+                    FOR UPDATE
                     """,
                     (cart_item_id, user_id),
                 )
@@ -298,35 +355,46 @@ class CartOrderSystem(Singleton):
                     params,
                 )
                 self.conn.commit()
-            return True, "购物车更新成功"
-        except Exception as exc:
-            self.conn.rollback()
-            return False, f"更新购物车失败: {str(exc)}"
+                return True, "购物车更新成功"
+            except (TypeError, ValueError):
+                self.conn.rollback()
+                return False, "数量格式错误，需为整数"
+            except Exception:
+                self.conn.rollback()
+                self.logger.exception("更新购物车失败")
+                return False, "更新购物车失败"
 
     def remove_cart_item(self, cart_item_id, user_id):
-        try:
-            with self._db_lock:
+        with self._db_lock:
+            try:
                 self._begin_tx()
                 self.cursor.execute("DELETE FROM cart_items WHERE id = %s AND user_id = %s", (cart_item_id, user_id))
                 if self.cursor.rowcount == 0:
                     self.conn.rollback()
                     return False, "购物车条目不存在或无权限删除"
                 self.conn.commit()
-            return True, "购物车条目删除成功"
-        except Exception as exc:
-            self.conn.rollback()
-            return False, f"删除购物车条目失败: {str(exc)}"
+                return True, "购物车条目删除成功"
+            except Exception:
+                self.conn.rollback()
+                self.logger.exception("删除购物车条目失败")
+                return False, "删除购物车条目失败"
 
-    def clear_cart(self, user_id):
-        try:
-            with self._db_lock:
+    def clear_cart(self, user_id, *, require_owner=False):
+        with self._db_lock:
+            try:
                 self._begin_tx()
+                if require_owner:
+                    self.cursor.execute("SELECT id FROM users WHERE id = %s", (user_id,))
+                    if not self.cursor.fetchone():
+                        self.conn.rollback()
+                        return False, "用户不存在"
                 self.cursor.execute("DELETE FROM cart_items WHERE user_id = %s", (user_id,))
                 self.conn.commit()
-            return True, "购物车已清空"
-        except Exception as exc:
-            self.conn.rollback()
-            return False, f"清空购物车失败: {str(exc)}"
+                return True, "购物车已清空"
+            except Exception:
+                self.conn.rollback()
+                self.logger.exception("清空购物车失败")
+                return False, "清空购物车失败"
 
     def set_selected_bulk(self, user_id, selected, cart_item_ids=None):
         try:
@@ -346,10 +414,29 @@ class CartOrderSystem(Singleton):
             self.conn.rollback()
             return False, f"更新勾选状态失败: {str(exc)}"
 
-    def create_order_from_selected_cart(self, user_id):
-        try:
-            with self._db_lock:
+    def create_order_from_selected_cart(self, user_id, request_key=None):
+        with self._db_lock:
+            try:
                 self._begin_tx()
+                if request_key:
+                    self.cursor.execute(
+                        """
+                        INSERT INTO order_checkout_requests (user_id, request_key) VALUES (%s, %s)
+                        ON DUPLICATE KEY UPDATE order_id = order_id
+                        """,
+                        (user_id, request_key),
+                    )
+                    self.cursor.execute(
+                        "SELECT order_id FROM order_checkout_requests WHERE user_id = %s AND request_key = %s FOR UPDATE",
+                        (user_id, request_key),
+                    )
+                    previous_order_id = self.cursor.fetchone()["order_id"]
+                    if previous_order_id is not None:
+                        order = self._read_order_detail(self.cursor, previous_order_id, user_id)
+                        if order is None:
+                            raise RuntimeError("下单记录缺少对应订单")
+                        self.conn.commit()
+                        return True, {"order": order, "replayed": True, "message": "订单已创建"}
                 self.cursor.execute(
                     """
                     SELECT
@@ -419,42 +506,70 @@ class CartOrderSystem(Singleton):
                     f"DELETE FROM cart_items WHERE user_id = %s AND id IN ({placeholders})",
                     [user_id, *cart_ids],
                 )
+                if request_key:
+                    self.cursor.execute(
+                        "UPDATE order_checkout_requests SET order_id = %s WHERE user_id = %s AND request_key = %s",
+                        (order_id, user_id, request_key),
+                    )
+                order = self._read_order_detail(self.cursor, order_id, user_id)
                 self.conn.commit()
-            return True, {"order_id": order_id, "order_no": order_no, "message": "订单创建成功"}
-        except Exception as exc:
-            self.conn.rollback()
-            return False, f"创建订单失败: {str(exc)}"
+                return True, {"order": order, "replayed": False, "message": "订单创建成功"}
+            except Exception:
+                self.conn.rollback()
+                self.logger.exception("创建订单失败")
+                raise
 
-    def list_orders(self, user_id, status=None):
-        query = "SELECT id, order_no, user_id, total_amount_cents, status, created_at, pay_time, cancel_time, bank_trade_no, paid_amount_cents, payment_notify_time FROM orders WHERE user_id = %s"
+    def list_orders(self, user_id, status=None, *, page=1, page_size=24):
+        where = " WHERE user_id = %s"
         params = [user_id]
         if status:
-            query += " AND status = %s"
+            where += " AND status = %s"
             params.append(status)
-        query += " ORDER BY id DESC"
-        with self._db_lock:
-            self.cursor.execute(query, params)
-            orders = self.cursor.fetchall()
-            self.conn.commit()
-        return [self._normalize_order_row(row) for row in orders]
+        with self._read_pool.cursor(consistent=True) as cursor:
+            cursor.execute(
+                "SELECT COUNT(*) AS total, COALESCE(SUM(status = 'pending'), 0) AS pending FROM orders WHERE user_id = %s",
+                (user_id,),
+            )
+            summary = {key: int(value) for key, value in cursor.fetchone().items()}
+            total = summary["total"]
+            if status:
+                cursor.execute("SELECT COUNT(*) AS total FROM orders" + where, params)
+                total = cursor.fetchone()["total"]
+            cursor.execute(
+                "SELECT id, order_no, user_id, total_amount_cents, status, created_at, pay_time, cancel_time, "
+                "bank_trade_no, paid_amount_cents, payment_notify_time FROM orders" + where + " ORDER BY id DESC LIMIT %s OFFSET %s",
+                [*params, page_size, (page - 1) * page_size],
+            )
+            orders = cursor.fetchall()
+        return [self._normalize_order_row(row) for row in orders], total, summary
 
     def get_order_detail(self, order_id, user_id):
         with self._read_pool.cursor(consistent=True) as cursor:
-            cursor.execute(
-                "SELECT id, order_no, user_id, total_amount_cents, status, created_at, pay_time, cancel_time, bank_trade_no, paid_amount_cents, payment_notify_time FROM orders WHERE id = %s AND user_id = %s",
-                (order_id, user_id),
-            )
-            order = cursor.fetchone()
-            if not order:
-                return None
-            cursor.execute(
-                "SELECT id, order_id, product_id, seller_id, product_name, price_cents, quantity FROM order_items WHERE order_id = %s ORDER BY id ASC",
-                (order_id,),
-            )
-            items = cursor.fetchall()
+            return self._read_order_detail(cursor, order_id, user_id)
+
+    def _read_order_detail(self, cursor, order_id, user_id):
+        cursor.execute(
+            "SELECT id, order_no, user_id, total_amount_cents, status, created_at, pay_time, cancel_time, bank_trade_no, paid_amount_cents, payment_notify_time FROM orders WHERE id = %s AND user_id = %s",
+            (order_id, user_id),
+        )
+        order = cursor.fetchone()
+        if not order:
+            return None
+        cursor.execute(
+            "SELECT id, order_id, product_id, seller_id, product_name, price_cents, quantity FROM order_items WHERE order_id = %s ORDER BY id ASC",
+            (order_id,),
+        )
         order_data = self._normalize_order_row(order)
-        order_data["items"] = [self._normalize_order_item(item) for item in items]
+        order_data["items"] = [self._normalize_order_item(item) for item in cursor.fetchall()]
         return order_data
+
+    def get_order_status(self, order_no, user_id):
+        with self._read_pool.cursor() as cursor:
+            cursor.execute(
+                "SELECT id, order_no, status FROM orders WHERE order_no = %s AND user_id = %s",
+                (order_no, user_id),
+            )
+            return cursor.fetchone()
 
     def get_order_by_no(self, order_no):
         with self._db_lock:

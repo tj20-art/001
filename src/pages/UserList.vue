@@ -3,89 +3,111 @@
     <common-header />
 
     <main class="list-main page-main">
-      <section class="header-card section-card">
-        <div>
-          <h1>用户管理</h1>
-          <p>分配管理员、商户、普通用户和审计员角色，并检查特权账号的 MFA 状态。</p>
-        </div>
-        <el-tag type="warning">管理员专属</el-tag>
-      </section>
-
-      <section class="toolbar-card section-card">
-        <div class="toolbar-row">
-          <el-input v-model.number="searchParams.user_id" placeholder="输入用户ID" class="search-input" clearable />
-          <el-input v-model="searchParams.username" placeholder="输入用户名" class="search-input" clearable />
-          <el-input v-model="searchParams.phone" placeholder="输入手机号" class="search-input" clearable />
-          <el-button type="primary" @click="handleSearch">查询</el-button>
+      <header class="user-heading">
+        <h1>用户管理</h1>
+      </header>
+      <section class="section-card user-list" aria-label="用户列表">
+        <form class="user-toolbar" @submit.prevent="handleSearch">
+          <el-input v-model.trim="searchParams.username" aria-label="用户名" placeholder="用户名" clearable />
+          <el-input v-model.trim="searchParams.user_id" aria-label="用户 ID" placeholder="用户 ID" clearable />
+          <el-input v-model.trim="searchParams.phone" aria-label="手机号" placeholder="手机号" clearable />
+          <el-button type="primary" native-type="submit">查询</el-button>
           <el-button @click="handleReset">重置</el-button>
-        </div>
+        </form>
+        <AppLoading v-if="loading" />
+        <ListError v-else-if="loadError" :message="loadError" @retry="fetchUserListData()" />
+        <el-empty v-else-if="!userList.length" description="暂无匹配用户" />
+        <table v-else class="user-table">
+          <thead>
+            <tr>
+              <th scope="col">用户</th>
+              <th scope="col" class="desktop-column">手机号</th>
+              <th scope="col">角色与状态</th>
+              <th scope="col" class="desktop-column">创建时间</th>
+              <th scope="col" class="user-actions">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in userList" :key="user.id">
+              <td>
+                <strong>{{ user.username }}</strong
+                ><small>#{{ user.id }}</small>
+              </td>
+              <td class="desktop-column">{{ user.phone }}</td>
+              <td>
+                <div class="desktop-role">
+                  <el-select
+                    :model-value="user.role"
+                    :disabled="isCurrentUser(user) || !user.is_active || !!changingRoleId"
+                    :aria-label="user.username + ' 的角色'"
+                    size="small"
+                    @change="handleRoleChange(user, $event)"
+                  >
+                    <el-option v-for="role in roleOptions" :key="role.value" :label="role.label" :value="role.value" />
+                  </el-select>
+                </div>
+                <span class="mobile-role">{{ roleLabel(user.role) }}</span>
+                <small v-if="!user.is_active">已禁用</small>
+                <small v-else-if="isMfaRole(user.role)">{{ user.totp_enabled ? 'MFA 已绑定' : '待绑定 MFA' }}</small>
+              </td>
+              <td class="desktop-column">{{ formatTime(user.created_at) }}</td>
+              <td class="user-actions">
+                <el-button text type="primary" @click="openUserDetails(user)">详情</el-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <app-loading v-if="loading" />
-
-      <section v-else class="table-card section-card">
-        <el-table :data="userList" border stripe style="width: 100%">
-          <el-table-column label="用户ID" prop="id" width="100" align="center" />
-          <el-table-column label="用户名" prop="username" min-width="160" />
-          <el-table-column label="手机号" prop="phone" min-width="160" />
-          <el-table-column label="角色与权限" min-width="250">
-            <template slot-scope="scope">
-              <div class="role-cell">
-                <el-select
-                  :value="scope.row.role"
-                  size="small"
-                  :disabled="isCurrentUser(scope.row)"
-                  @change="handleRoleChange(scope.row, $event)"
-                >
-                  <el-option v-for="role in roleOptions" :key="role.value" :label="role.label" :value="role.value" />
-                </el-select>
-                <el-tag
-                  v-if="['admin', 'auditor'].includes(scope.row.role)"
-                  size="mini"
-                  :type="scope.row.totp_enabled ? 'success' : 'danger'"
-                >
-                  {{ scope.row.totp_enabled ? 'MFA 已绑定' : '待绑定 MFA' }}
-                </el-tag>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="创建时间" min-width="180">
-            <template slot-scope="scope">{{ formatTime(scope.row.created_at) }}</template>
-          </el-table-column>
-          <el-table-column label="操作" width="300" align="center" fixed="right">
-            <template slot-scope="scope">
-              <el-button type="text" :disabled="isCurrentUser(scope.row)" @click="openResetDialog(scope.row)">
-                重置信息
-              </el-button>
-              <el-button
-                v-if="isMfaRole(scope.row.role)"
-                type="text"
-                class="mfa-reset-button"
-                :disabled="isCurrentUser(scope.row) || !scope.row.totp_enabled"
-                @click="handleResetMfa(scope.row)"
-              >
-                {{ scope.row.totp_enabled ? '重置 2FA' : '2FA 未绑定' }}
-              </el-button>
-              <el-button
-                type="text"
-                :disabled="isCurrentUser(scope.row)"
-                :style="{ color: isCurrentUser(scope.row) ? '#cbd5e1' : '#ef4444' }"
-                @click="handleDeleteUser(scope.row.id)"
-              >
-                {{ isCurrentUser(scope.row) ? '当前账号' : '禁用' }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <div class="empty-wrap" v-if="!userList.length">
-          <el-empty description="暂无匹配用户" />
+      <el-dialog v-model="detailsVisible" title="用户详情" width="500px">
+        <div v-if="detailUser" class="account-details">
+          <h2>{{ detailUser.username }}</h2>
+          <dl>
+            <div>
+              <dt>用户 ID</dt>
+              <dd>{{ detailUser.id }}</dd>
+            </div>
+            <div>
+              <dt>手机号</dt>
+              <dd>{{ detailUser.phone }}</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>{{ detailUser.is_active ? '正常' : '已禁用' }}</dd>
+            </div>
+            <div>
+              <dt>创建时间</dt>
+              <dd>{{ formatTime(detailUser.created_at) }}</dd>
+            </div>
+            <div v-if="isMfaRole(detailUser.role)">
+              <dt>MFA</dt>
+              <dd>{{ detailUser.totp_enabled ? '已绑定' : '待绑定' }}</dd>
+            </div>
+          </dl>
+          <el-select
+            :model-value="detailUser.role"
+            :disabled="isCurrentUser(detailUser) || !detailUser.is_active || !!changingRoleId"
+            aria-label="调整用户角色"
+            @change="handleRoleChange(detailUser, $event)"
+          >
+            <el-option v-for="role in roleOptions" :key="role.value" :label="role.label" :value="role.value" />
+          </el-select>
+          <div v-if="!isCurrentUser(detailUser) && detailUser.is_active" class="account-actions">
+            <el-button plain @click="openResetDialog(detailUser)">重置信息</el-button>
+            <el-button
+              v-if="isMfaRole(detailUser.role) && detailUser.totp_enabled"
+              plain
+              @click="handleResetMfa(detailUser)"
+              >重置 2FA</el-button
+            >
+            <el-button plain type="danger" @click="handleDeleteUser(detailUser.id)">禁用用户</el-button>
+          </div>
         </div>
-      </section>
+      </el-dialog>
 
       <el-dialog
         :title="resetTarget ? `重置 ${resetTarget.username} 的账号信息` : '重置账号信息'"
-        :visible.sync="resetDialogVisible"
+        v-model="resetDialogVisible"
         width="560px"
         :close-on-click-modal="false"
         @closed="clearResetForm"
@@ -98,7 +120,7 @@
           show-icon
           class="reset-alert"
         />
-        <el-form label-position="top" @submit.native.prevent>
+        <el-form label-position="top" @submit.prevent>
           <el-form-item label="用户名">
             <el-input v-model.trim="resetForm.username" maxlength="20" show-word-limit />
             <div class="field-hint">5–20 位字母、数字或下划线；修改后旧证书立即失效。</div>
@@ -128,26 +150,35 @@
           </div>
           <div class="field-hint">密码需为 8–20 位，并同时包含大小写字母、数字和特殊符号。</div>
         </el-form>
-        <span slot="footer" class="dialog-footer">
+        <template #footer>
           <el-button @click="resetDialogVisible = false">取消</el-button>
           <el-button type="primary" :loading="resetSubmitting" @click="submitUserReset">确认重置</el-button>
-        </span>
+        </template>
       </el-dialog>
     </main>
   </div>
 </template>
 
 <script>
-import CommonHeader from '@/components/CommonHeader'
-import AppLoading from '@/components/AppLoading'
-import { mapActions, mapState, mapGetters } from 'vuex'
+import CommonHeader from '@/components/CommonHeader.vue'
+import AppLoading from '@/components/AppLoading.vue'
+import { mapActions, mapGetters } from 'vuex'
+import ListError from '@/components/ListError.vue'
+import { getUserList } from '@/services/userService'
 
 export default {
   name: 'UserList',
-  components: { CommonHeader, AppLoading },
+  components: { CommonHeader, AppLoading, ListError },
   data() {
     return {
       loading: true,
+      userList: [],
+      activeFilters: {},
+      loadError: '',
+      requestSequence: 0,
+      detailsVisible: false,
+      detailsUserId: null,
+      changingRoleId: null,
       resetDialogVisible: false,
       resetSubmitting: false,
       resetTarget: null,
@@ -171,31 +202,37 @@ export default {
     }
   },
   computed: {
-    ...mapState('userModule', ['userList']),
-    ...mapGetters('authModule', ['isAdmin', 'userId'])
+    ...mapGetters('authModule', ['userId']),
+    detailUser() {
+      return this.userList.find((user) => user.id === this.detailsUserId)
+    }
   },
   mounted() {
-    this.checkAdminPermission()
     this.fetchUserListData()
   },
+  beforeUnmount() {
+    this.requestSequence += 1
+  },
   methods: {
-    ...mapActions('userModule', ['getUserList', 'deleteUser', 'updateUserRole', 'adminResetUserInfo', 'resetUserMfa']),
-    checkAdminPermission() {
-      if (!this.isAdmin) {
-        this.$message.error('权限不足，仅管理员可访问用户管理')
-        this.$router.push(this.userId ? `/profile/${this.userId}` : '/user-login')
-      }
-    },
-    async fetchUserListData(params = {}) {
+    ...mapActions('userModule', ['deleteUser', 'updateUserRole', 'adminResetUserInfo', 'resetUserMfa']),
+    async fetchUserListData(filters = this.activeFilters) {
+      const sequence = ++this.requestSequence
+      this.activeFilters = { ...filters }
       this.loading = true
+      this.loadError = ''
       try {
-        await this.getUserList(params)
+        const response = await getUserList(filters, { silentError: true })
+        if (sequence === this.requestSequence) this.userList = response.data?.user_list || []
+      } catch (error) {
+        if (sequence === this.requestSequence) {
+          this.loadError = error.response?.data?.message || '用户列表加载失败，请重试。'
+        }
       } finally {
-        this.loading = false
+        if (sequence === this.requestSequence) this.loading = false
       }
     },
-    async handleSearch() {
-      await this.fetchUserListData({
+    handleSearch() {
+      return this.fetchUserListData({
         user_id: this.searchParams.user_id || undefined,
         name: this.searchParams.username || undefined,
         phone: this.searchParams.phone || undefined
@@ -203,7 +240,11 @@ export default {
     },
     handleReset() {
       this.searchParams = { user_id: '', username: '', phone: '' }
-      this.fetchUserListData()
+      return this.fetchUserListData({})
+    },
+    openUserDetails(user) {
+      this.detailsUserId = user.id
+      this.detailsVisible = true
     },
     async handleDeleteUser(userId) {
       try {
@@ -213,8 +254,9 @@ export default {
           type: 'warning'
         })
         await this.deleteUser(userId)
+        this.detailsVisible = false
         this.$message.success('用户已禁用')
-        this.handleSearch()
+        this.fetchUserListData()
       } catch (error) {
         if (error !== 'cancel' && error.message !== 'cancel') {
           // handled by interceptor
@@ -222,19 +264,21 @@ export default {
       }
     },
     async handleRoleChange(user, role) {
+      if (user.role === role || this.changingRoleId) return
+      this.changingRoleId = user.id
       try {
-        await this.$confirm(`确定将 ${user.username} 的角色调整为“${this.roleLabel(role)}”吗？`, '调整角色', {
+        await this.$confirm('确定将 ' + user.username + ' 的角色调整为“' + this.roleLabel(role) + '”吗？', '调整角色', {
           confirmButtonText: '确认调整',
           cancelButtonText: '取消',
           type: 'warning'
         })
         await this.updateUserRole({ userId: user.id, role })
-        this.$message.success('角色更新成功')
-        await this.handleSearch()
-      } catch (error) {
-        if (error !== 'cancel' && error.message !== 'cancel') {
-          await this.handleSearch()
-        }
+        this.$message.success('角色已更新，该用户需重新登录')
+        await this.fetchUserListData()
+      } catch {
+        // The API client reports update errors.
+      } finally {
+        this.changingRoleId = null
       }
     },
     isCurrentUser(user) {
@@ -245,6 +289,7 @@ export default {
     },
     openResetDialog(user) {
       if (this.isCurrentUser(user)) return
+      this.detailsVisible = false
       this.resetTarget = { ...user }
       this.resetForm = {
         username: user.username || '',
@@ -300,7 +345,7 @@ export default {
         if (certificate) this.downloadReplacementCertificate(certificate)
         this.$message.success(certificate ? '信息已重置，新用户证书已下载' : '用户信息已重置')
         this.resetDialogVisible = false
-        await this.handleSearch()
+        await this.fetchUserListData()
       } finally {
         this.resetSubmitting = false
       }
@@ -329,7 +374,7 @@ export default {
         )
         await this.resetUserMfa(user.id)
         this.$message.success('2FA 已重置，用户下次登录需重新绑定')
-        await this.handleSearch()
+        await this.fetchUserListData()
       } catch (error) {
         if (error !== 'cancel' && (!error || error.message !== 'cancel')) {
           // API errors are handled by the response interceptor.
@@ -347,91 +392,108 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.list-main {
-  max-width: 1280px;
+<style scoped>
+.user-heading h1 {
+  margin: 0 0 16px;
+  font-size: clamp(22px, 4vw, 32px);
 }
-
-.header-card,
-.toolbar-card,
-.table-card {
-  padding: 24px;
-}
-
-.header-card {
+.user-toolbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
-
-  h1 {
-    margin: 0 0 10px;
-    font-size: 30px;
-    color: #111827;
-  }
-
-  p {
-    margin: 0;
-    color: #6b7280;
-  }
-}
-
-.toolbar-card {
-  margin-bottom: 18px;
-}
-
-.toolbar-row {
-  display: flex;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px;
 }
-
-.search-input {
-  width: 220px;
+.user-toolbar :deep(.el-input) {
+  width: 156px;
 }
-
-.role-cell {
+.user-toolbar :deep(.el-button),
+.account-actions :deep(.el-button) {
+  margin: 0;
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+.user-table th,
+.user-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--mall-border);
+}
+.user-table th {
+  background: #faf8f4;
+  color: var(--mall-muted);
+  font-size: 13px;
+}
+.user-table td {
+  overflow-wrap: anywhere;
+}
+.user-table small {
+  display: block;
+  margin-top: 4px;
+  color: var(--mall-muted);
+}
+.user-actions {
+  width: 1%;
+  white-space: nowrap;
+}
+.desktop-role :deep(.el-select) {
+  max-width: 136px;
+}
+.mobile-role {
+  display: none;
+}
+.account-details h2 {
+  margin: 0 0 14px;
+  overflow-wrap: anywhere;
+}
+.account-details dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.account-details dd {
+  margin: 3px 0 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+.account-details dt,
+.field-hint {
+  color: var(--mall-muted);
+  font-size: 13px;
+}
+.account-actions {
   display: flex;
-  align-items: center;
-  gap: 10px;
-
-  .el-select {
-    width: 122px;
-  }
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
 }
-
-.mfa-reset-button {
-  color: #d97706;
-}
-
 .reset-alert {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
-
 .password-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
-
-.field-hint {
-  margin-top: 6px;
-  color: #8492a6;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-@media screen and (max-width: 960px) {
-  .header-card {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 680px) {
+  .desktop-column,
+  .desktop-role {
+    display: none;
   }
-
-  .search-input {
-    width: 100%;
+  .mobile-role {
+    display: block;
   }
-
+  .user-toolbar :deep(.el-input) {
+    flex: 1 1 104px;
+    min-width: 0;
+  }
+  .user-table th,
+  .user-table td {
+    padding: 8px 6px;
+  }
   .password-grid {
     grid-template-columns: 1fr;
     gap: 0;

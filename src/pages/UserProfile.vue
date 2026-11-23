@@ -16,8 +16,8 @@
             <p>欢迎回来，这里可以查看个人资料、修改信息、重新下载证书，并快速进入商品、购物车与订单页面。</p>
           </div>
           <div class="hero-actions">
-            <el-button type="primary" round icon="el-icon-house" @click="$router.push('/home')">进入商城</el-button>
-            <el-button round icon="el-icon-download" :loading="downloadingCert" @click="handleDownloadCertificate"
+            <el-button type="primary" round icon="House" @click="$router.push('/home')">进入商城</el-button>
+            <el-button round icon="Download" :loading="downloadingCert" @click="handleDownloadCertificate"
               >下载证书</el-button
             >
             <el-button round @click="showEditDialog = true">编辑资料</el-button>
@@ -51,56 +51,63 @@
             <h2>快捷入口</h2>
             <div class="action-list">
               <button class="action-item" @click="$router.push('/home')">
-                <i class="el-icon-goods"></i>
+                <el-icon aria-hidden="true"><Box /></el-icon>
                 <div>
                   <strong>浏览商品</strong>
                   <span>查看所有在售商品</span>
                 </div>
               </button>
               <button v-if="canManageProducts" class="action-item" @click="$router.push('/my-products')">
-                <i class="el-icon-s-shop"></i>
+                <el-icon aria-hidden="true"><Shop /></el-icon>
                 <div>
-                  <strong>我的商品</strong>
-                  <span>发布、编辑和下架自己的商品</span>
+                  <strong>{{ isAdmin ? '商品管理' : '我的商品' }}</strong>
+                  <span>{{ isAdmin ? '管理全站商品' : '发布、编辑和下架自己的商品' }}</span>
+                </div>
+              </button>
+              <button v-if="isAdmin" class="action-item" @click="$router.push('/cart-management')">
+                <el-icon aria-hidden="true"><ShoppingCart /></el-icon>
+                <div>
+                  <strong>购物车管理</strong>
+                  <span>查看和维护用户购物车</span>
                 </div>
               </button>
               <button v-if="canShop" class="action-item" @click="$router.push('/cart')">
-                <i class="el-icon-shopping-cart-2"></i>
+                <el-icon aria-hidden="true"><ShoppingCart /></el-icon>
                 <div>
                   <strong>购物车</strong>
                   <span>管理已选商品并提交订单</span>
                 </div>
               </button>
               <button v-if="canShop" class="action-item" @click="$router.push('/orders')">
-                <i class="el-icon-tickets"></i>
+                <el-icon aria-hidden="true"><Tickets /></el-icon>
                 <div>
                   <strong>我的订单</strong>
                   <span>查看订单状态与明细</span>
                 </div>
               </button>
               <button class="action-item" @click="handleDownloadCertificate">
-                <i class="el-icon-download"></i>
+                <el-icon aria-hidden="true"><Download /></el-icon>
                 <div>
                   <strong>下载证书</strong>
                   <span>重新保存当前账号证书</span>
                 </div>
               </button>
               <button class="action-item" @click="showEditDialog = true">
-                <i class="el-icon-edit-outline"></i>
+                <el-icon aria-hidden="true"><Edit /></el-icon>
                 <div>
                   <strong>编辑资料</strong>
                   <span>修改用户名或密码</span>
                 </div>
               </button>
               <button v-if="isAdmin" class="action-item" @click="$router.push('/user-list')">
-                <i class="el-icon-user-solid"></i>
+                <el-icon aria-hidden="true"><UserFilled /></el-icon>
                 <div>
                   <strong>用户管理</strong>
                   <span>查看平台用户列表</span>
                 </div>
               </button>
               <button v-if="isAdmin || isAuditor" class="action-item" @click="$router.push('/security-center')">
-                <i class="el-icon-view"></i>
+                <el-icon aria-hidden="true"><View /></el-icon>
                 <div>
                   <strong>安全审计</strong>
                   <span>查看权限矩阵和审计事件</span>
@@ -122,8 +129,8 @@
 </template>
 
 <script>
-import CommonHeader from '@/components/CommonHeader'
-import AppLoading from '@/components/AppLoading'
+import CommonHeader from '@/components/CommonHeader.vue'
+import AppLoading from '@/components/AppLoading.vue'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import UserEdit from './UserEdit.vue'
 import { downloadUserCertificate } from '@/services/userService'
@@ -243,7 +250,7 @@ export default {
   width: 86px;
   height: 86px;
   border-radius: 28px;
-  background: linear-gradient(135deg, #409eff, #7c4dff);
+  background: var(--mall-accent);
   color: #fff;
   display: flex;
   align-items: center;
@@ -255,12 +262,12 @@ export default {
 .hero-text h1 {
   margin: 10px 0;
   font-size: 30px;
-  color: #111827;
+  color: var(--mall-ink);
 }
 
 .hero-text p {
   margin: 0;
-  color: #6b7280;
+  color: var(--mall-muted);
   line-height: 1.8;
 }
 
@@ -268,8 +275,8 @@ export default {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #eef6ff;
-  color: #409eff;
+  background: var(--mall-accent-soft);
+  color: var(--mall-accent);
   font-size: 12px;
   font-weight: 600;
 }
@@ -289,7 +296,7 @@ export default {
 .detail-card h2 {
   margin: 0 0 18px;
   font-size: 22px;
-  color: #111827;
+  color: var(--mall-ink);
 }
 
 .detail-row {
@@ -297,7 +304,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 14px 0;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--mall-border);
   gap: 12px;
 }
 
@@ -306,11 +313,11 @@ export default {
 }
 
 .detail-row span {
-  color: #6b7280;
+  color: var(--mall-muted);
 }
 
 .detail-row strong {
-  color: #111827;
+  color: var(--mall-ink);
   font-weight: 600;
   text-align: right;
 }
@@ -327,7 +334,7 @@ export default {
   display: flex;
   gap: 14px;
   align-items: center;
-  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  background: var(--mall-surface);
   cursor: pointer;
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -346,18 +353,18 @@ export default {
   align-items: center;
   justify-content: center;
   background: rgba(64, 158, 255, 0.12);
-  color: #409eff;
+  color: var(--mall-accent);
   font-size: 20px;
 }
 
 .action-item strong {
   display: block;
-  color: #111827;
+  color: var(--mall-ink);
   margin-bottom: 4px;
 }
 
 .action-item span {
-  color: #6b7280;
+  color: var(--mall-muted);
   font-size: 13px;
 }
 

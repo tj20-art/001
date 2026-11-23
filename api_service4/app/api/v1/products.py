@@ -5,9 +5,10 @@ import uuid
 from flask import Blueprint, current_app, g, request
 from werkzeug.utils import secure_filename
 
-from api_service4.app.middleware.auth import jwt_required, optional_jwt, role_required
+from api_service4.app.middleware.auth import optional_jwt, role_required
 from api_service4.app.middleware.rate_limit import common_api_rate_limit
 from api_service4.app.services.model_3_product import ProductSystem
+from api_service4.app.utils.pagination import pagination_data, parse_pagination
 from api_service4.app.utils.response import error, success
 from datetime import datetime, date
 
@@ -214,7 +215,11 @@ def list_products():
     name = request.args.get("name")
     seller_id = request.args.get("seller_id")
     mine = _is_truthy(request.args.get("mine"))
+    include_off_shelf = _is_truthy(request.args.get("include_off_shelf"))
     status = request.args.get("status")
+    category = request.args.get("category", "").strip()
+    compact = request.args.get("view") == "summary"
+    include_overview = _is_truthy(request.args.get("overview"))
 
     try:
         product_id = int(product_id) if product_id else None
@@ -228,23 +233,47 @@ def list_products():
 
     if status and status not in VALID_PRODUCT_STATUS:
         return error(400, "status 仅支持 on_sale/off_shelf")
+    if len(category) > 50:
+        return error(400, "分类名称过长")
+    try:
+        page, page_size = parse_pagination(request.args)
+    except ValueError as exc:
+        return error(400, str(exc))
 
-    include_off_shelf = mine
+    if include_off_shelf:
+        if not g.user:
+            return error(401, "查看全部状态的商品需要先登录")
+        if g.user["role"] != "admin":
+            return error(403, "仅管理员可以查看全部状态的商品")
+
     if mine:
         if not g.user:
             return error(401, "查看自己的商品需要先登录")
         seller_id = g.user["user_id"]
 
     try:
-        products = product_system.list_products(
+        products, total, overview = product_system.list_products(
             product_id=product_id,
             name=name,
             seller_id=seller_id,
             status=status,
-            include_off_shelf=include_off_shelf,
+            include_off_shelf=include_off_shelf or mine,
+            category=category,
+            page=page,
+            page_size=page_size,
+            compact=compact,
+            include_overview=include_overview,
         )
         processed = [_normalize_product(item) for item in products]
-        return success(data={"product_list": processed}, message=f"共查询到{len(processed)}个商品")
+        if compact:
+            for item in processed:
+                item.pop("image_urls")
+                item.pop("video_url")
+        return success(data={
+            "product_list": processed,
+            "pagination": pagination_data(page, page_size, total),
+            **overview,
+        }, message=f"共查询到{total}个商品")
     except ValueError as exc:
         return error(400, str(exc))
     except Exception:

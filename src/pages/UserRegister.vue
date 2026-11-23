@@ -51,13 +51,13 @@
 
     <el-dialog
       title="注册成功"
-      :visible.sync="showCertDialog"
+      v-model="showCertDialog"
       width="460px"
       :close-on-click-modal="false"
       :show-close="false"
     >
       <div class="cert-dialog">
-        <i class="el-icon-success success-icon"></i>
+        <el-icon class="success-icon" aria-hidden="true"><CircleCheck /></el-icon>
         <h3>用户注册成功，证书已准备完成</h3>
         <p>系统已经为你生成用户证书，并且已尝试自动下载。请把证书保存到安全位置，后续登录时需要上传它。</p>
         <el-alert
@@ -67,10 +67,10 @@
           description="证书文件一旦丢失，将无法直接进行证书登录。"
         />
       </div>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
         <el-button @click="downloadCertificate">重新下载证书</el-button>
         <el-button type="primary" @click="goToLogin">前往登录</el-button>
-      </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -215,10 +215,8 @@ export default {
       }
 
       this.showCertDialog = true
-      this.$notify({
-        title: '注册成功',
-        message: '证书已开始下载，请妥善保存。',
-        type: 'success',
+      this.$message.success({
+        message: '注册成功，证书已开始下载，请妥善保存。',
         duration: 3200
       })
     },
@@ -245,10 +243,8 @@ export default {
             this.certFileName = this.parseFilename(response.headers || {})
             this.saveBlob(this.certBlob, this.certFileName)
             this.showCertDialog = true
-            this.$notify({
-              title: '注册成功',
-              message: '证书已开始下载，请妥善保存。',
-              type: 'success',
+            this.$message.success({
+              message: '注册成功，证书已开始下载，请妥善保存。',
               duration: 3200
             })
             return
@@ -282,22 +278,22 @@ export default {
   width: 100%;
   max-width: 1180px;
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 28px;
 }
 
 .intro-panel {
   padding: 44px;
-  border-radius: 28px;
-  background: linear-gradient(160deg, #101828, #243b53);
-  color: #fff;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+  border-radius: var(--mall-radius);
+  background: #f0e4d6;
+  color: var(--mall-ink);
 
   .eyebrow {
     display: inline-block;
     padding: 8px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--mall-accent-soft);
+    color: var(--mall-accent);
     margin-bottom: 22px;
     font-size: 13px;
   }
@@ -309,7 +305,7 @@ export default {
   }
 
   p {
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--mall-muted);
     font-size: 16px;
     line-height: 1.8;
   }
@@ -318,15 +314,16 @@ export default {
 .tips {
   margin: 28px 0 0;
   padding-left: 18px;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--mall-muted);
   line-height: 2;
 }
 
 .register-card {
-  background: #fff;
-  border-radius: 28px;
+  background: var(--mall-surface);
+  border: 1px solid var(--mall-border);
+  border-radius: var(--mall-radius);
   padding: 32px;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.1);
+  box-shadow: var(--mall-shadow);
 }
 
 .card-head {
@@ -335,12 +332,12 @@ export default {
   h2 {
     margin: 0 0 8px;
     font-size: 28px;
-    color: #111827;
+    color: var(--mall-ink);
   }
 
   p {
     margin: 0;
-    color: #6b7280;
+    color: var(--mall-muted);
     line-height: 1.7;
   }
 }
@@ -355,11 +352,11 @@ export default {
 
 .footer-line {
   text-align: center;
-  color: #6b7280;
+  color: var(--mall-muted);
   margin-top: 18px;
 
   a {
-    color: #409eff;
+    color: var(--mall-accent);
     margin-left: 4px;
   }
 }
@@ -375,11 +372,11 @@ export default {
 
   h3 {
     margin: 8px 0 14px;
-    color: #111827;
+    color: var(--mall-ink);
   }
 
   p {
-    color: #4b5563;
+    color: var(--mall-muted);
     line-height: 1.8;
     margin-bottom: 18px;
   }
@@ -391,7 +388,7 @@ export default {
   }
 
   .register-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .intro-panel,
@@ -401,6 +398,30 @@ export default {
 
   .intro-panel h1 {
     font-size: 30px;
+  }
+}
+
+@media (max-width: 540px) {
+  .register-layout {
+    gap: 12px;
+  }
+  .intro-panel,
+  .register-card {
+    padding: 16px;
+  }
+  .intro-panel .eyebrow {
+    margin-bottom: 8px;
+  }
+  .intro-panel h1 {
+    margin-bottom: 8px;
+    font-size: 23px;
+  }
+  .intro-panel p {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .tips {
+    margin-top: 12px;
   }
 }
 </style>
